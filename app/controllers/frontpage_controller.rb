@@ -9,6 +9,7 @@ end
 class YouTube
   include HTTParty
   base_uri 'https://www.google.com'
+  headers 'Content-Length' => ''
   headers 'Content-Type' => 'vekii.com' 
   headers 'Authorization' => 'OAuth
                               oauth_consumer_key=example.com,
