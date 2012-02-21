@@ -7,7 +7,8 @@ gem "rails", "~> 3.1.0"
 
 # gem 'pg'
 gem 'httparty'
-gem "curb", "~> 0.8.0"
+gem 'curb', "~> 0.8.0"
+gem 'oauth'
 
 # Gems used only for assets and not required
 # in production environments by default.
