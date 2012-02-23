@@ -1,11 +1,15 @@
 class FrontpageController < ApplicationController
   def frontpage
-    redirect_to "https://accounts.google.com/o/oauth2/auth?
-                    client_id=908038792880.apps.googleusercontent.com&
-                    redirect_uri=https://www.vekii.com/oauth2callback&
-                    scope=https://gdata.youtube.com&
-                    response_type=token"
-    # @apiRequest = YouTube.post("/accounts/OAuthGetRequestToken?scope=http://gdata.youtube.com")
+    @googleLoginLink = "https://accounts.google.com/o/oauth2/auth?"
+      client_id = "client_id=908038792880-vm3862hmpnp7u6gnmgd8104g8u7r1sr1.apps.googleusercontent.com"
+      redirect_uri = "redirect_uri=http://localhost:3000/oauth2callback"
+      gscope = "scope=https://gdata.youtube.com"
+      response_type = "response_type=token"
+    @googleLoginLink = @googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type;
+  end
+  
+  def oAuth2Callback
+    
   end
 end
 

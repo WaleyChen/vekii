@@ -59,4 +59,5 @@ Vekii::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
   
   root :to => 'frontpage#frontpage'
+  match 'oauth2callback' => 'frontpage#oAuth2Callback'
 end
