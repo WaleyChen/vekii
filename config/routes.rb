@@ -60,4 +60,5 @@ Vekii::Application.routes.draw do
   
   root :to => 'frontpage#frontpage'
   match 'oauth2callback' => 'frontpage#oAuth2Callback'
+  match 'sampleajax' => 'frontpage#sampleajax'
 end

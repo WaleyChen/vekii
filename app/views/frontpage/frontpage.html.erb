@@ -1,4 +1,4 @@
- <%= button_to 'Google Login', @googleLoginLink %>
+<%= button_to 'Google Login', @googleLoginLink %>
 
 <button id="google-login">
 	Google Login
@@ -16,9 +16,12 @@
 	Basic Ajax Request
 </button>
 
+</br>
+
+<%= link_to 'Sample Ajax', sampleajax_path %>
+
 <ul id="friends-list">
 </ul>
-
 
 <script type="text/javascript">
 // link for testing environment
@@ -75,6 +78,14 @@ var googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + g
 	},
 	basicAjaxRequest: function() {
 		$("#friends-list").append("<li>" + 'basicAjaxRequest function called' + "</li>");
+		
+		$.ajax({
+		  url: googleLoginLink,
+		  type: "GET",
+		  success: function( data ) {
+		    $("#friends-list").append("<li>" + 'ajax call successful' + "</li>");
+		  }
+		});
 	},
     addFriendLi: function (model) {
       //The parameter passed is a reference to the model that was added

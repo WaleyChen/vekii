@@ -16,6 +16,10 @@ class FrontpageController < ApplicationController
     @request_original_url = request.url()
     @qp = request.request_parameters
   end
+  
+  def sampleajax
+    
+  end
 end
 
 # class YouTube
