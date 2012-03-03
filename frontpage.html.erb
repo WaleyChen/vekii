@@ -10,15 +10,11 @@
 	Add Friend
 </button>
 
-</br>
-
-<button id="basic-ajax-request">
-	Basic Ajax Request
-</button>
-
 <ul id="friends-list">
 </ul>
 
+<ul id="friends-list">	
+</ul>
 
 <script type="text/javascript">
 // link for testing environment
@@ -61,7 +57,6 @@ var googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + g
     events: {
       "click #add-friend":  "showPrompt",
 	  "click #google-login":  "getAccessToken",
-	  "click #basic-ajax-request": "basicAjaxRequest"
     },
     showPrompt: function () {
       var friend_name = prompt("Who is your friend?");
@@ -72,9 +67,6 @@ var googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + g
 	getAccessToken: function() {
 		$("#friends-list").append("<li>" + "getAccessToken called" + "</li>");
 		jQuery.ajax(googleLoginLink);
-	},
-	basicAjaxRequest: function() {
-		$("#friends-list").append("<li>" + 'basicAjaxRequest function called' + "</li>");
 	},
     addFriendLi: function (model) {
       //The parameter passed is a reference to the model that was added

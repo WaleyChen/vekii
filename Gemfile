@@ -1,11 +1,9 @@
 source 'http://rubygems.org'
 
-gem "rails", "~> 3.1.0"
+gem "rails"
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
-# gem 'pg'
 gem 'httparty'
 gem 'curb', "~> 0.8.0"
 gem 'oauth'
@@ -33,14 +31,13 @@ gem 'jquery-rails'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development do
+  gem 'sqlite3'
   gem 'rspec-rails', '2.6.1'
 end
 
 group :test do
-  gem 'sqlite3'
 end
 
 group :production do
-  # gems specifically for Heroku go here
-  gem "pg"
+  gem 'pg'
 end
