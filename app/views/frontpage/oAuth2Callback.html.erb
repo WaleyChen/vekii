@@ -63,24 +63,43 @@ Todo
 	  					$("#output").append("<li>" + data + "</li>");
 			   	  },
 	  	error:    function(jqXHR, textStatus, errorThrown) {
-						$("#output").append("<li>" + "validate token AJAX request failed" + "</li>");
-				  		$("#output").append("<li>" + jqXHR + "</li>");
-						$("#output").append("<li>" + textStatus + "</li>");
-						$("#output").append("<li>" + errorThrown + "</li>");
+						$("#output").append("validate token AJAX request failed");
+				  		$("#output").append("<li>" + "    " + jqXHR + "</li>");
+						$("#output").append("<li>" + "    " + textStatus + "</li>");
+						$("#output").append("<li>" + "    " + errorThrown + "</li>");
 	  		   	  }
 	});
 	
 	$.getJSON(playlists_JSON_link, function(json) {
 		playlists_JSON = json;
 		feed = json.feed;
-		$("#output").append("<li>" + "request playlist AJAX request succeeded" + "</li>");
+		$("#output").append("request playlist AJAX request succeeded");
 	    $("#output").append("<li>" + json.version + "</li>");
 		$("#output").append("<li>" + json.feed.title.$t + "</li>");
 		$("#output").append("<li>" + json.feed.author[0].name.$t + "</li>");
 		for (i = 0; i < json.feed.entry.length; i++) {
+			playlist_link = json.feed.entry[i].content.src + "&alt=json";
 			$("#output").append("<li>" + json.feed.entry[i].title.$t + "</li>");
-			$("#output").append("<li>" + json.feed.entry[i].content.src + "</li>");
+			$("#output").append("<li>" + playlist_link + "</li>");
 			
+			$.getJSON(playlist_link, function(inner_json) {
+				for (i2 = 0; i2 < inner_json.feed.entry.length; i2++) {
+					video_id_regexp = /[=][^&]+(?=&)/;
+					
+					// the video id should be in the link array else throw an exception
+					for (i3 = 0; i3 < inner_json.feed.entry[i2].link.length; i3++) {
+						if (inner_json.feed.entry[i2].link[i3].type == "text/html") {
+							video_id = inner_json.feed.entry[i2].link[i3].href.match(video_id_regexp)[0].substr(1);
+							break;
+						} else if (i3 == inner_json.feed.entry[i2].link.length - 1) {
+							$("#output").append("<li>" + "ERROR:" + inner_json.feed.entry[i2].title.$t + "</li>");
+							throw "Could not find video id";
+						}
+					}
+					
+					$("#output").append("<li>" + inner_json.feed.title.$t +  ": "+ inner_json.feed.entry[i2].title.$t + " " + video_id +"</li>");
+				}
+			});
 		}
 	});
 	

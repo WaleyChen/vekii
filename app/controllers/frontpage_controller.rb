@@ -28,6 +28,10 @@ class FrontpageController < ApplicationController
     send_file '/public/nikeelevet.json', 
   end
   
+  def examplePlaylistJSON
+    send_file '/public/example_playlist.json', 
+  end
+  
   def sampleajax
     
   end

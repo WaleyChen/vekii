@@ -69,4 +69,5 @@ Vekii::Application.routes.draw do
   match '/user/playlists/:username' => 'user#playlistJSON'
   
   match 'playlists.json' => 'frontpage#playlistsJSON'
+  match 'example_playlist.json' => 'frontpage#examplePlaylistJSON'
 end
