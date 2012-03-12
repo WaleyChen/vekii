@@ -1,0 +1,9 @@
+<%= form_for @user, :url =>"createUser" do |form| %>
+	<%= form.text_field :username, :placeholder => "Username" %>
+	</br>
+	</br>
+	<%= form.text_area :playlists, :size => "100x50", :placeholder => "Playlists JSON" %>
+	</br>
+	</br>
+	<%= form.submit "Submit", :class => "frontpage_submit_button" %>
+<% end %>

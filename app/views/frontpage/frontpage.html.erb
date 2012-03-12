@@ -1,4 +1,25 @@
-<%= button_to 'Google Login', @googleLoginLink %>
+Working
+</br>
+<%= button_to 'Google Login', @googleLoginLink %> 
+</br>
+</br>
+
+<%= link_to 'Waley Playlists JSON from Youtube', @waleysPlaylistsJSONLink %>
+
+</br>
+
+<button id="nikeelevet-json-request">
+	Waley Playlists JSON from server side
+</button>
+
+</br>
+
+<%= link_to 'User Controller', user_path %>
+
+</br>
+
+<%= link_to 'My Playlist JSON', sampleajax_path %>
+
 
 <button id="google-login">
 	Google Login
@@ -19,6 +40,10 @@
 </br>
 
 <%= link_to 'Sample Ajax', sampleajax_path %>
+
+</br>
+
+<%= link_to 'Playlist', playlist_path %>
 
 <ul id="friends-list">
 </ul>
@@ -64,7 +89,8 @@ var googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + g
     events: {
       "click #add-friend":  "showPrompt",
 	  "click #google-login":  "getAccessToken",
-	  "click #basic-ajax-request": "basicAjaxRequest"
+	  "click #basic-ajax-request": "basicAjaxRequest",
+	  "click #nikeelevet-json-request": "nikeelevetAjaxRequest"
     },
     showPrompt: function () {
       var friend_name = prompt("Who is your friend?");
@@ -86,6 +112,10 @@ var googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + g
 		    $("#friends-list").append("<li>" + 'ajax call successful' + "</li>");
 		  }
 		});
+	},
+	nikeelevetAjaxRequest: function() {
+		$("#friends-list").append("<li>" + "nikeelevetAjaxRequest called" + "</li>");
+		jQuery.ajax(googleLoginLink);
 	},
     addFriendLi: function (model) {
       //The parameter passed is a reference to the model that was added

@@ -7,6 +7,8 @@ gem "rails"
 gem 'httparty'
 gem 'curb', "~> 0.8.0"
 gem 'oauth'
+gem 'mechanize'
+gem 'nokogiri'
 
 # Gems used only for assets and not required
 # in production environments by default.

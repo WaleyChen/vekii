@@ -1,0 +1,9 @@
+<%= button_to 'Create User',  createUserForm_path %>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.username %></td>
+    <td><%= user.playlists %></td>
+  </tr>
+  </br>
+<% end %>

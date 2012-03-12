@@ -1,3 +1,9 @@
+if stuck,
+work on backbone menu
+	- use your playlists as json data
+how to make something like youtube instant
+
+
 learn how to make ajax calls
 are you going to store data on rails-backend?
 - best to use youtube as data storage, less work to do
@@ -9,3 +15,6 @@ are you going to store data on rails-backend?
 				syncing?
 					- don't sync = music playlist curated on your site
 	- but you'll need to use your own storage when you own your own aspects e.g. social networking
+	
+	
+	a delectable combo of jquery, jqury rails, backbone.js and rails to create a RIA music video player for youtube

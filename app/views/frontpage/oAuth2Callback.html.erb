@@ -1,3 +1,32 @@
+Console
+
+<div id="output">
+</div>
+
+</br>
+
+Working
+</br>
+<a id="validate-token-link">
+	Validate Token
+</a>
+<br>
+<a id="playlists-json-link">
+	Request Playlists
+</a>
+</br>
+</br>
+
+Todo
+</br>
+
+</br>
+
+</br>
+<a id="send-JSON-to-Rails-Controller">
+	Send JSON to Rails Controller
+</a>
+
 <ul id="friends-list">	
 </ul>
 
@@ -14,6 +43,46 @@
 	var hash_values_json = jQuery.deparam(hash_values_str); // convert hash values into JSON object
 	var hash_values_json_str = JSON.stringify(hash_values_json); // convert JSON object into string 
 	var validate_token_link = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + hash_values_json.access_token;
+	var playlists_JSON_link = "https://gdata.youtube.com/feeds/api/users/default/playlists?v=2&alt=json&access_token=" + hash_values_json.access_token;
+	var playlists_JSON;
+	
+	// setting links
+	$("#validate-token-link").attr("href", validate_token_link);
+	// todo: make an ajax call to validate token
+	$("#playlists-json-link").attr("href", playlists_JSON_link);
+	// todo: send JSON to rails controller to store in DB
+	
+	// ajax requests
+	// XMLHttpRequest cannot load https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=ya29.AHES6ZRUyKNtc8orqv5tCQCTm9lUTZAM8HZB9S6_ER-89StgdQaOX3k. Origin http://localhost:3000 is not allowed by Access-Control-Allow-Origin.
+	// it tries to reload to their site
+	$.ajax({
+	  	url:      validate_token_link,
+	  	dataType: 'json',
+	  	success:  function(data) {
+						playlists_JSON = data;
+	  					$("#output").append("<li>" + data + "</li>");
+			   	  },
+	  	error:    function(jqXHR, textStatus, errorThrown) {
+						$("#output").append("<li>" + "validate token AJAX request failed" + "</li>");
+				  		$("#output").append("<li>" + jqXHR + "</li>");
+						$("#output").append("<li>" + textStatus + "</li>");
+						$("#output").append("<li>" + errorThrown + "</li>");
+	  		   	  }
+	});
+	
+	$.getJSON(playlists_JSON_link, function(json) {
+		playlists_JSON = json;
+		feed = json.feed;
+		$("#output").append("<li>" + "request playlist AJAX request succeeded" + "</li>");
+	    $("#output").append("<li>" + json.version + "</li>");
+		$("#output").append("<li>" + json.feed.title.$t + "</li>");
+		$("#output").append("<li>" + json.feed.author[0].name.$t + "</li>");
+		for (i = 0; i < json.feed.entry.length; i++) {
+			$("#output").append("<li>" + json.feed.entry[i].title.$t + "</li>");
+			$("#output").append("<li>" + json.feed.entry[i].content.src + "</li>");
+			
+		}
+	});
 	
 	document.write (hash_values_json_str);
 	// to-do
@@ -36,6 +105,7 @@
 	var gscope             = "scope=https://gdata.youtube.com";
 	var response_type      = "response_type=token";
 	var googleLoginLink    = googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type;
+	
 	// to-do
 	// link for production environment
 
@@ -43,8 +113,6 @@
 		$.ajaxSetup ({
 			cache: false
 		});
-
-		var ajax_load         = "<img class='loading' src='img/load.gif' alt='loading...' />";
 
 		Friend               = Backbone.Model.extend({
 			//Create a model to hold friend atribute
@@ -77,6 +145,7 @@
 				this.friends.add( friend_model );
 			},
 			validateToken: function() {
+				$("#validate-token-link").append("<li>" + "getAccessToken called" + "</li>");
 				$("#friends-list").append("<li>" + "getAccessToken called" + "</li>");
 				jQuery.ajax(googleLoginLink);
 				$.ajax({ type: "GET", url: validate_token_link, dataType: "jsonp", success: readData(data) });
@@ -88,7 +157,7 @@
 			}
 		});
 
-		var appview          = new AppView;
+		var appview = new AppView;
 		})(jQuery);
 
 </script>
