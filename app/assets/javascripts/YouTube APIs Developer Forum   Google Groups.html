@@ -1,0 +1,637 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html >
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link REL="SHORTCUT ICON" HREF="/groups/img/3/favicon.ico">
+  <title>
+  YouTube APIs Developer Forum |
+  Google Groups
+  </title>
+  <meta name="save" content="history">
+<noscript><style type="text/css"><!--
+  .noscripthide { display:none; } .noscriptinline { display:inline; } .noscriptblock { display:block; }
+--></style></noscript>
+<script language="javascript"><!--
+  document.write('<style type="text/css">.scripthide { display: none; } .scriptinline { display: inline; } .scriptblock { display: block; }</style>');
+//--></script>
+<script language="javascript1.2"><!--
+  if (document.getElementById)
+    document.write('<style type="text/css">.script12hide { display: none; } .script12inline { display: inline; } .script12block { display: block; } .lnav { position: absolute; } .lnavch { margin-left:23.0ex;}</style>');
+//--></script>
+<script language="javascript1.3"><!--
+  if (document.getElementById)
+    document.write('<style type="text/css">.script13hide { display: none; } .script13inline { display: inline; } .script13block { display: block; }</style>');
+//--></script>
+<style type="text/css"><!--
+  @import "/groups/style.css?ig=1&stock=8&av=4&hl=en&v=1-0e0a03cd_1b93fe73_b57d8a68_25b8c0c4_a080ffe9";
+  
+--></style>
+  <script language="javascript1.3" src="/groups/static/release/g2_common-d5f30ea87069f176924679ad76d1eb81.js"></script>
+<script language="javascript"><!--
+
+// ----------------------------------
+// used for dynamic function generation on event handlers
+
+var loaddef = "";
+var resizedef = "";
+
+//-----------------------------------
+// Browser detection and support
+
+var agt = navigator.userAgent.toLowerCase();
+var is_opera = (agt.indexOf("opera") != -1);
+var is_ie = (agt.indexOf("msie") != -1) && document.all && !is_opera;
+var is_ie5 = (agt.indexOf("msie 5") != -1) && document.all;
+window.agt = agt;
+window.is_opera = is_opera;
+window.is_ie = is_ie;
+window.is_ie5 = is_ie5;
+
+// ----------------------------------
+// cross-browser functions
+
+var IE_all_cache = new Object();
+function IE_getElementById(id) {
+  if (IE_all_cache[id] == null) {
+    IE_all_cache[id] = document.all[id];
+  }
+  return IE_all_cache[id];
+}
+
+if (document.all) {
+  if (!document.getElementById) {
+    document.getElementById = IE_getElementById;
+  }
+}
+
+
+
+  //----------------------------------
+  // Timezone detection (sets cookie)
+
+  try {
+    document.cookie = 'GTZ=' + (new Date()).getTimezoneOffset() + ';path=/;expires=Mon, 01-Jan-2024 00:00:01 GMT';
+  } catch(e) {}
+
+
+// ---------------------------------
+// shelled functions for old javascript
+function tog() {}
+
+//--></script>
+<script language="javascript1.3"><!--
+
+// ----------------------------------
+// visibility functions
+
+function tog() {
+  // tog: toggle the visibility of html elements (arguments[1..]) from none to
+  // arguments[0].  Return what should be returned in a javascript onevent().
+  display = arguments[0];
+  for( var i=1; i<arguments.length; i++ ) {    
+    var x = document.getElementById(arguments[i]);
+    if (!x) continue;
+    if (x.style.display == "none" || x.style.display == "") {
+      x.style.display = display;
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  var e = is_ie ? window.event : this;
+  if (e) {
+    if (is_ie) {
+      e.cancelBubble = true;
+      e.returnValue = false;
+      return false;
+    } else {
+      return false;
+    }
+  }
+}
+
+
+_G2_initCurrentDomain('googlegroups.com',
+            false,
+            true);
+
+_G2_initCurrentGroup('youtube-api-gdata',
+            'a');
+
+
+
+
+//--></script>
+  <script language="javascript"><!--
+    (function(){try{var e=!0,i=!1;var aa={G:1,I:2,Z:3,B:4,S:5,M:6,u:7,v:8,ca:9,R:10,L:11,z:12,Q:13,w:14,P:15,O:16,aa:17,D:18,N:19,ba:20,$:21,C:22,H:23,ea:24,fa:25,da:26,F:27,j:28,A:29,k:30,Y:31,U:32,V:33,J:34,K:35,X:36,W:37,T:38};var j=window.gbar=window.gbar||{},l=window.gbar.i=window.gbar.i||{};function _tvn(a,b){var c=parseInt(a,10);return isNaN(c)?b:c}function _tvf(a,b){var c=parseFloat(a);return isNaN(c)?b:c}function _tvv(a){return!!a}function m(a,b,c){(c||j)[a]=b}j.bv={n:_tvn("2",0),r:"",f:".41.49.",m:_tvn("1",1)};var o=function(a){return function(){return j.bv.m==a}},ba=o(1),ca=o(2);m("sb",ba);m("kn",ca);l.a=_tvv;l.b=_tvf;l.c=_tvn;var p=function(){},q=function(){},u=function(a){var b=new Image,c=r;b.onerror=b.onload=b.onabort=function(){try{delete s[c]}catch(a){}};s[c]=b;b.src=a;r=c+1},s=[],r=0;m("logger",{il:q,ml:p});var v=window.gbar.logger;var w={},da={},x=[],ea=function(a,b){x.push([a,b])},fa=function(a,b){w[a]=b},ga=function(a){return a in w},z={},A=function(a,b){z[a]||(z[a]=[]);z[a].push(b)},B=function(a){A("m",a)},C=function(a){var b=document.createElement("script");b.src=a;(document.getElementById("xjsc")||document.body).appendChild(b)},F=function(a){for(var b=0,c;(c=x[b])&&!(c[0]==a);++b);c&&!c[1].l&&!c[1].s&&(c[1].s=e,D(2,a),c[1].url&&C(c[1].url),c[1].libs&&E&&E(c[1].libs))},G=function(a){A("gc",a)},H=null,ha=function(a){H=a},
+D=function(a,b,c){if(H){a={t:a,b:b};if(c)for(var d in c)a[d]=c[d];try{H(a)}catch(g){}}};m("mdc",w);m("mdi",da);m("bnc",x);m("qGC",G);m("qm",B);m("qd",z);m("lb",F);m("mcf",fa);m("bcf",ea);m("aq",A);m("mdd","");m("has",ga);m("trh",ha);m("tev",D);if(l.a("")){var ia=l.a("1"),ja=window.gapi={},I=function(a,b){j.dgl===ka&&m("dgl",I);A("gl",function(){j.dgl(a,b)});F("gl")},ka=function(a,b){var c=a.split(":");J.l=J.l.concat(c.sort());b&&(J.cm=b,J.o=1,J.p=c);C(J.ms+J.h.split(";")[1].replace(/__features__/g,c.join(",").replace(/\.|-/g,"_")))},la={},ma=function(a){for(var a=a.split(":"),b;(b=a.pop())&&la[b];);return!b},E=function(a){function b(){for(var b=a.split(":"),d=0,g;g=b[d];++d)la[g]=1;for(b=0;d=x[b];++b)d=
+d[1],(g=d.libs)&&!d.l&&d.i&&ma(g)&&d.i()}j.dgl(a,b)},J=window.___jsl={};J.h="m;/_/apps-static-canary/_/js/widget/__features__/rt=j/ver=SvSTGk8PZnM.en./sv=1/am=!K2t8zmDaIyaNjPbXTQ/d=1/";J.ms="https://apis.google.com";J.m="";J.l=[];x.push(["gl",{url:"//ssl.gstatic.com/gb/js/abc/glm_2572388ad06f10d8fe6ef9a09f798c5d.js"}]);var na={"export":ia};w.gl=na;ia&&m("load",I,ja);var qa=/^m;/.test(J.h)&&!/\/gapi\/|ms=gapi/.test(J.h)?ka:I;m("dgl",qa);m("agl",ma)};var ta=l.b("0.01",1.0E-4),ua=0;
+function _mlToken(a,b){try{if(1>ua){ua++;var c,d=a,g=b||{},f=encodeURIComponent,h=["//www.google.com/gen_204?atyp=i&zx=",(new Date).getTime(),"&jexpid=",f("30315"),"&srcpg=",f("prop=3"),"&jsr=",Math.round(1/ta),"&ogf=",j.bv.f,"&ogv=",f("1331585407.1331740271"),"&ogd=",f("com"),"&ogl=",f("en")];g._sn&&(g._sn="og."+g._sn);for(var n in g)h.push("&"),h.push(f(n)),h.push("="),h.push(f(g[n]));h.push("&emsg=");h.push(f(d.name+":"+d.message));var k=h.join("");va(k)&&
+(k=k.substr(0,2E3));c=k;var t=window.gbar.logger._aem(a,c);u(t)}}catch(y){}}var va=function(a){return 2E3<=a.length},wa=function(a,b){return b};function xa(a){p=a;m("_itl",va,v);m("_aem",wa,v);m("ml",p,v);a={};w.er=a}l.a("")?xa(function(a){throw a;}):l.a("1")&&Math.random()<ta&&xa(_mlToken);var _E="left",L=function(a,b){var c=a.className;K(a,b)||(a.className+=(""!=c?" ":"")+b)},M=function(a,b){var c=a.className,d=RegExp("\\s?\\b"+b+"\\b");c&&c.match(d)&&(a.className=c.replace(d,""))},K=function(a,b){var c=RegExp("\\b"+b+"\\b"),d=a.className;return!(!d||!d.match(c))};m("ca",L);m("cr",M);m("cc",K);var ya=["gb_71","gb_155"],N;function za(a){N=a}function Aa(a){var b=N&&!a.href.match(/.*\/accounts\/ClearSID[?]/)&&encodeURIComponent(N());b&&(a.href=a.href.replace(/([?&]continue=)[^&]*/,"$1"+b))}function Ba(a){try{var b=(document.forms[0].q||"").value;b&&(a.href=a.href.replace(/([?&])q=[^&]*|$/,function(a,c){return(c||"&")+"q="+encodeURIComponent(b)}))}catch(c){p(c)}}
+var Ca=function(){for(var a=[],b=0,c;c=ya[b];++b)(c=document.getElementById(c))&&a.push(c);return a},Da=function(){var a=Ca();return 0<a.length?a[0]:null},Ea=function(){return document.getElementById("gb_70")},O={},P={},Fa={},S={},T=void 0,Ka=function(a,b){try{var c=document.getElementById("gb");L(c,"gbpdjs");U();Ga(document.body)&&L(c,"gbrtl");if(b&&b.getAttribute){var d=b.getAttribute("aria-owns");if(d.length){var g=document.getElementById(d);if(g){var f=b.parentNode;if(T==d)T=void 0,M(f,"gbto");
+else{if(T){var h=document.getElementById(T);if(h&&h.getAttribute){var n=h.getAttribute("aria-owner");if(n.length){var k=document.getElementById(n);k&&k.parentNode&&M(k.parentNode,"gbto")}}}Ha(g)&&Ia(g);T=d;L(f,"gbto")}}}}B(function(){j.tg(a,b,e)});Ja(a)}catch(t){p(t)}},La=function(a){B(function(){j.close(a)})},Ga=function(a){var b,c="direction",d=document.defaultView;d&&d.getComputedStyle?(a=d.getComputedStyle(a,""))&&(b=a[c]):b=a.currentStyle?a.currentStyle[c]:a.style[c];return"rtl"==b},Na=function(a,
+b,c){if(a)try{var d=document.getElementById("gbd5");if(d){var g=d.firstChild,f=g.firstChild,h=document.createElement("li");h.className=b+" gbmtc";h.id=c;a.className="gbmt";h.appendChild(a);if(f.hasChildNodes()){for(var c=[["gbkc"],["gbf","gbe","gbn"],["gbkp"],["gbnd"]],d=0,n=f.childNodes.length,g=i,k=-1,t=0,y;y=c[t];t++){for(var oa=0,Q;Q=y[oa];oa++){for(;d<n&&K(f.childNodes[d],Q);)d++;if(Q==b){f.insertBefore(h,f.childNodes[d]||null);g=e;break}}if(g){if(d+1<f.childNodes.length){var pa=f.childNodes[d+
+1];!K(pa.firstChild,"gbmh")&&!Ma(pa,y)&&(k=d+1)}else if(0<=d-1){var ra=f.childNodes[d-1];!K(ra.firstChild,"gbmh")&&!Ma(ra,y)&&(k=d)}break}0<d&&d+1<n&&d++}if(0<=k){var R=document.createElement("li"),sa=document.createElement("div");R.className="gbmtc";sa.className="gbmt gbmh";R.appendChild(sa);f.insertBefore(R,f.childNodes[k])}j.addHover&&j.addHover(a)}else f.appendChild(h)}}catch(Xa){p(Xa)}},Ma=function(a,b){for(var c=b.length,d=0;d<c;d++)if(K(a,b[d]))return e;return i},Oa=function(a,b,c){Na(a,b,
+c)},Pa=function(a,b){Na(a,"gbe",b)},Qa=function(){B(function(){j.pcm&&j.pcm()})},Ra=function(){B(function(){j.pca&&j.pca()})},Sa=function(a,b,c,d,g,f,h,n,k,t){B(function(){j.paa&&j.paa(a,b,c,d,g,f,h,n,k,t)})},Ta=function(a,b){O[a]||(O[a]=[]);O[a].push(b)},Ua=function(a,b){P[a]||(P[a]=[]);P[a].push(b)},Va=function(a,b){Fa[a]=b},Wa=function(a,b){S[a]||(S[a]=[]);S[a].push(b)},Ja=function(a){a.preventDefault&&a.preventDefault();a.returnValue=i;a.cancelBubble=e},V=null,Ia=function(a,b){U();if(a){W(a,"Opening&hellip;");
+X(a,e);var c="undefined"!=typeof b?b:1E4,d=function(){Ya(a)};V=window.setTimeout(d,c)}},Za=function(a){U();a&&(X(a,i),W(a,""))},Ya=function(a){try{U();var b=a||document.getElementById(T);b&&(W(b,"This service is currently unavailable.%1$sPlease try again later.","%1$s"),X(b,e))}catch(c){p(c)}},W=function(a,b,c){if(a&&b){var d=Ha(a);if(d){if(c){d.innerHTML="";for(var b=b.split(c),c=0,g;g=b[c];c++){var f=document.createElement("div");f.innerHTML=g;d.appendChild(f)}}else d.innerHTML=b;X(a,e)}}},X=function(a,b){var c=void 0!==b?b:e;c?L(a,
+"gbmsgo"):M(a,"gbmsgo")},Ha=function(a){for(var b=0,c;c=a.childNodes[b];b++)if(K(c,"gbmsg"))return c},U=function(){V&&window.clearTimeout(V)};m("so",Da);m("sos",Ca);m("si",Ea);m("tg",Ka);m("close",La);m("addLink",Oa);m("addExtraLink",Pa);m("pcm",Qa);m("pca",Ra);m("paa",Sa);m("ddld",Ia);m("ddrd",Za);m("dderr",Ya);m("rtl",Ga);m("bh",O);m("abh",Ta);m("dh",P);m("adh",Ua);m("ch",S);m("ach",Wa);m("eh",Fa);m("aeh",Va);m("qs",Ba);m("setContinueCb",za);m("pc",Aa);l.d=Ja;var $a={};w.base=$a;x.push(["m",{url:"//ssl.gstatic.com/gb/js/sem_7d03e01ff05ff61114f9a9a2446f767a.js"}]);if(l.a("1")){var ab=l.a("");x.push(["gc",{auto:ab,url:"//ssl.gstatic.com/gb/js/abc/gcm_f33b375e36e8c1fa70957777bf47af4a.js",libs:""}]);var bb={version:"gcm_f33b375e36e8c1fa70957777bf47af4a.js",index:"0",lang:"en"};w.gc=bb;var Y=function(a){window.googleapis&&window.iframes?a&&a():(a&&G(a),F("gc"))};m("lGC",Y);l.a("1")&&m("lPWF",Y)};window.__PVT="APfa0br2D4v01hQsDdu83DI0YsTKiPXwcvZGqLISCxdOw1R0K6ca2C3etkGszH3F4bS-U6GeOCBs-5dkwzpxzKTEpF3hFee8AA==";if(l.a("1")&&l.a("1")){var Z=function(a){Y(function(){A("pw",a);F("pw")})};m("lPW",Z);x.push(["pw",{url:"//ssl.gstatic.com/gb/js/abc/pwm_9f2309242efa34f253d8a3f7d8abb48c.js"}]);var cb=[],db=function(a){cb[0]=a},eb=function(a,b){var c=b||{};c._sn="pw";p(a,c)},fb={signed:cb,elog:eb,base:"https://plusone.google.com/u/0",loadTime:(new Date).getTime()};w.pw=fb;var gb=function(a,b){for(var c=b.split("."),d=function(){var b=arguments;a(function(){for(var a=j,d=0,f=c.length-1;d<f;++d)a=a[c[d]];a[c[d]].apply(a,b)})},g=j,f=0,h=c.length-
+1;f<h;++f)g=g[c[f]]=g[c[f]]||{};return g[c[f]]=d};gb(Z,"pw.clk");gb(Z,"pw.hvr");m("su",db,j.pw)};var hb=l.b("0.01",1.0E-4),ib=l.b("0.1",1),jb=i,kb=i;if(l.a("1")){var lb=Math.random();lb<=hb&&(jb=e);lb<=ib&&(kb=e)}var $=aa;
+function mb(a,b){var c=hb,d=jb,g;g=34>=a?a<=$.w?a==$.u||a==$.v||a==$.z?i:e:a>=$.j&&a<=$.k?e:i:200<=a?e:i;g&&(c=ib,d=kb);if(d){d=encodeURIComponent;c=["//www.google.com/gen_204?atyp=i&zx=",(new Date).getTime(),"&oge=",a,"&ogex=",d("30315"),"&ogf=",j.bv.f,"&ogp=",d("3"),"&ogsr=",Math.round(1/c),"&ogv=",d("1331585407.1331740271"),"&ogd=",d("com"),"&ogl=",d("en")];if(b){"ogw"in b&&(c.push("&ogw="+b.ogw),delete b.ogw);var f;g=b;var h=[];for(f in g)0!=h.length&&
+h.push(","),h.push(f),h.push("."),h.push(g[f]);f=h.join("");""!=f&&(c.push("&ogad="),c.push(d(f)))}u(c.join(""))}}q=mb;m("il",q,v);var nb={};w.il=nb;var ob=function(){j.prm&&j.prm()},pb=function(a){A("m",function(){j.spn(a)})},qb=function(a){A("m",function(){j.spp(a)})},rb=function(){A("m",function(){j.spd()})};m("spn",pb);m("spp",qb);m("spd",rb);Ta("gbd4",ob);if(l.a("1")){var sb={g:l.a(""),d:l.a(""),e:"waleycz@gmail.com",m:"gmail.com",p:"//lh4.googleusercontent.com/-OJOOj5dGelc/AAAAAAAAAAI/AAAAAAAAAAA/VJ3zee_ycyo/s96-c/photo.jpg",xp:l.a("1"),mg:"%1$s (delegated)",md:"%1$s (default)"};w.prf=sb};function tb(){function a(){for(var b;(b=f[h++])&&!("m"==b[0]||b[1].auto););b&&(D(2,b[0]),b[1].url&&C(b[1].url),b[1].libs&&E&&E(b[1].libs));h<f.length&&setTimeout(a,0)}function b(){0<g--?setTimeout(b,0):a()}var c=l.a("1"),d=l.a(""),g=3,f=x,h=0,n=window.gbarOnReady;if(n)try{n()}catch(k){p(k)}d?m("ldb",a):c?window.addEventListener?window.addEventListener("load",b,i):window.attachEvent("onload",b):b()}m("rdl",tb);}catch(e){window.gbar&&gbar.logger&&gbar.logger.ml(e);}})();
+(function(){try{var a=window.gbar;a.mcf("pm",{u:"f1b6",p:""});}catch(e){window.gbar&&gbar.logger&&gbar.logger.ml(e);}})();
+(function(){try{window.gbar.rdl();}catch(e){window.gbar&&gbar.logger&&gbar.logger.ml(e);}})();
+
+  //--></script>
+  <style type="text/css"><!--
+    #gb{font:13px/27px Arial,sans-serif;height:30px}#gbz,#gbg{position:absolute;white-space:nowrap;top:0;height:30px;z-index:1000}#gbz{left:0;padding-left:4px}#gbg{right:0;padding-right:5px}#gbs{background:transparent;position:absolute;top:-999px;visibility:hidden;z-index:998}.gbto #gbs{background #fff}#gbx3,#gbx4{background-color:#2d2d2d;background-image:none;_background-image:none;background-position:0 -138px;background-repeat:repeat-x;border-bottom:1px solid #000;font-size:24px;height:29px;_height:30px;opacity:1;filter:alpha(opacity=100);position:absolute;top:0;width:100%;z-index:990}#gbx3{left:0}#gbx4{right:0}#gbb{position:relative}#gbbw{right:0;left:0;position:absolute;top:30px;width:100%}.gbtcb{position:absolute;visibility:hidden}#gbz .gbtcb{right:0}#gbg .gbtcb{left:0}.gbxx{display:none !important}.gbm{position:absolute;z-index:999;top:-999px;visibility:hidden;text-align:left;border:1px solid #bebebe;background:#fff;-moz-box-shadow:-1px 1px 1px rgba(0,0,0,.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,.2);box-shadow:0 2px 4px rgba(0,0,0,.2)}.gbrtl .gbm{-moz-box-shadow:1px 1px 1px rgba(0,0,0,.2)}.gbto .gbm,.gbto #gbs{top:29px;visibility:visible}#gbz .gbm,#gbz #gbs{left:0}#gbg .gbm,#gbg #gbs{right:0}.gbxms{background-color:#ccc;display:block;position:absolute;z-index:1;top:-1px;left:-2px;right:-2px;bottom:-2px;opacity:.4;-moz-border-radius:3px;filter:progid:DXImageTransform.Microsoft.Blur(pixelradius=5);*opacity:1;*top:-2px;*left:-5px;*right:5px;*bottom:4px;-ms-filter:"progid:DXImageTransform.Microsoft.Blur(pixelradius=5)";opacity:1\0/;top:-4px\0/;left:-6px\0/;right:5px\0/;bottom:4px\0/}.gbma{position:relative;top:-1px;border-style:solid dashed dashed;border-color:transparent;border-top-color:#c0c0c0;display:-moz-inline-box;display:inline-block;font-size:0;height:0;line-height:0;width:0;border-width:3px 3px 0;padding-top:1px;left:4px}#gbztms1,#gbi4m1,#gbi4s,#gbi4t{zoom:1}.gbtc,.gbmc,.gbmcc{display:block;list-style:none;margin:0;padding:0}.gbmc{background:#fff;padding:10px 0;position:relative;z-index:2;zoom:1}.gbt{position:relative;display:-moz-inline-box;display:inline-block;line-height:27px;padding:0;vertical-align:top}.gbt{*display:inline}.gbto{box-shadow:0 2px 4px rgba(0,0,0,.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,.2)}.gbzt,.gbgt{cursor:pointer;display:block;text-decoration:none !important}.gbts{border-left:1px solid transparent;border-right:1px solid transparent;display:block;*display:inline-block;padding:0 5px;position:relative;z-index:1000}.gbts{*display:inline}.gbto .gbts{background:#fff;border-color:#bebebe;color:#36c;padding-bottom:1px;padding-top:2px}.gbz0l .gbts{color:#fff;font-weight:bold}.gbtsa{padding-right:9px}#gbz .gbzt,#gbz .gbgt,#gbg .gbgt{color:#ccc!important}.gbtb2{display:block;border-top:2px solid transparent}.gbto .gbzt .gbtb2,.gbto .gbgt .gbtb2{border-top-width:0}.gbtb .gbts{background:url(//ssl.gstatic.com/gb/images/b_8d5afc09.png);_background:url(//ssl.gstatic.com/gb/images/b8_3615d64d.png);background-position:-27px -22px;border:0;font-size:0;padding:29px 0 0;*padding:27px 0 0;width:1px}.gbzt-hvr,.gbzt:focus,.gbgt-hvr,.gbgt:focus{background-color:#4c4c4c;background-image:none;_background-image:none;background-position:0 -102px;background-repeat:repeat-x;outline:none;text-decoration:none !important}.gbpdjs .gbto .gbm{min-width:99%}.gbz0l .gbtb2{border-top-color:#dd4b39!important}#gbi4s,#gbi4s1{font-weight:bold}#gbg6.gbgt-hvr,#gbg6.gbgt:focus{background-color:transparent;background-image:none}.gbg4a{font-size:0;line-height:0}.gbg4a .gbts{padding:27px 5px 0;*padding:25px 5px 0}.gbto .gbg4a .gbts{padding:29px 5px 1px;*padding:27px 5px 1px}#gbi4i,#gbi4id{left:5px;border:0;height:24px;position:absolute;top:1px;width:24px}.gbto #gbi4i,.gbto #gbi4id{top:3px}.gbi4p{display:block;width:24px}#gbi4id,#gbmpid{background:url(//ssl.gstatic.com/gb/images/b_8d5afc09.png);_background:url(//ssl.gstatic.com/gb/images/b8_3615d64d.png)}#gbi4id{background-position:-29px -54px}#gbmpid{background-position:-58px 0px}#gbmpi,#gbmpid{border:none;display:inline-block;margin-top:10px;height:48px;width:48px}.gbmpiw{display:inline-block;line-height:9px;margin-left:20px}#gbmpi,#gbmpid,.gbmpiw{*display:inline}#gbg5{font-size:0}#gbgs5{padding:5px !important}.gbto #gbgs5{padding:7px 5px 6px !important}#gbi5{background:url(//ssl.gstatic.com/gb/images/b_8d5afc09.png);_background:url(//ssl.gstatic.com/gb/images/b8_3615d64d.png);background-position:0 0;display:block;font-size:0;height:17px;width:16px}.gbto #gbi5{background-position:-6px -22px}.gbn .gbmt,.gbn .gbmt:visited,.gbnd .gbmt,.gbnd .gbmt:visited{color:#dd8e27 !important}.gbf .gbmt,.gbf .gbmt:visited{color:#900 !important}.gbmt,.gbml1,.gbmt:visited,.gbml1:visited{color:#36c !important;text-decoration:none !important}.gbmt,.gbmt:visited{display:block}.gbml1,.gbml1:visited{display:inline-block;margin:0 10px;padding:0 10px}.gbml1{*display:inline}.gbml1-hvr,.gbml1:focus{background:#eff3fb;outline:none}#gbpm .gbml1{display:inline;margin:0;padding:0;white-space:nowrap}#gbpm .gbml1-hvr,#gbpm .gbml1:focus{background:none;text-decoration:underline !important}.gbmt{padding:0 20px}.gbmt-hvr,.gbmt:focus{background:#eff3fb;cursor:pointer;outline:0 solid black;text-decoration:none !important}.gbm0l,.gbm0l:visited{color:#000 !important;font-weight:bold}.gbmh{border-top:1px solid #e5e5e5;font-size:0;margin:10px 0}#gbd4 .gbmh{margin:0}.gbmtc{padding:0;margin:0;line-height:27px}.GBMCC:last-child:after,#GBMPAL:last-child:after{content:'\0A\0A';white-space:pre;position:absolute}#gbd4 .gbpc,#gbmpas .gbmt{line-height:17px}#gbd4 .gbpgs .gbmtc{line-height:27px}#gbmpas .gbmt{padding-bottom:10px;padding-top:10px}#gbmple .gbmt,#gbmpas .gbmt{font-size:15px}#gbd4 .gbpc{display:inline-block;margin:6px 0 10px;margin-right:50px;vertical-align:top}#gbd4 .gbpc{*display:inline}.gbpc .gbps,.gbpc .gbps2{display:block;margin:0 20px}#gbmplp.gbps{margin:0 10px}.gbpc .gbps{color:#000;font-weight:bold}.gbpc .gbps2{font-size:13px}.gbpc .gbpd{margin-bottom:5px}.gbpd .gbmt,.gbmpmtd .gbmt{color:#666 !important}.gbmpme,.gbps2{color:#666;display:block;font-size:11px}.gbp0 .gbps2,.gbmpmta .gbmpme{font-weight:bold}#gbmpp{display:none}#gbd4 .gbmcc{margin-top:5px}.gbpmc{background:#edfeea}.gbpmc .gbmt{padding:10px 20px}#gbpm{*border-collapse:collapse;border-spacing:0;margin:0;white-space:normal}#gbpm .gbmt{border-top:none;color:#666 !important;font:11px Arial,sans-serif}#gbpms{*white-space:nowrap}.gbpms2{font-weight:bold;white-space:nowrap}#gbmpal{*border-collapse:collapse;border-spacing:0;margin:0;white-space:nowrap}.gbmpala,.gbmpalb{font:13px Arial,sans-serif;line-height:27px;padding:10px 20px 0;white-space:nowrap}.gbmpala{padding-left:0;text-align:left}.gbmpalb{padding-right:0;text-align:right}.gbp0 .gbps,.gbmpmta .gbmpmn{color:#000;display:inline-block;font-weight:bold;padding-right:34px;position:relative}.gbp0 .gbps,.gbmpmta .gbmpmn{*display:inline}.gbmpmtc,.gbp0i{background:url(//ssl.gstatic.com/gb/images/b_8d5afc09.png);_background:url(//ssl.gstatic.com/gb/images/b8_3615d64d.png);background-position:0 -54px;position:absolute;height:21px;width:24px;right:0;top:-3px}.gbsup{color:#dd4b39;font:bold 9px/17px Verdana,Arial,sans-serif;margin-left:4px;vertical-align:top}
+  --></style>
+<script language="javascript"><!--
+function ad_resize() {}
+function if_resize() {}
+function fin_resize() {}
+function qs() {}
+//--></script>
+<script language="javascript1.2"><!--
+function if_resize(name, w, h) {
+  if (document.getElementById && document.getElementById(name)){
+    document.getElementById(name).style.height = h + "px";
+    document.getElementById(name).style.width = w + "px";
+  }
+}
+function ad_resize(w, h) {
+  if_resize("google_ads_frame",w,h);
+}
+function fin_resize(w, h) {
+  if_resize("google_finance_frame",w,h);
+}
+
+function qs(el) {
+  if (window.RegExp && window.encodeURIComponent) {
+    var qe=encodeURIComponent(document.gs.q.value);
+
+    if (qe == '') {
+      return 1;
+    }
+
+    if (el.href.indexOf("q=")!=-1) {
+      el.href=el.href.replace(new RegExp("q=[^&$]*"),"q="+qe);
+    } else {
+      el.href+="&q="+qe;
+    }
+  }
+  return 1;
+}
+
+//--></script>
+<script language="javascript1.2"><!--
+  function HideNewGroupsButterbar() {
+    document.getElementById('new_groups_butterbar').style.display = 'none';
+    
+    document.getElementById('new_groups_footer_bar').style.display = '';
+    
+    document.dismiss_new_groups_butterbar_form.submit();
+  }
+  function HideSwitchToNewGroupsDiv(new_groups_footer_link_el) {
+    document.getElementById(new_groups_footer_link_el).style.display = 'none';
+  }
+  function ShowSwitchToNewGroupsDiv(new_groups_footer_link_el) {
+    document.getElementById(new_groups_footer_link_el).style.display = '';
+  }
+  function HighlightNewGroupsSpan(span_ptr) {
+    span_ptr.style.opacity = "1.0";
+    span_ptr.style.filter = "alpha(opacity=100)";
+  }
+  function DeHighlightNewGroupsSpan(span_ptr) {
+    span_ptr.style.opacity = "0.667";
+    span_ptr.style.filter = "alpha(opacity=67)";
+  }
+  function SubmitNewGroupsStatusForm() {
+    document.new_groups_status_form.submit();
+  }
+//--></script>
+<style type="text/css"><!--
+  .butterbar { height:19px;  background: #4D90FE; padding: 10px 44px; line-height: 19px; position: relative; }
+  .new_groups_text { color: white; font-size: 13px; font-weight: bold; line-height: 19px; text-shadow: 0px 1px 0px rgba(0,0,0,0.3); }
+  a.new_groups_text { color: white; }
+  a:link.new_groups_text { text-decoration:underline; }
+  a:visited.new_groups_text { text-decoration:underline; }
+  a:hover.new_groups_text { text-decoration:underline; }
+  a:active.new_groups_text { text-decoration:underline; }
+  .close_button { height: 21px; width: 21px; overflow: hidden; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAT0lEQVR42mNgGAVDF/z//z8BiN8DsQEWOQOoXAKphoI0/Uc3GMlAsByphhqgG4xNjJwgQDeEMgNxGEy5gTQxlOrep0lE0SpJUT/xj4IRAgBMbhb828ioRQAAAABJRU5ErkJggg==") -0px -0px no-repeat; opacity: 0.667; -moz-opacity: 0.667; right: 10px; top: 9px; cursor: pointer; border-image: initial; }
+  .close_butterbar { position: absolute; }
+  .new_groups_footer { background-color: #4D90FE; position: fixed; right: 2px; bottom: 0; z-index: 3; padding-top: 5px; padding-bottom: 5px; padding-right: 5px; padding-left: 5px; }
+  .new_groups_footer_text { padding-top: 2px; }
+  .new_groups_close_footer { height: 13px; padding-top: 2px; display: inline-block; }
+--></style>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://groups.google.com/group/youtube-api-gdata/feed/rss_v2_0_msgs.xml">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://groups.google.com/group/youtube-api-gdata/feed/atom_v1_0_msgs.xml">
+</head>
+<body onresize=""
+      onload=""
+      
+        topmargin=0
+        leftmargin=0
+        marginheight=0
+        marginwidth=0
+      
+      bgcolor=white
+      
+      
+  >
+  <div id=gb><script>window.gbar&&gbar.eli&&gbar.eli()</script><div id=gbw><div id=gbz><span class=gbtcb></span><ol class=gbtc><li class=gbt><a onclick=gbar.logger.il(1,{t:23}); class=gbzt id=gb_23 href="https://mail.google.com/mail/?tab=gm"><span class=gbtb2></span><span class=gbts>Gmail</span></a></li><li class=gbt><a onclick=gbar.logger.il(1,{t:24}); class=gbzt id=gb_24 href="https://www.google.com/calendar?tab=gc"><span class=gbtb2></span><span class=gbts>Calendar</span></a></li><li class=gbt><a onclick=gbar.logger.il(1,{t:25}); class=gbzt id=gb_25 href="https://docs.google.com/?tab=go&authuser=0"><span class=gbtb2></span><span class=gbts>Documents</span></a></li><li class=gbt><a onclick=gbar.qs(this);gbar.logger.il(1,{t:31}); class=gbzt id=gb_31 href="http://picasaweb.google.com/home?hl=en&tab=gq"><span class=gbtb2></span><span class=gbts>Photos</span></a></li><li class=gbt><a onclick=gbar.logger.il(1,{t:38}); class=gbzt id=gb_38 href="https://sites.google.com/?tab=g3"><span class=gbtb2></span><span class=gbts>Sites</span></a></li><li class=gbt><a onclick=gbar.logger.il(1,{t:3}); class="gbzt gbz0l gbp1" id=gb_3 href="http://groups.google.com/grphp?hl=en&tab=gg"><span class=gbtb2></span><span class=gbts>Groups</span></a></li><li class=gbt><a onclick=gbar.qs(this);gbar.logger.il(1,{t:1}); class=gbzt id=gb_1 href="http://www.google.com/webhp?hl=en&tab=gw"><span class=gbtb2></span><span class=gbts>Search</span></a></li><li class=gbt><a class=gbgt id=gbztm href="http://www.google.com/intl/en/options/" onclick="gbar.tg(event,this)" aria-haspopup=true aria-owns=gbd><span class=gbtb2></span><span id=gbztms class="gbts gbtsa"><span id=gbztms1>More</span><span class=gbma></span></span></a><div class=gbm id=gbd aria-owner=gbztm><div class=gbmc><ol class=gbmcc><li class=gbmtc><a onclick=gbar.logger.il(1,{t:32}); class=gbmt id=gb_32 href="http://www.google.com/reader/?hl=en&tab=gy">Reader</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:36}); class=gbmt id=gb_36 href="http://www.youtube.com/?tab=g1">YouTube</a></li><li class=gbmtc><div class="gbmt gbmh"></div></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:2}); class=gbmt id=gb_2 href="http://www.google.com/imghp?hl=en&tab=gi">Images</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:12}); class=gbmt id=gb_12 href="http://video.google.com/?hl=en&tab=gv">Videos</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:8}); class=gbmt id=gb_8 href="http://maps.google.com/maps?hl=en&tab=gl">Maps</a></li><li class=gbmtc><a onclick=gbar.logger.il(1,{t:5}); class=gbmt id=gb_5 href="http://news.google.com/nwshp?hl=en&tab=gn">News</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:6}); class=gbmt id=gb_6 href="http://www.google.com/shopping?hl=en&tab=gf">Shopping</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:51}); class=gbmt id=gb_51 href="http://translate.google.com/?hl=en&tab=gT">Translate</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:10}); class=gbmt id=gb_10 href="http://books.google.com/bkshp?hl=en&tab=gp">Books</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:9}); class=gbmt id=gb_9 href="http://scholar.google.com/schhp?hl=en&tab=gs">Scholar</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:27}); class=gbmt id=gb_27 href="http://www.google.com/finance?tab=ge">Finance</a></li><li class=gbmtc><a onclick=gbar.qs(this);gbar.logger.il(1,{t:13}); class=gbmt id=gb_13 href="http://www.google.com/blogsearch?hl=en&tab=gb">Blogs</a></li><li class=gbmtc><div class="gbmt gbmh"></div></li><li class=gbmtc><a onclick=gbar.logger.il(1,{t:66}); href="http://www.google.com/intl/en/options/" class=gbmt>Even more &raquo;</a></li></ol></div></div></li></ol></div><div id=gbg><h2 class=gbxx>Account Options</h2><span class=gbtcb></span><ol class=gbtc><li class=gbt><a class=gbgt id=gbg4 href="//google.com/profiles" onclick="gbar.tg(event,this)" aria-haspopup=true aria-owns=gbd4><span class=gbtb2></span><span id=gbgs4 class="gbts gbtsa"><span id=gbi4><span id=gbi4m1>Waley Chen</span><span class=gbma></span></span></span></a><div class=gbm id=gbd4 aria-owner=gbg4><div class=gbmc><div id=gbmpdv><div class=gbpc><span id=gbmpn class=gbps onclick="gbar.logger.il(10,{t:69})">Waley Chen</span><span class=gbps2>waleycz@gmail.com</span><ol class=gbmcc><li class=gbmtc><a id=gbmplp onclick="gbar.logger.il(10,{t:146})" href="https://profiles.google.com/?hl=en&tab=h" class="gbml1 gbp1">Profile</a></li><li class=gbmtc><a id=gb_156 onclick="gbar.logger.il(10,{t:156})" href="https://www.google.com/accounts/ManageAccount" class=gbml1>Account settings</a></li><li class=gbmtc><a onclick="gbar.logger.il(10,{t:156})" href="http://www.google.com/intl/en/privacy/" class=gbml1>Privacy</a></li></ol></div><div class=gbmh></div><table id=gbmpal><tr><td class=gbmpala><a id=gb_71 onclick="gbar.logger.il(9,{l:'o'})" href="/groups/signout" class=gbml1>Sign out</a></td><td class=gbmpalb><a class=gbml1 id=gbmp2 onclick="gbar.logger.il(10,{t:147});return false" href="javascript:void(0)">Switch account</a></td></tr></table></div><div id=gbmps><a href="javascript:void(0)" id=gbmpsb class=gbmt>&lsaquo; Back</a><div id=gbmpas><div id=gbmpm_0 class="gbmtc gbp0"><a id=gbmpm_0_l onclick="gbar.logger.il(10,{t:69})" href="/group/youtube-api-gdata/post?_done=/group/youtube-api-gdata/post&authuser=0" class=gbmt><span class=gbps>Waley Chen<span class=gbp0i></span></span><span class=gbps2>waleycz@gmail.com</span></a></div></div><ol class="gbmcc gbpgs"><li class=gbmtc><a target=_blank href="https://www.google.com/accounts/AddSession?service=groups2&continue=http://groups.google.com/group/youtube-api-gdata/post?_done%3D/group/youtube-api-gdata/post" class=gbmt>Sign in to another account&hellip;</a></li><li class=gbmtc><a id=gb_71 href="/groups/signout" class=gbmt>Sign out of all accounts</a></li></ol></div></div></div></li><li class="gbt gbtb"><span class=gbts></span></li><noscript><li class=gbt><a class=gbgt href="/groups/signout"><span class=gbtb2></span><span class=gbts>Sign out</span></a></li><li class="gbt gbtb"><span class=gbts></span></li></noscript><li class=gbt><a class=gbgt id=gbg5 href="http://www.google.com/preferences?hl=en" title="Options" onclick="gbar.tg(event,this)" aria-haspopup=true aria-owns=gbd5><span class=gbtb2></span><span id=gbgs5 class=gbts><span id=gbi5></span></span></a><div class=gbm id=gbd5 aria-owner=gbg5><div class=gbmc><ol id=gbom class=gbmcc><li class="gbkc gbmtc"><a  class=gbmt href="/groups/mysubs?_done=%2Fgroup%2Fyoutube-api-gdata%2Fpost">Settings</a></li><li class="gbkc gbmtc"><a  class=gbmt href="/support?hl=en&_done=%2Fgroup%2Fyoutube-api-gdata%2Fpost">Help</a></li></ol></div></div></li></ol></div></div><div id=gbx3></div><div id=gbx4></div><script>window.gbar&&gbar.elp&&gbar.elp()</script></div>
+  <div class="clear" / >
+  <div class="butterbar" id="new_groups_butterbar" style="">
+  <div width="100%">
+  <span class="new_groups_text">
+  The old Google Groups will be going away soon.
+  <form name="new_groups_status_form" method="post" action="/groups/new_groups_status" style="display: inline;">
+  <input type=hidden name="WebToken" value="7403f3e377dea8066643804049386b4a">
+  <input type=hidden name="_done" value="https%3A%2F%2Fgroups.google.com%2Fd%2Fforum%2Fyoutube-api-gdata%3Ffromgroups">
+  <input type=hidden name="opt_in" value="1">
+  <a href="javascript: SubmitNewGroupsStatusForm()" class="new_groups_text">Switch to the new Google Groups</a>.
+  </form>
+  </span>
+  <span align="right">
+  <form name="dismiss_new_groups_butterbar_form" method="post" action="/groups/new_groups_status" style="display: inline;">
+  <input type=hidden name="WebToken" value="7403f3e377dea8066643804049386b4a">
+  <input type=hidden name="dismiss_opt_in" value="1">
+  </form>
+  <span class="new_groups_text close_butterbar close_button" onmouseover="HighlightNewGroupsSpan(this)" onmouseout="DeHighlightNewGroupsSpan(this)" onclick="HideNewGroupsButterbar()"></span>
+  </span>
+  </div>
+  </div>
+  <div id="new_groups_footer_bar" class="new_groups_footer" style="display: none;">
+  <span class="new_groups_text">
+  <span id="new_groups_footer_bar_link" class="new_groups_footer_text" >
+  <a href="javascript: SubmitNewGroupsStatusForm()" class="new_groups_text">Switch to the new Groups</a>
+  </span>
+  <span class="close_button new_groups_close_footer new_groups_footer_text" onclick="HideSwitchToNewGroupsDiv('new_groups_footer_bar')" onmouseover="HighlightNewGroupsSpan(this)" onmouseout="DeHighlightNewGroupsSpan(this)">
+  </span>
+  </span>
+  </div>
+  <div class="gtopbar">
+  <table cellpadding=0 cellspacing=0 width=100% border=0>
+  <tr valign="top">
+  <td class="maincell">
+  <table cellpadding=0 cellspacing=0 border=0>
+  <tr valign="top">
+  <td width="140" style="overflow: hidden;">
+  <a href="/"><img src="/intl/en/images/logos/groups_logo_sm.gif" width="140" height="30" alt="Google Groups Home" border=0 style="position: relative; top: 2px; margin-right: 10px;"></a>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </table>
+  <div style="font-size: 91%;"><a href="/">« Groups Home</a></div>
+  </div>
+  <div style="border-top: 1px solid #aa0033; z-index: 1; position: relative;"></div>
+  <div style="background-color: #d6d6d6; padding: 4px 10px 4px 10px; ">
+  <table class="grhdr " cellpadding="0" cellspacing="0" width="100%"><tbody>
+  <tr valign="middle">
+  <td class="padr10" width="42" height="42">
+  <div style="width:42px; height:42px; overflow: hidden;">
+  <div style="width:42px; height:42px; background:url(/group/youtube-api-gdata/icon?v=1&hl=en)"></div>
+  </div>
+  <td>
+  <div class="ghgrn">
+  <a class="ln" href="/group/youtube-api-gdata">YouTube APIs Developer Forum</a>
+  </div>
+  <td style="padding-left: 35px" align="right">
+  <script><!--
+                function sg() {
+                  document.gs3.q.value = document.gs2.q.value;
+                  document.gs3.submit();
+                }
+              //--></script>
+  <form name=gs2 method=GET action="/group/youtube-api-gdata/search">
+  <table cellpadding=0 cellspacing=0><tr><td>
+  <input type=hidden name="group" value="youtube-api-gdata"><input type=text name=q size=20 maxlength=2048 value="" style="width: 25ex">
+  </td>
+  <td class="padl5">
+  <input type=submit class="bt" style="width:100%" name="qt_g" value="Search this group">
+  </td>
+  <td class="padl5">
+  <input type=button class="bt" style="width:100%" name="qt_s" onclick="sg();" value="Search Groups">
+  </td>
+  </table>
+  </form>
+  <form class="hide" name=gs3 method=GET action="/groups/search">
+  <input type=hidden name="qt_s" value="1">
+  <input type=hidden name=q size=20 maxlength=2048 value="">
+  </form>
+  </td>
+  </tr>
+  </tbody></table>
+  </div>
+  <div style="border-top: 1px solid #aa0033"></div>
+  <div class="rf" style="width: 32ex;">
+  <div class="overflow-hide" style="position: absolute; margin-top: -1px; margin-left: -1px;z-index: 1;">
+  <div class="mrgl1 " style="width: 32ex; background-color: #d6d6d6;">
+  <div class="padb10 padr10">
+  <div class="rnsecs">
+  <table></table>
+  <div class="sec">
+  <a class="secln" href="/group/youtube-api-gdata">Home</a>
+  </div>
+  <table></table>
+  <div class="selsec" >
+  <div style="">
+  <a class="seclnact" href="/group/youtube-api-gdata/topics?start=">Discussions</a>
+  </div>
+  <div class="actlns">
+  <b>+ new post</b>
+  </div>
+  </div>
+  <table></table>
+  <table></table>
+  <div class="mrgt5 mrgl10" style="border-bottom: 1px solid #aa0033"></div>
+  <div class="padt10"></div>
+  <div class="sec">
+  <a class="seclnlt" href="/group/youtube-api-gdata/about">About this group</a>
+  </div>
+  <div class="sec">
+  <a class="seclnlt" href="/group/youtube-api-gdata/subscribe">Edit my membership</a>
+  </div>
+  <div class="sec">
+  <a class="seclnlt" href="/group/youtube-api-gdata/members_invite"><span>Invite members</span></a>
+  </div>
+  </div>
+  <div id="google_ads_site" class="g3rtn-ad-site"></div>
+  </div>
+</div>
+</div>
+</div>
+  <table class="wdth100  overflow-hide" cellpadding=0 cellspacing=0 style="table-layout: fixed;">
+  <col width="*" height="100%"><col style="width:32ex;"><tr valign="top"><td class=" overflow-hide" style="border-bottom: 1px solid #aa0033;; border-right: 1px solid #aa0033;">
+  <div class="maincontheaderbox">
+  <div class="secttlbarwrap">
+  <div><table cellpadding=0 cellspacing=0 width="100%"><tr><td><div style="background: url(/groups/roundedcorners?c=aa0033&bc=white&w=4&h=4&a=af) 0px 0px; width: 4px; height: 4px"></div><td bgcolor="#aa0033" width="100%" height="4"><img alt="" width=1 height=1><td><div style="background: url(/groups/roundedcorners?c=aa0033&bc=white&w=4&h=4&a=af) -4px 0px; width: 4px; height: 4px"></div></table></div>
+  <div class="secttlbar">
+  <div class="secttl">
+  Start a new discussion
+  </div>
+  </div>
+  <div><table cellpadding=0 cellspacing=0 width="100%"><tr><td><div style="background: url(/groups/roundedcorners?c=aa0033&bc=white&w=4&h=4&a=af) 0px 4px; width: 4px; height: 4px"></div><td bgcolor="#aa0033" width="100%" height="4"><img alt="" width=1 height=1><td><div style="background: url(/groups/roundedcorners?c=aa0033&bc=white&w=4&h=4&a=af) -4px 4px; width: 4px; height: 4px"></div></table></div>
+  </div>
+  </div>
+  <div class="maincontbox">
+<style type="text/css"><!--
+  #cross_domain_warning_box {
+    border-top:     1px solid #CCC;
+    border-bottom:  1px solid #CCC;
+    background:     #FF9;
+    color:          black;
+    font:           13px/30px normal arial,sans-serif;
+    text-align:     center;
+    line-height:    normal;
+    padding:        5px;
+  }
+--></style>
+<script language="javascript1.3"><!--
+var warnWhenLeavingPage_ = true;
+
+function POST_onBeforeUnload() {
+  if (warnWhenLeavingPage_ && POST_anyChange()) {
+     return "Abandon your post?";
+  }
+}
+
+function POST_warnWhenLeavingPage(warn) {
+  warnWhenLeavingPage_ = warn;
+  if (warnWhenLeavingPage_) {
+    window.onbeforeunload = POST_onBeforeUnload;
+  } else {
+    window.onbeforeunload = null;
+  }
+}
+
+function POST_anyChange() {
+  var formFields = [ 'to', 'cc', 'subject', 'body' ];
+  for (idx = 0; idx < formFields.length; idx++) {
+    var textField = document.getElementById(formFields[idx]);
+    // return 1 if we find a non-empty text field
+    if (textField != null && textField.value.length > 0) {
+  return 1;
+  }
+  }
+  return 0;
+}
+POST_warnWhenLeavingPage(true);
+//--></script>
+<style type="text/css"><!--
+
+  #leftcontent { padding-top: 6px; }
+  #leftcontent .lc { padding-left: 0px; }
+  #leftcontent .rc { padding-right: 8px; }
+--></style>
+<script language="javascript1.2"><!--
+
+
+function show_row(row, visible) {
+  if (visible) {
+    if (is_ie) {
+      row.style.display = "block";
+    } else {
+      row.style.display = "table-row";
+    }
+  } else {
+    row.style.display = "none";
+  }
+}
+
+function add_followup_to() {
+  var followup_to_row = document.getElementById("followup_to_row");
+  var add_headers_row = document.getElementById("add_headers_row");
+
+  var usenet_groups_to = document.getElementById("usenet_groups_to");
+  var followup_to = document.getElementById("followup_to");
+
+  if (followup_to_row.style.display == "none") {
+    followup_to.value = usenet_groups_to.value;
+    show_row(followup_to_row, true);
+    show_row(add_headers_row, false);
+  }
+}
+
+function set_sendto_author() {
+  var send_button = document.getElementById("send_button");
+
+
+
+  send_button.value = " Send message ";
+}
+
+function set_sendto_group() {
+  var send_button = document.getElementById("send_button");
+
+
+
+  send_button.value = " Send to moderators ";
+}
+
+
+function POST_FocusFieldOnLoad(el) {
+  if (el) {
+    var selectionPos = 0;
+    if (el.createTextRange) {
+      var range = el.createTextRange();
+      range.move("character", selectionPos);
+      range.select();
+      range.scrollIntoView((selectionPos > 0 ? false : true));
+  } else if (el.setSelectionRange) {
+  try {
+  el.setSelectionRange(selectionPos, selectionPos);
+  el.scrollTop = (selectionPos > 0 ? 10000 : 0);
+  } catch (ex) {}
+  }
+  el.focus();
+  }
+}
+ATTACH_BLOCK_COUNTER = 0;
+NUM_ATTACH_BLOCKS = 0;
+function add_attach_block() {
+  document.getElementById('total_size').style.display = 'inline';
+  NUM_ATTACH_BLOCKS++;
+  num = ATTACH_BLOCK_COUNTER;
+  ATTACH_BLOCK_COUNTER++;
+  the_div = document.createElement('div');
+  the_div.setAttribute('id', 'af_field_' + num);
+  document.getElementById('attach_blocks').appendChild(the_div);
+  the_div.innerHTML = '<input type=file name=attachment.' + num + ' size=40> <a href="#" onclick="remove_attach_block(' + num + ');">remove</a>';
+  document.getElementById('af_link').innerHTML = 'Attach another file';
+  return false;
+}
+function remove_attach_block(num) {
+  if (NUM_ATTACH_BLOCKS > 0) {
+  NUM_ATTACH_BLOCKS--;
+  }
+  if (NUM_ATTACH_BLOCKS == 0) {
+  document.getElementById('af_link').innerHTML = 'Attach a file';
+  document.getElementById('total_size').style.display = 'none';
+  }
+  elem = document.getElementById('af_field_' + num);
+  if (elem) {
+  elem.innerHTML = '';
+  }
+  return false;
+}
+//--></script>
+<form name=postform method=post enctype="multipart/form-data" id="postform" onsubmit="return onSubmitHandler();" accept-charset="utf-8">
+<table border=0 cellpadding=4 cellspacing=0 align=center id="leftcontent"
+       style="max-width:700px;width:80%;">
+<col width="1">
+<input type=hidden name="WebToken" value="7403f3e377dea8066643804049386b4a">
+<input type=hidden name="_done" value="/group/youtube-api-gdata/post">
+<input type=hidden name="_doneTitle" value="">
+<input type=hidden name="inreplyto" value="">
+<input type=hidden name="minreplyto" value="">
+<input type=hidden name=orig_charset value="">
+<input type=hidden name="lang" value="en">
+<tr valign=top>
+<td class="lc" align=right valign=top nowrap><label class="nowrap" for=from><b>From:&nbsp;</b></label></td>
+<td class="rc"><span>
+  <input type="hidden" name="from" id="from" value="waleycz@gmail.com">
+  Waley Chen
+  &lt;waleycz@gmail.com&gt;
+</span>
+- <a href="/group/youtube-api-gdata/subscribe?_done=%2Fgroup%2Fyoutube-api-gdata%2Fpost%3F_done%3D%252Fgroup%252Fyoutube-api-gdata%252Fpost" style="color:#676767;">change nickname</a>
+</td></tr>
+<tr>
+<td class="lc" align=right valign=top nowrap>
+<label class="nowrap" for=to><b>To:&nbsp;</b></label>
+</td>
+<td class="rc">
+  <input type="hidden" name=reply_to value="group">
+  YouTube APIs Developer Forum
+<tr>
+<td class="lc" align=right valign=middle nowrap><label class="nowrap" for=cc><b>Cc:&nbsp;</b></label></td>
+<td class="rc">
+<input type=text name=cc id=cc value="" style="width:100%;">
+</td></tr>
+<tr>
+<td class="lc" align=right valign=middle nowrap><label class="nowrap" for="subject"><b>Subject:&nbsp;</b></label></td>
+<td class="rc">
+<input spellcheck="true" type="text" name="subject" id="subject" value=""  style="width:100%;" maxlength="247">
+</td></tr>
+<tr><td class="lc rc" align="right" nowrap>
+<font class="b nb">Message:</font></td></tr>
+<tr><td class="lc rc" colspan=2>
+<textarea class="wdth100 padall5" name="body" id="body" rows="20" style="position: relative;"></textarea>
+</td><td></td></tr>
+  <tr><td class="padl7" colspan=2>
+  <input type=submit name="Action.Post" id="send_button" class="bt" style="font-weight:bold;" value="&nbsp;Send to moderators&nbsp;">
+  <input type="hidden" name="bgresponse" id="bgresponse" value="">
+  <script type="text/javascript" src="http://www.gstatic.com/bg/Paha2ZqPogEnXa1FzU-1NqhT1LXPHxKpGSZix82Q4Qs.js"></script>
+  <script>
+  document.bg = new botguard.bg('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');
+  function onSubmitHandler(ev) {
+  POST_warnWhenLeavingPage(false);
+  if (document.bg) {
+  document.bg.invoke(function(response) {
+  document.getElementById("bgresponse").value = response;
+  });
+  }
+  return true;
+  };
+  </script>
+  <div class="hspace"></div><input type=submit class="bt" name="Action.Cancel" value="Cancel">
+  </td></tr>
+  <tr><td class="lc rc" colspan=2>
+  <table cellspacing=0 cellpadding=0 width=100%><tr>
+  <td>
+  <input type=checkbox id=bccme name=bccme><label for=bccme>Send me a copy of this message</label>
+  </td>
+  </tr></table>
+  </td></tr>
+</table>
+</form>
+<br class="clear">
+<script><!--
+  
+    POST_FocusFieldOnLoad(document.getElementById("subject"));
+  
+//--></script>
+<br>&nbsp;
+  <div class="padt10 clear"></div>
+  </td><td style="background-color: #d6d6d6; ">
+  <div style="width: 32ex; height: 500px;">
+  <img width=1 height=500 alt="">
+  </div>
+  </table>
+  <div style="background-color: #d6d6d6">
+<div class="padt10 padb10">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign=center>
+  <td align="center" style="padding-right:1em;" class="fontsize2">
+  <b><a style="color: #00c" target=_top href="/groups/create?lnk=gcf">Create a group</a></b><font color="#333"> - </font>
+  <a style="color: #00c" target=_top href="/">Google Groups</a><font color="#333"> - </font>
+  <a style="color: #00c" target=_top href="http://www.google.com/webhp?hl=en">Google Home</a><font color="#333"> - </font>
+  <a style="color: #00c" target=_top href="http://groups.google.com/intl/en/googlegroups/terms_of_service3.html">Terms of Service</a><font color="#333"> - </font>
+  <a style="color: #00c" target=_top href="http://groups.google.com/intl/en/googlegroups/privacy3.html">Privacy Policy</a>
+  </td>
+  </tr>
+  <tr>
+  <td align="center" style="color: #333" class="fontsize1 padt5" >&copy;2012 Google</td>
+  </tr>
+  </table>
+</div>
+  </div>
+<script language="javascript"><!--
+if( loaddef != "" ) {
+  window.onload=new Function( loaddef );
+}
+if( resizedef != "" ) {
+  window.onresize = new Function( resizedef );
+}
+//--></script>
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"> </script>
+  <script type="text/javascript"><!--
+      
+        _uacct = "UA-1044941-1";
+      
+      urchinTracker("\x2Fgroup\x2Fyoutube-api-gdata\x2Fpost?_done=%2Fgroup%2Fyoutube-api-gdata%2Fpost\x26als_gt=group\x26als_greg=US\x26als_gact=\x26als_gsubs=\x26als_gview=ANYONE\x26als_gpjoin=y\x26als_sstat=s\x26");
+    //--></script>
+</body>
+</html>

@@ -9,6 +9,7 @@ gem 'curb', "~> 0.8.0"
 gem 'oauth'
 gem 'mechanize'
 gem 'nokogiri'
+gem 'bootstrap-sass', '2.0.0'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,3 +1,12 @@
+<div class="row-fluid">
+    <div class="span2">
+    	<div id="playlists">
+		</div>
+    </div>
+	<div class="span8"></div>
+    <div class="span2"></div>
+</div>
+
 Console
 
 <div id="output">
@@ -38,13 +47,60 @@ Todo
 	Add Friend
 </button>
 
+
+
+  <script type="text/javascript">
+/*
+* Simple player embed
+*/
+
+// The video to load.
+var videoID = "ylLzyHk54Z0"
+// Lets Flash from another domain call JavaScript
+var params = { allowScriptAccess: "always" };
+// The element id of the Flash embed
+var atts = { id: "ytapiplayer" };
+// All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
+swfobject.embedSWF("http://www.youtube.com/v/" + videoID + "?version=3&enablejsapi=1&playerapiid=player1", 
+                   "videoDiv", "480", "295", "9", null, null, params, atts);
+
+
+  </script>
+
+<!-- youtube video -->
+<object width="560" height="315">
+  <param id="youtube-link" name="movie"
+         value="https://www.youtube.com/v/u1zgFlCw8Aw?version=3&autohide=1&showinfo=0&enablejsapi=1&playerapiid=ytplayer"></param>
+  <param name="allowScriptAccess" value="always"></param>
+  <embed src="https://www.youtube.com/v/u1zgFlCw8Aw?version=3&autohide=1&showinfo=0&enablejsapi=1&playerapiid=ytplayer"
+         type="application/x-shockwave-flash"
+         allowscriptaccess="always"
+         width="560" height="315"></embed>
+</object>
+
+<div id="ytapiplayer">
+    You need Flash player 8+ and JavaScript enabled to view this video.
+  </div>
+
 <script language="javascript" type="text/javascript"> 
 	var hash_values_str = jQuery.param.fragment(); // get the current URL's hash values
 	var hash_values_json = jQuery.deparam(hash_values_str); // convert hash values into JSON object
 	var hash_values_json_str = JSON.stringify(hash_values_json); // convert JSON object into string 
 	var validate_token_link = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + hash_values_json.access_token;
 	var playlists_JSON_link = "https://gdata.youtube.com/feeds/api/users/default/playlists?v=2&alt=json&access_token=" + hash_values_json.access_token;
+	var library = new Object(); // object containing the user's playlists and the songs of each playlist
+	var playlists_Names = new Array();
+	var playlists = new Array();
+	var playlist_And_Songs;
 	var playlists_JSON;
+	var youtube_link = "https://www.youtube.com/v/7GQieH-SFdI?version=3&autohide=1&showinfo=0";
+	
+	function onYouTubePlayerReady(playerId) {
+	      ytplayer = document.getElementById("myytplayer");
+	$("#output").append("validate token AJAX request failed");
+	$("#output").append("validate token AJAX request failed");
+	$("#output").append("validate token AJAX request failed");
+	    }
 	
 	// setting links
 	$("#validate-token-link").attr("href", validate_token_link);
@@ -77,13 +133,20 @@ Todo
 	    $("#output").append("<li>" + json.version + "</li>");
 		$("#output").append("<li>" + json.feed.title.$t + "</li>");
 		$("#output").append("<li>" + json.feed.author[0].name.$t + "</li>");
+		
 		for (i = 0; i < json.feed.entry.length; i++) {
-			playlist_link = json.feed.entry[i].content.src + "&alt=json";
+			playlist_link = json.feed.entry[i].content.src + "&alt=json&max-results=50";
+			$("#playlists").append("<li>" + json.feed.entry[i].title.$t + "</li>");
 			$("#output").append("<li>" + json.feed.entry[i].title.$t + "</li>");
-			$("#output").append("<li>" + playlist_link + "</li>");
+			$("#output").append(playlist_link);
 			
 			$.getJSON(playlist_link, function(inner_json) {
+				var playlist = new Array();
+				var songs = new Array();
+				var playlistTitle_And_Songs = new Object();
+				
 				for (i2 = 0; i2 < inner_json.feed.entry.length; i2++) {
+					var song = new Object();
 					video_id_regexp = /[=][^&]+(?=&)/;
 					
 					// the video id should be in the link array else throw an exception
@@ -97,10 +160,26 @@ Todo
 						}
 					}
 					
+					song.title = inner_json.feed.entry[i2].title.$t;
+					song.video_id = video_id;
+					songs.push(song);
+					
+					// if last song in playlist, add the playlist to playlists array
+					if (i2 == inner_json.feed.entry.length - 1) {
+						$("#output").append("<li>" + "ERROR:" + inner_json.feed.entry.length + "</li>");
+						playlistTitle_And_Songs.title = inner_json.feed.title.$t;
+						playlistTitle_And_Songs.songs = songs;
+						playlists.push(playlistTitle_And_Songs)
+					}
+					
 					$("#output").append("<li>" + inner_json.feed.title.$t +  ": "+ inner_json.feed.entry[i2].title.$t + " " + video_id +"</li>");
+					// $("#playlists").append("<li>" + inner_json.feed.title.$t +  ": "+ inner_json.feed.entry[i2].title.$t + " " + video_id +"</li>");
 				}
 			});
+
 		}
+		
+		playlists.sort();
 	});
 	
 	document.write (hash_values_json_str);
