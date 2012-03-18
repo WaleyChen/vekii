@@ -35,6 +35,7 @@ $.ajax({
 				   }, 
 				
   	success:       function(data, textStatus, jqXHR) {
+						
 		   	       },
 		
   	error:         function(jqXHR, textStatus, errorThrown) {
@@ -46,18 +47,19 @@ $.getJSON(playlists_JSON_link, function(json) {
 	youtube_username = json.feed.author[0].name.$t;
 	
 	for (i = 0; i < json.feed.entry.length; i++) {
-		$("#playlists").append("<li>" + json.feed.entry[i].title.$t + "</li>");
-		$("#output").append("<li>" + json.feed.entry[i].title.$t + "</li>");
 		playlist_size = json.feed.entry[i].yt$countHint.$t;
 
 		var songs;
 		var playlist_Title_And_Songs;
 		
 		for (i5 = 0; i5 < Math.ceil(playlist_size/max_playlist_size); i5 ++) {
+			// don't request the playlist if the playlist is private since Youtube API doesn't provide private playlist access
+			if (json.feed.entry[i].yt$private) {
+				break;
+			}
+			
 			start_index = 1 + (i5 * 50);
-			$("#output").append("</br>" + start_index + "</br>");
 			playlist_link = json.feed.entry[i].content.src + "&alt=json&max-results=50&start-index=" + start_index;
-			$("#output").append(playlist_link);
 			
 			$.ajax({
 			  	url:          playlist_link,
@@ -67,62 +69,46 @@ $.getJSON(playlists_JSON_link, function(json) {
 								jqXHR.specialMessage = "HELLOMOTO";
 							  }, 
 							
-			  	success:      function(data, textStatus, jqXHR) {
-								
+			  	success:      function(json, textStatus, jqXHR) {
+								songs = new Array();
+								playlist_Title_And_Songs = new Object();
+
+								for (i2 = 0; i2 < json.feed.entry.length; i2++) {
+									var song = new Object();
+									video_id_regexp = /[=][^&]+(?=&)/;
+
+									// the video id should be in the link array else throw an exception
+									for (i3 = 0; i3 < json.feed.entry[i2].link.length; i3++) {
+										if (json.feed.entry[i2].link[i3].type == "text/html") {
+											video_id = json.feed.entry[i2].link[i3].href.match(video_id_regexp)[0].substr(1);
+											break;
+										} else if (i3 == json.feed.entry[i2].link.length - 1) {
+											$("#output").append("<li>" + "ERROR:" + json.feed.entry[i2].title.$t + "</li>");
+											throw "Could not find video id";
+										}
+									}
+
+									song.title = json.feed.entry[i2].title.$t;
+									song.video_id = video_id;
+									songs.push(song);	
+
+									// if added last song in playlist, add the playlist to playlists array
+									if (i2 == json.feed.entry.length - 1) {
+										playlist_Title_And_Songs.title = json.feed.title.$t;
+										playlist_Title_And_Songs.songs = songs;
+										playlists.push(playlist_Title_And_Songs)
+									}
+
+									$("#output").append("<li>" + json.feed.title.$t +  ": "+ json.feed.entry[i2].title.$t + " " + video_id +"</li>");
+									// $("#playlists").append("<li>" + inner_json.feed.title.$t +  ": "+ inner_json.feed.entry[i2].title.$t + " " + video_id +"</li>");
+								}
 					   	      },
 					
 			  	error:        function(jqXHR, textStatus, errorThrown) {
 								$("#output").append("<li>" + jqXHR.specialMessage + "</li>");
 			  		   	      }
 			});
-			
-			
-			$.getJSON(playlist_link, function(inner_json, textStatus, jqXHR) {
-				$("#output").append(playlist_link);
-				$("#output").append(textStatus);
-				$("#output").append(jqXHR);
-				
-				// if (start_index == 1) {
-					songs = new Array();
-					playlist_Title_And_Songs = new Object();
-			//	} else {
-					// reuse previous songs and playlist_Title_And_Songs vars
-				//}
-
-				for (i2 = 0; i2 < inner_json.feed.entry.length; i2++) {
-					var song = new Object();
-					video_id_regexp = /[=][^&]+(?=&)/;
-
-					// the video id should be in the link array else throw an exception
-					for (i3 = 0; i3 < inner_json.feed.entry[i2].link.length; i3++) {
-						if (inner_json.feed.entry[i2].link[i3].type == "text/html") {
-							video_id = inner_json.feed.entry[i2].link[i3].href.match(video_id_regexp)[0].substr(1);
-							break;
-						} else if (i3 == inner_json.feed.entry[i2].link.length - 1) {
-							$("#output").append("<li>" + "ERROR:" + inner_json.feed.entry[i2].title.$t + "</li>");
-							throw "Could not find video id";
-						}
-					}
-
-					song.title = inner_json.feed.entry[i2].title.$t;
-					song.video_id = video_id;
-					songs.push(song);	
-
-					// if last song in playlist, add the playlist to playlists array
-					if (i2 == inner_json.feed.entry.length - 1) {
-						$("#output").append("<li>" + "ERROR:" + inner_json.feed.entry.length + "</li>");
-						playlist_Title_And_Songs.title = inner_json.feed.title.$t;
-						playlist_Title_And_Songs.songs = songs;
-						playlists.push(playlist_Title_And_Songs)
-					}
-
-					$("#output").append("<li>" + inner_json.feed.title.$t +  ": "+ inner_json.feed.entry[i2].title.$t + " " + video_id +"</li>");
-					// $("#playlists").append("<li>" + inner_json.feed.title.$t +  ": "+ inner_json.feed.entry[i2].title.$t + " " + video_id +"</li>");
-				}
-			});
 		}
 	}
-	
-	playlists.sort();
 });
 

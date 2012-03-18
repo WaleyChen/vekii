@@ -20,3 +20,9 @@ are you going to store data on rails-backend?
 	
 	
 	a delectable combo of jquery, jqury rails, backbone.js and rails to create a RIA music video player for youtube
+	
+// features where it simply looks at your recommends and plays them from your library base
+// when you simply want to dsicover new music
+
+// tabs
+library & discover
