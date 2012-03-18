@@ -136,7 +136,7 @@ $.getJSON(playlists_JSON_link, function(json) {
 								}
 									// if this is the last ajax request returning
 									if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
-										playlists.sort(playlist_Sort_Func);
+										playlists.sort(playlists_Sort_Func);
 										
 										jQuery.each(playlists, function(index, value) {
 										$("#playlists").append(value.title + "</br>");
@@ -157,7 +157,7 @@ $.getJSON(playlists_JSON_link, function(json) {
 });
 
 // MISC
-function playlist_Sort_Func(a, b) {
+function playlists_Sort_Func(a, b) {
 	var x = a.title.toLowerCase();
 	var y = b.title.toLowerCase();
 	
@@ -169,40 +169,3 @@ function playlist_Sort_Func(a, b) {
 		return 0;
 	}
 }
-
-/**
-jQuery.each(playlists, function(index, value) {
-	$("#output").append(value.title + "</br>");
-	
-	jQuery.each(value.songs, function(index, value) {
-		$("#output").append(value.title + "</br>");
-	});
-});
-**/
-
-// MISC 
-
-// you can only sort after the playlists object has been completed but not while it's still making AJAX calls
-/**
-// from http://www.breakingpar.com/bkp/home.nsf/0/87256B280015193F87256C8D00514FA4
-function playlist_Sort_Func(a, b) {
-	var x = a.title.toLowerCase();
-	var y = b.title.toLowerCase();
-	
-	if (y > x) {
-		return -1;
-	} else if (x > y) {
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-function sortByFirstName(a, b) {
-    var x = a.title.toLowerCase();
-    var y = b.title.toLowerCase();
-    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-}
-
-playlists.sort(sortByFirstName);
-**/
