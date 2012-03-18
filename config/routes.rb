@@ -70,4 +70,6 @@ Vekii::Application.routes.draw do
   
   match 'playlists.json' => 'frontpage#playlistsJSON'
   match 'example_playlist.json' => 'frontpage#examplePlaylistJSON'
+  
+  match 'vekii.js' => 'frontpage#vekiiJS'
 end

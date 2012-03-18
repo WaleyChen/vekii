@@ -32,6 +32,10 @@ class FrontpageController < ApplicationController
     send_file '/public/example_playlist.json', 
   end
   
+  def vekiiJS
+    send_file '/app/assets/javascripts/vekii.js'
+  end
+  
   def sampleajax
     
   end
