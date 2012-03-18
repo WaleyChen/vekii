@@ -7,18 +7,30 @@ var validate_token_link = "https://www.googleapis.com/oauth2/v1/tokeninfo?access
 var playlists_JSON_link = "https://gdata.youtube.com/feeds/api/users/default/playlists?v=2&alt=json&access_token=" + hash_values_json.access_token;
 
 var library = new Object(); // object containing the user's playlists and the songs of each playlist
+
+// playlists' vars
 var playlists_Names = new Array();
 var playlists = new Array();
+var playlists_size = 0;
+
 var playlist_And_Songs;
 var max_playlist_size = 50; 
+
 var start_index; // The start-index parameter specifies the index of the first matching result that should be included in the result set. This parameter uses a one-based index, meaning the first result is 1, the second result is 2 and so forth. This parameter works in conjunction with the max-results parameter to determine which results to return. For example, to request the second set of 10 results – i.e. results 11-20 – set the start-index parameter to 11 and the max-results parameter to 10.
 var youtube_link = "https://www.youtube.com/v/7GQieH-SFdI?version=3&autohide=1&showinfo=0";
 
 var youtube_username;
+var playlist_id = 0;
+
+var new_playlist = 1;
+var old_playlist_index;
+
+var playlist_ajax_requests_sent_size = 0;
+var playlist_ajax_requests_received_size = 0;
 
 function onYouTubePlayerReady(playerId) {
 	ytplayer = document.getElementById("myytplayer");
-	$("#output").append("onYoutubePlayerReadyRequest Called POKEMON");
+	$("#output").append("onYoutubePlayerReadyRequest Called");
 }
 
 // AJAX REQUESTS
@@ -45,35 +57,43 @@ $.ajax({
 // gets the user's playlists and stores them into a JS object
 $.getJSON(playlists_JSON_link, function(json) {
 	youtube_username = json.feed.author[0].name.$t;
+	playlists_size = json.feed.openSearch$totalResults.$t;
 	
-	for (i = 0; i < json.feed.entry.length; i++) {
-		playlist_size = json.feed.entry[i].yt$countHint.$t;
+	for (playlists_index = 0; playlists_index < json.feed.entry.length; playlists_index++) {
+		playlist_size = json.feed.entry[playlists_index].yt$countHint.$t;
 
 		var songs;
 		var playlist_Title_And_Songs;
-		
-		for (i5 = 0; i5 < Math.ceil(playlist_size/max_playlist_size); i5 ++) {
+
+		for (requestNo = 0; requestNo < Math.ceil(playlist_size/max_playlist_size); requestNo++) {
 			// don't request the playlist if the playlist is private since Youtube API doesn't provide private playlist access
-			if (json.feed.entry[i].yt$private) {
+			if (json.feed.entry[playlists_index].yt$private) {
+				playlists_size--;
 				break;
 			}
 			
-			start_index = 1 + (i5 * 50);
-			playlist_link = json.feed.entry[i].content.src + "&alt=json&max-results=50&start-index=" + start_index;
+			playlist_ajax_requests_sent_size++;
+			
+			start_index = 1 + (requestNo * 50);
+			playlist_link = json.feed.entry[playlists_index].content.src + "&alt=json&max-results=50&start-index=" + start_index;
 			
 			$.ajax({
 			  	url:          playlist_link,
 			  	dataType:     'json',
 			
 			    beforeSend:   function(jqXHR) {
-								jqXHR.specialMessage = "HELLOMOTO";
+								playlist_id++;
+								jqXHR.playlist_id = playlist_id;
 							  }, 
 							
 			  	success:      function(json, textStatus, jqXHR) {
+								playlist_ajax_requests_received_size++;
+								
 								songs = new Array();
 								playlist_Title_And_Songs = new Object();
 
 								for (i2 = 0; i2 < json.feed.entry.length; i2++) {
+									new_playlist = 1;
 									var song = new Object();
 									video_id_regexp = /[=][^&]+(?=&)/;
 
@@ -93,15 +113,39 @@ $.getJSON(playlists_JSON_link, function(json) {
 									songs.push(song);	
 
 									// if added last song in playlist, add the playlist to playlists array
-									if (i2 == json.feed.entry.length - 1) {
-										playlist_Title_And_Songs.title = json.feed.title.$t;
-										playlist_Title_And_Songs.songs = songs;
-										playlists.push(playlist_Title_And_Songs)
+									if (i2 == json.feed.entry.length - 1) {	
+										jQuery.each(playlists, function(index, value) {
+											if (value.title == json.feed.title.$t) { 
+												new_playlist = 0;
+												old_playlist_index = index;
+												return false; // the equivalent of break
+											}
+										});
+										
+										if (new_playlist) {
+											playlist_Title_And_Songs.title = json.feed.title.$t;
+											playlist_Title_And_Songs.songs = songs;
+											playlists.push(playlist_Title_And_Songs)
+										} else {
+										 	playlists[old_playlist_index].songs = playlists[old_playlist_index].songs.concat(songs)
+										}
 									}
-
-									$("#output").append("<li>" + json.feed.title.$t +  ": "+ json.feed.entry[i2].title.$t + " " + video_id +"</li>");
-									// $("#playlists").append("<li>" + inner_json.feed.title.$t +  ": "+ inner_json.feed.entry[i2].title.$t + " " + video_id +"</li>");
+									// $("#output").append("plsize: " + playlists_size + "</br>");
+									// $("#output").append("plsize: " + playlist_ajax_requests_size + "</br>");
+									// $("#output").append(jqXHR.playlist_id + " "+ json.feed.title.$t +  ": "+ json.feed.entry[i2].title.$t + " " + video_id + "</br>");
 								}
+									// if this is the last ajax request returning
+									if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
+										playlists.sort(playlist_Sort_Func);
+										
+										jQuery.each(playlists, function(index, value) {
+										$("#playlists").append(value.title + "</br>");
+
+											// jQuery.each(value.songs, function(index, value) {
+											// 	$("#output").append(value.title + "</br>");
+											// });
+										});
+									}
 					   	      },
 					
 			  	error:        function(jqXHR, textStatus, errorThrown) {
@@ -112,3 +156,53 @@ $.getJSON(playlists_JSON_link, function(json) {
 	}
 });
 
+// MISC
+function playlist_Sort_Func(a, b) {
+	var x = a.title.toLowerCase();
+	var y = b.title.toLowerCase();
+	
+	if (y > x) {
+		return -1;
+	} else if (x > y) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+/**
+jQuery.each(playlists, function(index, value) {
+	$("#output").append(value.title + "</br>");
+	
+	jQuery.each(value.songs, function(index, value) {
+		$("#output").append(value.title + "</br>");
+	});
+});
+**/
+
+// MISC 
+
+// you can only sort after the playlists object has been completed but not while it's still making AJAX calls
+/**
+// from http://www.breakingpar.com/bkp/home.nsf/0/87256B280015193F87256C8D00514FA4
+function playlist_Sort_Func(a, b) {
+	var x = a.title.toLowerCase();
+	var y = b.title.toLowerCase();
+	
+	if (y > x) {
+		return -1;
+	} else if (x > y) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+function sortByFirstName(a, b) {
+    var x = a.title.toLowerCase();
+    var y = b.title.toLowerCase();
+    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+}
+
+playlists.sort(sortByFirstName);
+**/
