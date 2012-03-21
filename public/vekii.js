@@ -1,3 +1,7 @@
+// TO-DO
+// If the user refused to grant access to your application, Google will have included the access_denied error message in the
+// hash fragment of the redirect_uri: http://localhost/oauth2callback#error=access_denied
+
 // VARS
 // setup validate token and playlists JSON links
 var hash_values_str = jQuery.param.fragment(); // get the current URL's hash values
@@ -28,9 +32,10 @@ var old_playlist_index;
 var playlist_ajax_requests_sent_size = 0;
 var playlist_ajax_requests_received_size = 0;
 
+// Once the player is ready, it wil call onYouTubePlayerReady.
 function onYouTubePlayerReady(playerId) {
 	ytplayer = document.getElementById("myytplayer");
-	$("#output").append("onYoutubePlayerReadyRequest Called");
+	ytplayer.loadVideoById('czM_xrcYW3Q');
 }
 
 // AJAX REQUESTS
@@ -138,12 +143,14 @@ $.getJSON(playlists_JSON_link, function(json) {
 									if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
 										playlists.sort(playlists_Sort_Func);
 										
-										jQuery.each(playlists, function(index, value) {
-										$("#playlists").append(value.title + "</br>");
+										jQuery.each(playlists, function(index, playlist) {
+											$("#playlists").append("<a>" + playlist.title + "</a> </br>");
 
-											// jQuery.each(value.songs, function(index, value) {
-											// 	$("#output").append(value.title + "</br>");
-											// });
+											jQuery.each(playlist.songs, function(index, song) {
+												$("#playlist").append("<a href=\"javascript:myFunction('" + song.video_id + "')\">" + song.title + "</a> </br>");
+											});
+											// href="javascript:myFunction('czM_xrcYW3Q')"
+											playlist.songs.sort(playlists_Sort_Func);
 										});
 									}
 					   	      },

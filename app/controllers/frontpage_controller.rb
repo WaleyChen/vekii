@@ -35,6 +35,10 @@ class FrontpageController < ApplicationController
   end
   
   def backboneJS
-    send_file '/public/backbone.js'
+    send_file '/public/vekii_backbone.js'
+  end
+  
+  def playlistsJSON
+    send_file '/public/playlists.json'
   end
 end

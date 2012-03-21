@@ -1,3 +1,11 @@
+<!-- TEMPLATES -->
+<script type="text/template" id="playlists_template">
+  <h1>Playlists</h1>
+  <ul class="playlists">
+  </ul>
+</script>
+
+<!-- BODY -->
 <div class="row-fluid">
     <div class="span2">
     	<div id="playlists">
@@ -6,15 +14,8 @@
 
 	<div class="span8">
 		<!-- youtube video -->
-		<div id="yt_video">
-			<object width="560" height="315">
-				<param id="youtube-link" name="movie" value="https://www.youtube.com/v/u1zgFlCw8Aw?version=3&autohide=1&showinfo=0&enablejsapi=1&playerapiid=ytplayer"></param>
-				<param name="allowScriptAccess" value="always"></param>
-				<embed src="https://www.youtube.com/v/u1zgFlCw8Aw?version=3&autohide=1&showinfo=0&enablejsapi=1&playerapiid=ytplayer"
-				type="application/x-shockwave-flash"
-				allowscriptaccess="always"
-				width="560" height="315"></embed>
-			</object>
+		<div id="yt_api_player">
+		    You need Flash player 8+ and JavaScript enabled to view this video.
 		</div>
 	</div>
 	
@@ -23,6 +24,26 @@
 		</div>
 	</div>
 </div>
+<a href="javascript:myFunction('czM_xrcYW3Q')">Click me</a>
+<script language="JavaScript">
+<!--
+  function myFunction(video_id) {
+    ytplayer.loadVideoById(video_id);
+  }
+//-->
+</script>
+
+<!-- Embedding the YouTube player using SWFObject: https://developers.google.com/youtube/js_api_reference#Examples-->
+<script type="text/javascript">
+	var params = { allowScriptAccess: "always" };
+    var atts = { id: "myytplayer" };
+	// swfobject.embedSWF will load the player from YouTube and embed it onto your page.
+    swfobject.embedSWF("http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3",
+                       "yt_api_player", "425", "356", "8", null, null, params, atts);
+</script>
+
+<script language="javascript" type="text/javascript" src="vekii.js"> </script>
+<script language="javascript" type="text/javascript" src="vekii_backbone.js"> </script>
 
 <div id="output">
 </div>
@@ -32,30 +53,11 @@
 <ul id="friends-list">	
 </ul>
 
-<script type="text/javascript">
-/*
-* Simple player embed
-*/
-
-// The video to load.
-var videoID = "ylLzyHk54Z0"
-// Lets Flash from another domain call JavaScript
-var params = { allowScriptAccess: "always" };
-// The element id of the Flash embed
-var atts = { id: "ytapiplayer" };
-// All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-swfobject.embedSWF("http://www.youtube.com/v/" + videoID + "?version=3&enablejsapi=1&playerapiid=player1", 
-                   "videoDiv", "480", "295", "9", null, null, params, atts);
-
-
-  </script>
-
-<div id="ytapiplayer">
-    You need Flash player 8+ and JavaScript enabled to view this video.
+<body>
+  <div id="container">
   </div>
+</body>
+</html>
 
-<script language="javascript" type="text/javascript" src="vekii.js"> 
-</script>
-<script language="javascript" type="text/javascript" src="backbone.js"> 
-</script>
+
 

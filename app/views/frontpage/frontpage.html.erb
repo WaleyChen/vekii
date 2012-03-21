@@ -1,4 +1,3 @@
-Working
 </br>
 <%= button_to 'Google Login', @googleLoginLink %> 
 </br>
@@ -54,6 +53,29 @@ Working
 </div>
 
 <script type="text/javascript">
+var devKey = "AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw";
+var googleLoginLink = "https://accounts.google.com/o/oauth2/auth?";
+var client_id = "client_id=908038792880-vm3862hmpnp7u6gnmgd8104g8u7r1sr1.apps.googleusercontent.com";
+var redirect_uri = "redirect_uri=http://localhost:3000";
+var gscope = "scope=https://gdata.youtube.com";
+var response_type = "response_type=token";
+googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type;
+
+	$.ajax({
+	  	url:           googleLoginLink,
+	  	dataType:      'json',
+
+	    beforeSend:    function(jqXHR) {
+					   }, 
+
+	  	success:       function(data, textStatus, jqXHR) {
+
+			   	       },
+
+	  	error:         function(jqXHR, textStatus, errorThrown) {
+	  		   	       }
+	});
+
 
   var params = { allowScriptAccess: "always" };
   var atts = { id: "myytplayer" };
