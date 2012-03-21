@@ -12,9 +12,9 @@ class FrontpageController < ApplicationController
     response_type = "response_type=token"
     
     # construct the link to request an access token from the Youtube API
-    if ENV["RAILS_ENV"] = "test"
+    if ENV["RAILS_ENV"] == "test"
       redirect_uri = "redirect_uri=http://localhost:3000/oauth2callback"
-    elsif ENV["RAILS_ENV"] = "production"
+    elsif ENV["RAILS_ENV"] == "production"
       redirect_uri = "redirect_uri=http://vekii.com/oauth2callback"
     end
     
