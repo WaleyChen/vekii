@@ -11,10 +11,11 @@ class FrontpageController < ApplicationController
     gscope = "scope=https://gdata.youtube.com"
     response_type = "response_type=token"
     
+    redirect_uri = "redirect_uri=http://localhost:3000/oauth2callback"
     # construct the link to request an access token from the Youtube API
-    if ENV["RAILS_ENV"] == "test"
+    if ENV["RAILS_ENV"] == "vekii_development" ||ENV["RAILS_ENV"] == "vekii_test"
       redirect_uri = "redirect_uri=http://localhost:3000/oauth2callback"
-    elsif ENV["RAILS_ENV"] == "production"
+    elsif ENV["RAILS_ENV"] == "vekii_production"
       redirect_uri = "redirect_uri=http://smooth-warrior-1237.herokuapp.com/oauth2callback"
     end
     // 

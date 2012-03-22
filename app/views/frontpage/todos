@@ -1,14 +1,12 @@
-hide access token redirect
+// need the username of the palylist
 
-hvae the video play in one window, and the playlist manager on the other
+hide access token redirect
 
 if stuck,
 work on backbone menu
 	- use your playlists as json data
 how to make something like youtube instant
 
-
-learn how to make ajax calls
 are you going to store data on rails-backend?
 - best to use youtube as data storage, less work to do
 		two options:
@@ -23,8 +21,14 @@ are you going to store data on rails-backend?
 	
 	a delectable combo of jquery, jqury rails, backbone.js and rails to create a RIA music video player for youtube
 	
+discover mode
 // features where it simply looks at your recommends and plays them from your library base
 // when you simply want to dsicover new music
 
 // tabs
 library & discover
+
+git for music
+clone playlists
+push and pull playlists to augment playlists
+public playlists
