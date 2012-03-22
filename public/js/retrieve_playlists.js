@@ -1,5 +1,6 @@
 // playlists' vars
 var playlists = new Object();
+var playlists_JSON;
 var playlists_size = 0;
 var username;
 
@@ -107,22 +108,43 @@ $.getJSON(playlists_JSON_link, function(json) {
 									// $("#output").append(jqXHR.playlist_id + " "+ json.feed.title.$t +  ": "+ json.feed.entry[i2].title.$t + " " + video_id + "</br>");
 								}
 									// if this is the last ajax request returning
-									if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
-										playlists.playlists.sort(playlists_Sort_Func);
-										
-										jQuery.each(playlists.playlists, function(index, playlist) {
-											$("#playlists").append("<a>" + playlist.title + "</a> </br>");
+								if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
+									playlists.playlists.sort(playlists_Sort_Func);
+									
+									jQuery.each(playlists.playlists, function(index, playlist) {
+										$("#playlists").append("<a>" + playlist.title + "</a> </br>");
 
-											jQuery.each(playlist.songs, function(index, song) {
-												$("#playlist").append("<a href=\"javascript:ytplayer.loadVideoById('" + song.video_id + "')\">" + song.title + "</a> </br>");
-											});
-											
-											playlist.songs.sort(playlists_Sort_Func);
-											
-											// save playlists to our backend
-											
+										jQuery.each(playlist.songs, function(index, song) {
+											$("#playlist").append("<a href=\"javascript:ytplayer.loadVideoById('" 
+																  + song.video_id 
+																  + "')\">" 
+																  + song.title 
+																  + "</a> </br>");
 										});
-									}
+										
+										playlist.songs.sort(playlists_Sort_Func);
+										
+										playlists_JSON = JSON.stringify(playlists);
+									});
+									
+									// save playlists to our backend
+									$.ajax({
+									        type: 			"POST",
+									        url: 			"/playlists",
+											contentType: 	"application/json",
+									        data: 			playlists_JSON,
+											processdata: 	false,
+											beforeSend: 	function(jqXHR) {
+																jqXHR.setRequestHeader('X-CSRF-Token', 
+																	$('meta[name="csrf-token"]').attr('content'))
+															},
+									        success: 		function(response) {
+									        					if (response == "POST was successful.") {
+										
+																}
+									        				}
+									});
+								}
 					   	      },
 					
 			  	error:        function(jqXHR, textStatus, errorThrown) {

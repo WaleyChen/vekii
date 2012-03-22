@@ -8,7 +8,6 @@ var googleLoginLink    = googleLoginLink + client_id + '&' + redirect_uri + '&' 
 
 // to-do
 // link for production environment
-
 var playlists_JSON = JSON.stringify(playlists);
 
 (function($) {
