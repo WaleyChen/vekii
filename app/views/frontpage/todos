@@ -1,5 +1,9 @@
 // need the username of the palylist
 
+// TO-DO
+// If the user refused to grant access to your application, Google will have included the access_denied error message in the
+// hash fragment of the redirect_uri: http://localhost/oauth2callback#error=access_denied
+
 hide access token redirect
 
 if stuck,

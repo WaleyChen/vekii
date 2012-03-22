@@ -1,74 +1,41 @@
-// TO-DO
-// If the user refused to grant access to your application, Google will have included the access_denied error message in the
-// hash fragment of the redirect_uri: http://localhost/oauth2callback#error=access_denied
-
-// VARS
-// setup validate token and playlists JSON links
-var hash_values_str = jQuery.param.fragment(); // get the current URL's hash values
-var hash_values_json = jQuery.deparam(hash_values_str); // convert hash values into JSON object
-var hash_values_json_str = JSON.stringify(hash_values_json); // convert JSON object into string 
-var validate_token_link = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + hash_values_json.access_token;
-var playlists_JSON_link = "https://gdata.youtube.com/feeds/api/users/default/playlists?v=2&alt=json&access_token=" + hash_values_json.access_token;
-
-var library = new Object(); // object containing the user's playlists and the songs of each playlist
-
 // playlists' vars
-var playlists_Names = new Array();
-var playlists = new Array();
+var playlists = new Object();
 var playlists_size = 0;
+var username;
 
-var playlist_And_Songs;
+// playlist vars
 var max_playlist_size = 50; 
-
-var start_index; // The start-index parameter specifies the index of the first matching result that should be included in the result set. This parameter uses a one-based index, meaning the first result is 1, the second result is 2 and so forth. This parameter works in conjunction with the max-results parameter to determine which results to return. For example, to request the second set of 10 results – i.e. results 11-20 – set the start-index parameter to 11 and the max-results parameter to 10.
-var youtube_link = "https://www.youtube.com/v/7GQieH-SFdI?version=3&autohide=1&showinfo=0";
-
-var youtube_username;
-var playlist_id = 0;
-
 var new_playlist = 1;
 var old_playlist_index;
-
+var playlist;
+var playlist_id = 0;
 var playlist_ajax_requests_sent_size = 0;
 var playlist_ajax_requests_received_size = 0;
+var song;
+var songs;
 
-// Once the player is ready, it wil call onYouTubePlayerReady.
-function onYouTubePlayerReady(playerId) {
-	ytplayer = document.getElementById("myytplayer");
-	ytplayer.loadVideoById('czM_xrcYW3Q');
-}
+// AJAX vars
+// this var is for the youtube AJAX playlists call
+// The start-index parameter specifies the index of the first matching result that should be included in the result set. 
+// This parameter uses a one-based index, meaning the first result is 1, the second result is 2 and so forth. This parameter 
+// works in conjunction with the max-results parameter to determine which results to return. For example, to request the second 
+// set of 10 results – i.e. results 11-20 – set the start-index parameter to 11 and the max-results parameter to 10.
+var start_index; 
+var playlists_JSON_link = "https://gdata.youtube.com/feeds/api/users/default/playlists?v=2&alt=json&access_token=" + hash_values_json.access_token;
 
-// AJAX REQUESTS
-// XMLHttpRequest cannot load https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=ya29.AHES6ZRUyKNtc8orqv5tCQCTm9lUTZAM8HZB9S6_ER-89StgdQaOX3k. Origin http://localhost:3000 is not allowed by Access-Control-Allow-Origin.
-// we get the error above because
-// the following ajax request validates the token and tries to reload to their site but fails which isn't a big deal since we only
-// want to valdiate the token anyways
-// ajax request to validate access token received
-$.ajax({
-  	url:           validate_token_link,
-  	dataType:      'json',
+// don't get user's playlists from Youtube API if we've retrived it before
+// instead, retrive from our database
 
-    beforeSend:    function(jqXHR) {
-				   }, 
-				
-  	success:       function(data, textStatus, jqXHR) {
-						
-		   	       },
-		
-  	error:         function(jqXHR, textStatus, errorThrown) {
-  		   	       }
-});
-
-// gets the user's playlists and stores them into a JS object
+// gets the user's playlists from Youtube API and stores them into a JS object
 $.getJSON(playlists_JSON_link, function(json) {
-	youtube_username = json.feed.author[0].name.$t;
+	username = json.feed.author[0].name.$t;
 	playlists_size = json.feed.openSearch$totalResults.$t;
+	
+	playlists.username = username;
+	playlists.playlists = new Array();
 	
 	for (playlists_index = 0; playlists_index < json.feed.entry.length; playlists_index++) {
 		playlist_size = json.feed.entry[playlists_index].yt$countHint.$t;
-
-		var songs;
-		var playlist_Title_And_Songs;
 
 		for (requestNo = 0; requestNo < Math.ceil(playlist_size/max_playlist_size); requestNo++) {
 			// don't request the playlist if the playlist is private since Youtube API doesn't provide private playlist access
@@ -95,11 +62,11 @@ $.getJSON(playlists_JSON_link, function(json) {
 								playlist_ajax_requests_received_size++;
 								
 								songs = new Array();
-								playlist_Title_And_Songs = new Object();
+								playlist = new Object();
 
 								for (i2 = 0; i2 < json.feed.entry.length; i2++) {
 									new_playlist = 1;
-									var song = new Object();
+									song = new Object();
 									video_id_regexp = /[=][^&]+(?=&)/;
 
 									// the video id should be in the link array else throw an exception
@@ -119,7 +86,7 @@ $.getJSON(playlists_JSON_link, function(json) {
 
 									// if added last song in playlist, add the playlist to playlists array
 									if (i2 == json.feed.entry.length - 1) {	
-										jQuery.each(playlists, function(index, value) {
+										jQuery.each(playlists.playlists, function(index, value) {
 											if (value.title == json.feed.title.$t) { 
 												new_playlist = 0;
 												old_playlist_index = index;
@@ -128,11 +95,11 @@ $.getJSON(playlists_JSON_link, function(json) {
 										});
 										
 										if (new_playlist) {
-											playlist_Title_And_Songs.title = json.feed.title.$t;
-											playlist_Title_And_Songs.songs = songs;
-											playlists.push(playlist_Title_And_Songs)
+											playlist.title = json.feed.title.$t;
+											playlist.songs = songs;
+											playlists.playlists.push(playlist)
 										} else {
-										 	playlists[old_playlist_index].songs = playlists[old_playlist_index].songs.concat(songs)
+										 	playlists.playlists[old_playlist_index].songs = playlists.playlists[old_playlist_index].songs.concat(songs)
 										}
 									}
 									// $("#output").append("plsize: " + playlists_size + "</br>");
@@ -141,16 +108,19 @@ $.getJSON(playlists_JSON_link, function(json) {
 								}
 									// if this is the last ajax request returning
 									if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
-										playlists.sort(playlists_Sort_Func);
+										playlists.playlists.sort(playlists_Sort_Func);
 										
-										jQuery.each(playlists, function(index, playlist) {
+										jQuery.each(playlists.playlists, function(index, playlist) {
 											$("#playlists").append("<a>" + playlist.title + "</a> </br>");
 
 											jQuery.each(playlist.songs, function(index, song) {
-												$("#playlist").append("<a href=\"javascript:myFunction('" + song.video_id + "')\">" + song.title + "</a> </br>");
+												$("#playlist").append("<a href=\"javascript:ytplayer.loadVideoById('" + song.video_id + "')\">" + song.title + "</a> </br>");
 											});
-											// href="javascript:myFunction('czM_xrcYW3Q')"
+											
 											playlist.songs.sort(playlists_Sort_Func);
+											
+											// save playlists to our backend
+											
 										});
 									}
 					   	      },
