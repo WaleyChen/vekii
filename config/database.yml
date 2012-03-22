@@ -4,7 +4,7 @@ development:
   database: vekii_development
   pool: 5
   username: postgres
-  password: ufc1UF@12
+  password: postgres
 
 test: &TEST
   adapter: postgresql
