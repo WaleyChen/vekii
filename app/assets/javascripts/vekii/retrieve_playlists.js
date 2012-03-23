@@ -13,6 +13,7 @@ var playlist_id = 0;
 var playlist_ajax_requests_sent_size = 0;
 var playlist_ajax_requests_received_size = 0;
 var song;
+var song_title_as_param;
 var songs;
 
 // AJAX vars
@@ -81,7 +82,7 @@ $.getJSON(playlists_JSON_link, function(json) {
 										}
 									}
 
-									song.title = json.feed.entry[i2].title.$t;
+									song.title = json.feed.entry[i2].title.$t; 
 									song.video_id = video_id;
 									songs.push(song);	
 
@@ -151,6 +152,19 @@ $.getJSON(playlists_JSON_link, function(json) {
 });
 
 // MISC
+function delete_song(playlist_title, song_title) {
+	jQuery.each(playlists.playlists, function(index, playlist) {
+		if (playlist.title == playlist_title) { 
+			$("#playlist").append(playlist.title);
+			jQuery.each(playlist.songs, function(index, song) {
+				if (song.title == song_title) {
+					$("#playlist").append(song.title);
+				}
+			});
+		}
+	});
+}
+
 function playlists_Sort_Func(a, b) {
 	var x = a.title.toLowerCase();
 	var y = b.title.toLowerCase();
@@ -164,23 +178,36 @@ function playlists_Sort_Func(a, b) {
 	}
 }
 
-function show_playlist(playlist_title) {
+function show_playlist(title) {
 	$("#playlist").html('');
-	$("#playlist").append(playlist_title + '</br>');
+	$("#playlist").append(title + '</br>');
 	
 	jQuery.each(playlists.playlists, function(index, playlist) {
-		if (playlist.title == playlist_title) { 
+		if (playlist.title == title) { 
 			jQuery.each(playlist.songs, function(index, song) {
+				// for the delete_song function, make the string parameter friendly
+				song_title_as_param = song.title.replace("'", "'");
+				song_title_as_param = song_title_as_param.title.replace("\"", "\\\"");
+				
 				$("#playlist").append("<a href=\"javascript:ytplayer.loadVideoById('" 
 									  	+ song.video_id 
 									  	+ "')\">" 
 										+ song.title 
 										+ " "
 										+ "</a>" 
-										+ "<img src=\"/assets/delete.png\" alt=\"delete.png\" height=\"8\" width=\"8\" " 
-										+ "/>"  
+										+ "<a href=\"javascript:delete_song('" 
+											+ playlist.title 
+											+ "', '"
+											+ song_title_as_param
+										+ "')\">"
+											+ "<img src=\"/assets/delete.png\""
+												+ "alt=\"delete.png\""
+												+ "height=\"10\"" 
+												+ "width=\"10\""
+											+ "/>"  
+										+ "</a>"
 										+ "</br>");
-				});
+			});
 		}
 	});
 }
