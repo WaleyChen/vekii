@@ -112,8 +112,20 @@ $.getJSON(playlists_JSON_link, function(json) {
 								if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
 									playlists.playlists.sort(playlists_Sort_Func);
 									
+									$("#playlists").append("Playlists</br>");
+									
 									jQuery.each(playlists.playlists, function(index, playlist) {
-										$("#playlists").append("<a href=\"javascript:show_playlist('" 
+										$("#playlists").append("<a href=\"javascript:delete_playlist(\'"
+																+ playlist.title 
+																+ "\')\" >"
+																	+ "<img src=\"/assets/delete.png\""
+																	+ "alt=\"delete.png\""
+																	+ "height=\"10\"" 
+																	+ "width=\"10\""
+																	+ "/>"  
+																+ "</a>");
+										
+										$("#playlists").append(" <a href=\"javascript:show_playlist('" 
 															   + playlist.title 
 															   + "')\">"
 															   + playlist.title 
@@ -153,12 +165,13 @@ $.getJSON(playlists_JSON_link, function(json) {
 
 // MISC
 function delete_song(playlist_title, song_title) {
-	jQuery.each(playlists.playlists, function(index, playlist) {
+	jQuery.each(playlists.playlists, function(playlist_index, playlist) {
 		if (playlist.title == playlist_title) { 
-			$("#playlist").append(playlist.title);
-			jQuery.each(playlist.songs, function(index, song) {
+			jQuery.each(playlist.songs, function(song_index, song) {
 				if (song.title == song_title) {
-					$("#playlist").append(song.title);
+					playlists.playlists[playlist_index].songs.splice(song_index, 1);
+					show_playlist(playlist_title);
+					return;
 				}
 			});
 		}
@@ -186,26 +199,27 @@ function show_playlist(title) {
 		if (playlist.title == title) { 
 			jQuery.each(playlist.songs, function(index, song) {
 				// for the delete_song function, make the string parameter friendly
-				song_title_as_param = song.title.replace("'", "'");
-				song_title_as_param = song_title_as_param.title.replace("\"", "\\\"");
+				// http://stackoverflow.com/questions/1873/triple-quotes-how-do-i-delimit-a-databound-javascript-string-parameter-in-asp-n
+				song_title_as_param = song.title.replace(/\'/g, "\\\'");
+				song_title_as_param = song_title_as_param.replace(/\"/g, "&#34;");
 				
-				$("#playlist").append("<a href=\"javascript:ytplayer.loadVideoById('" 
+				$("#playlist").append("<a href=\"javascript:delete_song(\'"
+										+ playlist.title 
+										+ "\', \'"
+										+ song_title_as_param
+										+ "\')\" >"
+											+ "<img src=\"/assets/delete.png\""
+											+ "alt=\"delete.png\""
+											+ "height=\"10\"" 
+											+ "width=\"10\""
+											+ "/>"  
+										+ "</a>");
+				$("#playlist").append(" <a href=\"javascript:ytplayer.loadVideoById('" 
 									  	+ song.video_id 
 									  	+ "')\">" 
 										+ song.title 
 										+ " "
 										+ "</a>" 
-										+ "<a href=\"javascript:delete_song('" 
-											+ playlist.title 
-											+ "', '"
-											+ song_title_as_param
-										+ "')\">"
-											+ "<img src=\"/assets/delete.png\""
-												+ "alt=\"delete.png\""
-												+ "height=\"10\"" 
-												+ "width=\"10\""
-											+ "/>"  
-										+ "</a>"
 										+ "</br>");
 			});
 		}
