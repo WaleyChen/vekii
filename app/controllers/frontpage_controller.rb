@@ -45,6 +45,10 @@ class FrontpageController < ApplicationController
     send_file '/public/js/yt_player.js', 
   end
   
+  def player_JS
+    send_file '/public/js/player.js', 
+  end
+  
   def examplePlaylistJSON
     send_file '/public/example_playlist.json', 
   end

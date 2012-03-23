@@ -21,6 +21,7 @@ Vekii::Application.routes.draw do
     match 'validate_token.js' => 'frontpage#validate_Token_JS'
     match 'vekii_backbone.js' => 'frontpage#vekii_Backbone_JS'
     match 'yt_player' => 'frontpage#yt_Player_JS'
+    match 'player' => 'frontpage#player_JS'
   
     # IMAGES
     match 'delete.png' => 'frontpage#delete_PNG'
