@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322082206) do
+ActiveRecord::Schema.define(:version => 20120323091532) do
 
   create_table "playlists", :force => true do |t|
     t.string   "username"
-    t.text     "playlistsJSON"
+    t.text     "playlists_JSON"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

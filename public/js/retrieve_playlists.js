@@ -141,6 +141,8 @@ $.getJSON(playlists_JSON_link, function(json) {
 									        success: 		function(response) {
 									        					if (response == "POST was successful.") {
 										
+																} else if (resposne == "Already exists in the database."){
+																	$("#output").append("<li> Already exists </li>");
 																}
 									        				}
 									});
