@@ -112,18 +112,13 @@ $.getJSON(playlists_JSON_link, function(json) {
 									playlists.playlists.sort(playlists_Sort_Func);
 									
 									jQuery.each(playlists.playlists, function(index, playlist) {
-										$("#playlists").append("<a>" + playlist.title + "</a> </br>");
+										$("#playlists").append("<a href=\"javascript:show_playlist('" 
+															   + playlist.title 
+															   + "')\">"
+															   + playlist.title 
+															   + "</a> </br>");
 
-										jQuery.each(playlist.songs, function(index, song) {
-											$("#playlist").append("<a href=\"javascript:ytplayer.loadVideoById('" 
-																  + song.video_id 
-																  + "')\">" 
-																  + song.title 
-																  + "</a> </br>");
-										});
-										
-										playlist.songs.sort(playlists_Sort_Func);
-										
+										playlist.songs.sort(playlists_Sort_Func);										
 										playlists_JSON = JSON.stringify(playlists);
 									});
 									
@@ -140,9 +135,7 @@ $.getJSON(playlists_JSON_link, function(json) {
 															},
 									        success: 		function(response) {
 									        					if (response == "POST was successful.") {
-										
-																} else if (resposne == "Already exists in the database."){
-																	$("#output").append("<li> Already exists </li>");
+																} else if (response == "Already exists in the database."){
 																}
 									        				}
 									});
@@ -169,4 +162,21 @@ function playlists_Sort_Func(a, b) {
 	} else {
 		return 0;
 	}
+}
+
+function show_playlist(playlist_title) {
+	$("#playlist").html('');
+	$("#playlist").append(playlist_title + '</br>');
+	
+	jQuery.each(playlists.playlists, function(index, playlist) {
+		if (playlist.title == playlist_title) { 
+			jQuery.each(playlist.songs, function(index, song) {
+				$("#playlist").append("<a href=\"javascript:ytplayer.loadVideoById('" 
+				+ song.video_id 
+				+ "')\">" 
+				+ song.title 
+				+ "</a> </br>");
+				});
+		}
+	});
 }
