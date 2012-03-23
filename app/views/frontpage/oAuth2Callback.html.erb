@@ -1,3 +1,9 @@
+<!-- JAVASCRIPT-->
+<script language="javascript" type="text/javascript" src="/assets/vekii/validate_token.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/retrieve_playlists.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/yt_player.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/vekii_backbone.js"> </script>
+
 <!-- TEMPLATES -->
 <script type="text/template" id="playlists_template">
   <h1>Playlists</h1>
@@ -14,9 +20,11 @@
 
 	<div class="span8">
 		<!-- youtube video -->
-		<div id="yt_api_player">
-		    You need Flash player 8+ and JavaScript enabled to view this video.
-		</div>
+		<center>
+			<div id="yt_api_player">
+		    	You need Flash player 8+ and JavaScript enabled to view this video.
+			</div>
+		</centerot>
 	</div>
 	
     <div class="span2">
@@ -33,11 +41,6 @@
     swfobject.embedSWF("http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3",
                        "yt_api_player", "425", "356", "8", null, null, params, atts);
 </script>
-
-<script language="javascript" type="text/javascript" src="js/validate_token.js"> </script>
-<script language="javascript" type="text/javascript" src="js/retrieve_playlists.js"> </script>
-<script language="javascript" type="text/javascript" src="js/yt_player.js"> </script>
-<script language="javascript" type="text/javascript" src="js/vekii_backbone.js"> </script>
 
 <div id="output">
 </div>

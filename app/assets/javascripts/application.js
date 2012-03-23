@@ -8,4 +8,9 @@
 //= require jquery_ujs
 //= require underscore-min.js
 //= require backbone-min.js
-//= require_tree .
+//= vekii_js/validate_token.js
+//= vekii_js/retrive_playlists.js
+//= vekii_js/vekii_backbone.js
+//= vekii_js/yt_player.js
+//= require_tree
+

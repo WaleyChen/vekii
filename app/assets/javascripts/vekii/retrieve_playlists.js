@@ -172,10 +172,14 @@ function show_playlist(playlist_title) {
 		if (playlist.title == playlist_title) { 
 			jQuery.each(playlist.songs, function(index, song) {
 				$("#playlist").append("<a href=\"javascript:ytplayer.loadVideoById('" 
-				+ song.video_id 
-				+ "')\">" 
-				+ song.title 
-				+ "</a> </br>");
+									  	+ song.video_id 
+									  	+ "')\">" 
+										+ song.title 
+										+ " "
+										+ "</a>" 
+										+ "<img src=\"/assets/delete.png\" alt=\"delete.png\" height=\"8\" width=\"8\" " 
+										+ "/>"  
+										+ "</br>");
 				});
 		}
 	});

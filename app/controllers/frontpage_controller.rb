@@ -29,6 +29,22 @@ class FrontpageController < ApplicationController
     send_file '/public/nikeelevet.json', 
   end
   
+  def retrive_Playlists_JS
+    send_file '/public/js/retreive_playlists.js', 
+  end
+  
+  def validate_Token_JS
+    send_file '/public/js/validate_token.js', 
+  end
+  
+  def vekii_Backbone_JS
+    send_file '/public/js/vekii_backbone.js', 
+  end
+  
+  def yt_Player_JS
+    send_file '/public/js/yt_player.js', 
+  end
+  
   def examplePlaylistJSON
     send_file '/public/example_playlist.json', 
   end
@@ -43,5 +59,9 @@ class FrontpageController < ApplicationController
   
   def playlistsJSON
     send_file '/public/playlists.json'
+  end
+  
+  def delete_PNG
+    send_file '/public/images/delete.png'
   end
 end
