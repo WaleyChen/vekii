@@ -12,25 +12,62 @@
   </ul>
 </script>
 
+<ul class="nav nav-tabs">
+  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
+  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
+</ul>
+
 <!-- BODY -->
 <div class="row-fluid">
-    <div class="span2">
-    	<div id="playlists">
-		</div>
-    </div>
 
-	<div class="span2">
+	<div class="span3">
+		<div class="well" style="padding: 8px 0px;">
+		        <ul id="playlists" class="nav nav-list">
+		        </ul>
+		</div>
+	</div>
+	
+	<!-- 
+    <div class="span2">		
+		<ul class="nav nav-tabs">
+		  <center>
+		  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
+		  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
+		  </center>
+		</ul>
+		
+		<div class="well" style="padding: 8px 0;">
+		        <ul class="nav nav-list">
+		          <li><a href="#">Home</a></li>
+		          <li><a href="#">Library</a></li>
+		          <li><a href="#">Applications</a></li>
+		          <li><a href="#">Misc</a></li>
+		        </ul>
+		</div>
+		
+    
+    </div>
+	-->
+
+	<!-- 
+	<div class="span1">
 		<div id="playlist">
 		</div>
 	</div>
+	-->
 
-	<div class="span8">
-		<!-- youtube video -->
-		<center>
-			<div id="yt_api_player">
-		    	You need Flash player 8+ and JavaScript enabled to view this video.
-			</div>
-		</centerot>
+	<div class="span6">
+		</br>
+		<div id="yt_api_player" align='center'>
+		    You need Flash player 8+ and JavaScript enabled to view this video.
+		</div>
+	</div>
+	
+	<div class="span3">
+		<ul class="nav nav-tabs">
+		  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
+		  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
+		</ul>
 	</div>
 </div>
 
@@ -40,7 +77,7 @@
     var atts = { id: "myytplayer" };
 	// swfobject.embedSWF will load the player from YouTube and embed it onto your page.
     swfobject.embedSWF("http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3",
-                       "yt_api_player", "425", "356", "8", null, null, params, atts);
+                       "yt_api_player", "640", "390", "8", null, null, params, atts);
 </script>
 
 <div id="output">

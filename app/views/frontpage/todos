@@ -36,3 +36,5 @@ git for music
 clone playlists
 push and pull playlists to augment playlists
 public playlists
+
+if user hasn't logged in, can see music player with your playlists
