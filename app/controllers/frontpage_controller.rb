@@ -18,7 +18,7 @@ class FrontpageController < ApplicationController
     elsif ENV["RAILS_ENV"] == "vekii_production"
       redirect_uri = "redirect_uri=http://smooth-warrior-1237.herokuapp.com/oauth2callback"
     end
-    // 
+    
     @googleLoginLink = @googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type
   end
   

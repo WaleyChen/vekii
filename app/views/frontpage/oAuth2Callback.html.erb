@@ -12,62 +12,54 @@
   </ul>
 </script>
 
-<ul class="nav nav-tabs">
-  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
-  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
-</ul>
-
 <!-- BODY -->
 <div class="row-fluid">
 
 	<div class="span3">
+		<ul class="nav nav-tabs">
+		  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
+		  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
+		</ul>
+		
 		<div class="well" style="padding: 8px 0px;">
-		        <ul id="playlists" class="nav nav-list">
-		        </ul>
+			<ul id="playlists" class="nav nav-list">
+		    </ul>
 		</div>
 	</div>
 	
-	<!-- 
-    <div class="span2">		
-		<ul class="nav nav-tabs">
-		  <center>
-		  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
-		  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
-		  </center>
-		</ul>
-		
-		<div class="well" style="padding: 8px 0;">
-		        <ul class="nav nav-list">
-		          <li><a href="#">Home</a></li>
-		          <li><a href="#">Library</a></li>
-		          <li><a href="#">Applications</a></li>
-		          <li><a href="#">Misc</a></li>
-		        </ul>
-		</div>
-		
-    
-    </div>
-	-->
-
-	<!-- 
-	<div class="span1">
-		<div id="playlist">
-		</div>
-	</div>
-	-->
-
 	<div class="span6">
+		<center>
 		</br>
-		<div id="yt_api_player" align='center'>
-		    You need Flash player 8+ and JavaScript enabled to view this video.
-		</div>
+		<div>
+		<form>
+		    <div class='input-append'>
+		        <input placeholder="Search..."  width='800px'/>
+		        <button class='btn add-on'>
+		            <i class="icon-search"></i>
+		        </button>
+		    </div>
+		</form>
+		</div>​
+		
+			<div id="yt_api_player">
+		    	You need Flash player 8+ and JavaScript enabled to view this video.
+			</div>
+			
+			<div id="console">
+			</div>
+		</center>
 	</div>
 	
 	<div class="span3">
 		<ul class="nav nav-tabs">
-		  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
-		  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
+		  <li><a href="#home" data-toggle="tab"><h3>Recommended</h3></a></li>
+		  <li><a href="#profile" class="btn btn-large" data-toggle="tab" ><i class="icon-cog"></i></a></li>
 		</ul>
+		
+		<div class="well" style="padding: 8px 0px;">
+			<ul id="recommended" class="nav nav-list">
+		    </ul>
+		</div>
 	</div>
 </div>
 

@@ -1,3 +1,6 @@
+var playlist_showing;
+var playlist_showing_bool = 0;
+
 function delete_Playlist(playlist_title) {
 	jQuery.each(playlists.playlists, function(playlist_index, playlist) {
 		if (playlist.title == playlist_title) { 
@@ -6,6 +9,9 @@ function delete_Playlist(playlist_title) {
 			return false;
 		}
 	});
+}
+
+function delete_Recommended(song_video_id) {
 }
 
 function delete_Song(playlist_title, song_title) {
@@ -39,32 +45,23 @@ function show_Playlists(playlist_to_show) {
 	$("#playlists").html('');
 	
 	jQuery.each(playlists.playlists, function(index, playlist) {
-		$("#playlists").append("<li><a href=\"javascript:show_Playlists('" 
-							   + playlist.title 
-							   + "')\">"
-							   + playlist.title 
-							   + "</a>");
+		$("#playlists").append("<li class=\"left\">"
+							  		+ "<a href=\"javascript:show_Playlists('" 
+							  		+ playlist.title 
+							   		+ "')\" width=50px >"
+							   		+ playlist.title 
+							   	+ "</a>"
+								+ "</li>");
+		
 		$("#playlists").append("<a href=\"javascript:delete_Playlist(\'"
-								+ playlist.title 
-								+ "\')\" >"
-									+ "<img src=\"/assets/delete.png\""
-									+ "align=\"right\""
-									+ "alt=\"delete.png\""
-									+ "height=\"10\"" 
-									+ "width=\"10\""
-									+ "/>"  
-								+ "</a></li>");
-
-		/*
-								<div class="well" style="padding: 8px 0;">
-								        <ul class="nav nav-list">
-								          <li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
-								          <li><a href="#"><i class="icon-book"></i> Library</a></li>
-								          <li><a href="#"><i class="icon-pencil"></i> Applications</a></li>
-								          <li><a href="#">Misc</a></li>
-								        </ul>
-								      </div> <!-- /well -->
-		*/
+									+ playlist.title 
+									+ "\')\">"
+										+ "<li class=\"right\">"
+											+ "<i class=\"icon-remove\"></i> "
+								   		+ "</li>"  
+										+ "</a>" 
+										+ "</li>");
+		
 		playlist.songs.sort(playlists_Sort_Func);
 		
 		if (playlist.title == playlist_to_show) { 
@@ -79,29 +76,71 @@ function show_Playlists(playlist_to_show) {
 					$("#playlists").append("</ul>");
 				}
 				
-				$("#playlist").append("<li>"
-										+ "<a href=\"javascript:ytplayer.loadVideoById('" 
-									  	+ song.video_id 
-									  	+ "')\">" 
+				if (!playlist_showing_bool || playlist_showing != playlist_to_show) {
+					$("#playlist").append("<li>"
+												+ "<a href=\"javascript:ytplayer.loadVideoById('" 
+									  				+ song.video_id 
+									  				+ "');"
+													+ "javascript:show_Recommended('"
+													+ song.video_id 
+									  				+ "');"
+													+ "\">" 
+													+ song.title 
+													+ " "
+												+ "</a>"
+												+ "<a href=\"javascript:delete_Song(\'"
+													+ playlist.title 
+													+ "\', \'"
+													+ song_title_as_param
+													+ "\')\" >"
+														+ "<img src=\"/assets/delete.png\""
+															+ "align=\"right\""
+															+ "alt=\"delete.png\""
+															+ "height=\"10\"" 
+															+ "width=\"10\""
+															+ "/>"  
+												+ "</a>"
+											+ "</li>");
+				}
+			});
+		}
+	});
+	
+	if (playlist_showing_bool === 0 || playlist_showing != playlist_to_show) {
+		playlist_showing_bool = 1;
+		playlist_showing = playlist_to_show;
+	} else {
+		playlist_showing_bool = 0;
+		playlist_showing = "";
+	}
+}
+
+function show_Recommended(song_video_id) {
+	var recommended_videos = songs_related_videos_hash[song_video_id];
+	
+	$("#recommended").html('');
+	
+	jQuery.each(recommended_videos, function(index, song) {
+		$("#recommended").append("<li>"
+									+ "<a href=\"javascript:ytplayer.loadVideoById('" 
+						  				+ song.video_id 
+						  				+ "');"
+										+ "\">" 
 										+ song.title 
 										+ " "
-										+ "</a>");
-				$("#playlist").append("<a href=\"javascript:delete_Song(\'"
-										+ playlist.title 
+									+ "</a>"
+									+ "<a href=\"javascript:delete_Recommendation(\'"
+										+ song.title 
 										+ "\', \'"
 										+ song_title_as_param
 										+ "\')\" >"
 											+ "<img src=\"/assets/delete.png\""
-											+ "align=\"right\""
-											+ "alt=\"delete.png\""
-											+ "height=\"10\"" 
-											+ "width=\"10\""
-											+ "/>"  
-										+ "</a>"
-										+ "</li>");
-			});
-		}
-												
-		playlists_JSON = JSON.stringify(playlists);
+												+ "align=\"right\""
+												+ "alt=\"delete.png\""
+												+ "height=\"10\"" 
+												+ "width=\"10\""
+												+ "/>"  
+									+ "</a>"
+								+ "</li>");
 	});
 }
