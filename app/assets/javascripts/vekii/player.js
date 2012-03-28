@@ -5,7 +5,14 @@ function delete_Playlist(playlist_title) {
 	jQuery.each(playlists.playlists, function(playlist_index, playlist) {
 		if (playlist.title == playlist_title) { 
 			playlists.playlists.splice(playlist_index, 1);
-			show_Playlists();
+			
+			if (playlist_title != playlist_showing && playlist_showing_bool == 1) {
+				playlist_showing_bool = 0;
+				show_Playlists(playlist_showing);
+			} else {
+				show_Playlists();
+			}
+			
 			return false;
 		}
 	});
@@ -20,6 +27,7 @@ function delete_Song(playlist_title, song_title) {
 			jQuery.each(playlist.songs, function(song_index, song) {
 				if (song.title == song_title) {
 					playlists.playlists[playlist_index].songs.splice(song_index, 1);
+					playlist_showing_bool = 0;
 					show_Playlists(playlist_title);
 					return false;
 				}
@@ -41,7 +49,7 @@ function playlists_Sort_Func(a, b) {
 	}
 }
 
-function show_Playlists(playlist_to_show) {
+function show_Playlists(playlist_to_show) {	
 	$("#playlists").html('');
 	
 	jQuery.each(playlists.playlists, function(index, playlist) {

@@ -23,6 +23,15 @@ var songs_related_videos_hash = {};
 
 // misc vars
 var count = 0;
+var loading_indicator = 
+	getBusyOverlay("viewport",
+				   {color:'black', 
+						opacity:0.5, 
+						text:'Retrieving data', 
+						style:'text-decoration:blink;font-weight:bold;font-size:12px;color:white'},
+				   {color:'#fff', 
+						size:32, 
+						type:'t'});
 
 // AJAX vars
 var dev_Key = "AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw";
@@ -156,6 +165,14 @@ $.getJSON(playlists_JSON_link, function(json) {
 																			songs_related_videos_hash[playlists.playlists[playlist_index].songs[song_index].video_id];
 																	});
 																});
+																
+																loading_indicator.remove();
+																
+																var params = { allowScriptAccess: "always" };
+															    var atts = { id: "myytplayer" };
+																// swfobject.embedSWF will load the player from YouTube and embed it onto your page.
+															    swfobject.embedSWF("http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3",
+															                       "yt_api_player", "640", "390", "8", null, null, params, atts);
 																
 																playlists.playlists.sort(playlists_Sort_Func);
 
