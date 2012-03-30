@@ -6,5 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require underscore-min.js
 //= require backbone-min.js

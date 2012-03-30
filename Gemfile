@@ -10,7 +10,7 @@ gem 'oauth'
 gem 'mechanize'
 gem 'nokogiri'
 gem 'pg'
-gem 'bootstrap-sass', '2.0.0'
+gem "twitter-bootstrap-rails"
 
 # Gems used only for assets and not required
 # in production environments by default.

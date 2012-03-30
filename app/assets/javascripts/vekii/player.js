@@ -19,24 +19,7 @@ function delete_Playlist(playlist_title) {
 		}
 	});
 
-	playlists_JSON = JSON.stringify(playlists);
-
-	$.ajax({
-	        type: 			"PUT",
-	        url: 			"playlists/" + username,
-			contentType: 	"application/json",
-	        data: 			playlists_JSON,
-			processdata: 	false,
-			beforeSend: 	function(jqXHR) {
-								jqXHR.setRequestHeader('X-CSRF-Token', 
-									$('meta[name="csrf-token"]').attr('content'))
-							},
-	        success: 		function(response) {
-	        					if (response == "POST was successful.") {
-								} else if (response == "Already exists in the database."){
-								}
-	        				}
-	});
+	update_Playlists();
 }
 
 function delete_Recommended(song_video_id) {
@@ -56,24 +39,7 @@ function delete_Song(playlist_title, song_title) {
 		}
 	});
 	
-	playlists_JSON = JSON.stringify(playlists);
-
-	$.ajax({
-	        type: 			"PUT",
-	        url: 			"playlists/" + username,
-			contentType: 	"application/json",
-	        data: 			playlists_JSON,
-			processdata: 	false,
-			beforeSend: 	function(jqXHR) {
-								jqXHR.setRequestHeader('X-CSRF-Token', 
-									$('meta[name="csrf-token"]').attr('content'))
-							},
-	        success: 		function(response) {
-	        					if (response == "POST was successful.") {
-								} else if (response == "Already exists in the database."){
-								}
-	        				}
-	});
+	update_Playlists();
 }
 
 function login() {
@@ -232,5 +198,26 @@ function show_Recommended(song_video_id) {
 	  	error:         function(jqXHR, textStatus, errorThrown) {
 							throw 'AJAX call for related videos JSON feed failed.';
 	  		   	       }
+	});
+}
+
+function update_Playlists() {
+	playlists_JSON = JSON.stringify(playlists);
+
+	$.ajax({
+	        type: 			"PUT",
+	        url: 			"playlists/" + username,
+			contentType: 	"application/json",
+	        data: 			playlists_JSON,
+			processdata: 	false,
+			beforeSend: 	function(jqXHR) {
+								jqXHR.setRequestHeader('X-CSRF-Token', 
+									$('meta[name="csrf-token"]').attr('content'))
+							},
+	        success: 		function(response) {
+	        					if (response == "POST was successful.") {
+								} else if (response == "Already exists in the database."){
+								}
+	        				}
 	});
 }
