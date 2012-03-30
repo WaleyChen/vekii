@@ -27,6 +27,8 @@ FUNCTION
 	- organize playlists by views in subsriptions so only see the popular ones
 	- delete recommended video functionality
 	- load recommended videos for a recommended video
+	- search
+		- implement instant search
 	
 	Important: When verifying a token, it is critical to ensure the audience field in the response exactly matches your client_id registered in the APIs Console. This is the mitigation for the confused deputy issue, and it is absolutely vital to perform this step.
 	
