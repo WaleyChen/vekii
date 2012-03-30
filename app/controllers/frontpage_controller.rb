@@ -16,7 +16,7 @@ class FrontpageController < ApplicationController
     if ENV["RAILS_ENV"] == "development" || ENV["RAILS_ENV"] == "vekii_test"
       redirect_uri = "redirect_uri=http://localhost:3000"
     elsif ENV["RAILS_ENV"] == "production"
-      redirect_uri = "redirect_uri=http://smooth-warrior-1237.herokuapp.com"
+      redirect_uri = "redirect_uri=http://fierce-stream-3563.herokuapp.com/"
     end
     
     @googleLoginLink = @googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type
