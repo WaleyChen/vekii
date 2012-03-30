@@ -15,6 +15,7 @@ Vekii::Application.routes.draw do
   # delete '/images/:id' => 'images#destroy'  # delete image
   get  'playlists' => 'playlists#index'
   post 'playlists' => 'playlists#create'
+  put  'playlists/:username' => 'playlists#update'
   get  'playlists/:username' => 'playlists#get_Usernames_Playlists'
   
   match 'user' => 'user#index'

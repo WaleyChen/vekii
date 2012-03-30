@@ -38,6 +38,15 @@ class PlaylistsController < ApplicationController
   end
   
   # GET /photos/:id/edit (action: edit)  return an HTML form for editing a photo
+  
   # PUT /photos/:id update (action: update) a specific photo
+  def update
+    username = params[:username]
+     playlists_JSON = params[:playlists]
+    
+    playlists = Playlists.find_by_username(username);
+    playlists.update_attributes(:playlists_JSON => playlists_JSON);
+  end
+  
   # DELETE  /photos/:id (action: destroy) delete a specific photo
 end
