@@ -1,4 +1,92 @@
+<!-- JAVASCRIPT-->
+<script language="javascript" type="text/javascript" src="/assets/cvi_busy_lib.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/cookie.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/validate_token.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/player.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/retrieve_playlists.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/yt_player.js"> </script>
+<script language="javascript" type="text/javascript" src="/assets/vekii/vekii_backbone.js"> </script>
+
+<!-- TEMPLATES -->
+<script type="text/template" id="playlists_template">
+  <h1>Playlists</h1>
+  <ul class="playlists">
+  </ul>
+</script>
+
+<!-- BODY -->
+<div class="row-fluid">
+
+	<div class="span3">
+		<ul class="nav nav-tabs">
+		  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
+		  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
+		</ul>
+		
+		<div class="well" style="padding: 8px 0px;">
+			<ul id="playlists" class="nav nav-list">
+		    </ul>
+		</div>
+	</div>
+	
+	<div class="span6">
+		<center>
+		</br>
+		<div>
+		<form>
+		    <div class='input-append'>
+		        <input placeholder="Search..."  width='800px'/>
+		        <button class='btn add-on'>
+		            <i class="icon-search"></i>
+		        </button>
+		    </div>
+		</form>
+		</div>​
+		
+			<div id="yt_api_player">
+			</div>
+			
+			<div id="console">
+			</div>
+		</center>
+	</div>
+	
+	<div class="span3">
+		<ul class="nav nav-tabs">
+		  <li><a href="#home" data-toggle="tab"><h3>Recommended</h3></a></li>
+		  <li><a href="#profile" class="btn btn-large" data-toggle="tab" ><i class="icon-cog"></i></a></li>
+		  <%= button_to 'Login', @googleLoginLink %> 
+		</ul>
+		
+		<div class="well" style="padding: 8px 0px;">
+			<ul id="recommended" class="nav nav-list">
+		    </ul>
+		</div>
+	</div>
+</div>
+
+<!-- Embedding the YouTube player using SWFObject: https://developers.google.com/youtube/js_api_reference#Examples-->
+<script type="text/javascript">
+	var params = { allowScriptAccess: "always" };
+    var atts = { id: "myytplayer" };
+	// swfobject.embedSWF will load the player from YouTube and embed it onto your page.
+    // swfobject.embedSWF("http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3",
+    //                   "yt_api_player", "640", "390", "8", null, null, params, atts);
+</script>
+
+<div id="output">
+</div>
+
 </br>
-<%= button_to 'Google Login', @googleLoginLink %> 
-</br>
+
+<ul id="friends-list">	
+</ul>
+
+<body>
+  <div id="container">
+  </div>
+</body>
+</html>
+
+
 

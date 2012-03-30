@@ -1,6 +1,8 @@
 var playlist_showing;
 var playlist_showing_bool = 0;
 
+window.location.hash = "";
+
 function delete_Playlist(playlist_title) {
 	jQuery.each(playlists.playlists, function(playlist_index, playlist) {
 		if (playlist.title == playlist_title) { 
@@ -34,6 +36,10 @@ function delete_Song(playlist_title, song_title) {
 			});
 		}
 	});
+}
+
+function login() {
+	alert("login");
 }
 
 function playlists_Sort_Func(a, b) {
@@ -124,31 +130,69 @@ function show_Playlists(playlist_to_show) {
 }
 
 function show_Recommended(song_video_id) {
-	var recommended_videos = songs_related_videos_hash[song_video_id];
+	var song_related_videos_JSON_link = "https://gdata.youtube.com/feeds/api/videos/" 
+											+ song_video_id 
+											+ "/related?v=2"
+											+ "&alt=json" 
+											+ "&access_token=" 
+											+ hash_values_json.access_token
+											+ "&key="
+											+ dev_Key;
 	
-	$("#recommended").html('');
-	
-	jQuery.each(recommended_videos, function(index, song) {
-		$("#recommended").append("<li>"
-									+ "<a href=\"javascript:ytplayer.loadVideoById('" 
-						  				+ song.video_id 
-						  				+ "');"
-										+ "\">" 
-										+ song.title 
-										+ " "
-									+ "</a>"
-									+ "<a href=\"javascript:delete_Recommendation(\'"
-										+ song.title 
-										+ "\', \'"
-										+ song_title_as_param
-										+ "\')\" >"
-											+ "<img src=\"/assets/delete.png\""
-												+ "align=\"right\""
-												+ "alt=\"delete.png\""
-												+ "height=\"10\"" 
-												+ "width=\"10\""
-												+ "/>"  
-									+ "</a>"
-								+ "</li>");
+	// get the related videos JSON feed
+	$.ajax({
+		type:  		   'GET',
+	  	url:           song_related_videos_JSON_link,
+	  	dataType:      'json',
+
+	    beforeSend:    function(jqXHR) {
+					   }, 
+
+	  	success:       function(json, textStatus, jqXHR) {
+							video_id_regexp = /[=][^&]+(?=&)/;
+		
+							$("#recommended").html('');
+							
+							jQuery.each(json.feed.entry, function(song_index, song) {
+								// the video id should be in the link array else throw an exception
+								count = 0;
+								for (link_index = 0; link_index < song.link.length; link_index++) {
+									if (count == 1) {
+										break;
+									} else if (song.link[link_index].rel == "alternate") {
+										video_id = song.link[link_index].href.match(video_id_regexp)[0	].substr(1);
+										count++;
+									} else if (link_index == song.link.length - 1) {
+										throw "Could not find video id or related videos feed.";
+									}
+								}
+												
+								$("#recommended").append("<li>"
+															+ "<a href=\"javascript:ytplayer.loadVideoById('" 
+												  				+ video_id 
+												  				+ "');"
+																+ "\">" 
+																+ song.title.$t
+																+ " "
+															+ "</a>"
+															+ "<a href=\"javascript:delete_Recommendation(\'"
+																+ song.title.$t
+																+ "\', \'"
+																+ song_title_as_param
+																+ "\')\" >"
+																	+ "<img src=\"/assets/delete.png\""
+																		+ "align=\"right\""
+																		+ "alt=\"delete.png\""
+																		+ "height=\"10\"" 
+																		+ "width=\"10\""
+																		+ "/>"  
+															+ "</a>"
+														+ "</li>");
+							});
+			   	       },
+
+	  	error:         function(jqXHR, textStatus, errorThrown) {
+							throw 'AJAX call for related videos JSON feed failed.';
+	  		   	       }
 	});
 }

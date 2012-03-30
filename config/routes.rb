@@ -3,9 +3,19 @@ Vekii::Application.routes.draw do
   
   match 'oauth2callback' => 'frontpage#oAuth2Callback'
   match 'sampleajax' => 'frontpage#sampleajax'
-  match 'playlist' => 'playlist#playlist'
   
-  resources :playlists
+  match 'playlist' => 'playlist#playlist'
+
+  # get '/images' => 'images#index'           # list all images
+  # get '/images/:id' => 'images#show'        # show one image
+  # get '/images/new' => 'images#new'         # get form to create image
+  # post '/images' => 'images#create'         # create image
+  # get '/images/:id/edit' => 'images#edit'   # get form to edit image
+  # put '/images/:id' => 'images#update'      # update image
+  # delete '/images/:id' => 'images#destroy'  # delete image
+  get  'playlists' => 'playlists#index'
+  post 'playlists' => 'playlists#create'
+  get  'playlists/:username' => 'playlists#get_Usernames_Playlists'
   
   match 'user' => 'user#index'
   match 'createUser' => 'user#createUser'
@@ -16,13 +26,6 @@ Vekii::Application.routes.draw do
   match 'example_playlist.json' => 'frontpage#examplePlaylistJSON'
   
   # ASSETS
-    # JAVASCRIPT
-    match 'retrive_playlists.js' => 'frontpage#retrieve_Playlists_JS'
-    match 'validate_token.js' => 'frontpage#validate_Token_JS'
-    match 'vekii_backbone.js' => 'frontpage#vekii_Backbone_JS'
-    match 'yt_player' => 'frontpage#yt_Player_JS'
-    match 'player' => 'frontpage#player_JS'
-  
     # IMAGES
     match 'delete.png' => 'frontpage#delete_PNG'
 end

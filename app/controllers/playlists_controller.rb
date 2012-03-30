@@ -5,6 +5,8 @@ class PlaylistsController < ApplicationController
     
     respond_to do |format|
       format.html
+      format.json { sample_playlists = Playlists.find_by_username("nikeelevet");
+                    render :json => sample_playlists.playlists_JSON.to_json } 
     end
   end
   
@@ -23,6 +25,18 @@ class PlaylistsController < ApplicationController
     end
   end
   # GET /photos/:id show (action: display) a specific photo
+  
+  # GET /photos/:username show (action: get_Username_Playlists) username's playlists
+  def get_Usernames_Playlists 
+    username = params[:username]
+    playlists = Playlists.find_by_username(username);
+    
+    respond_to do |format|
+      format.html
+      format.json { render :json => playlists.playlists_JSON.to_json } 
+    end
+  end
+  
   # GET /photos/:id/edit (action: edit)  return an HTML form for editing a photo
   # PUT /photos/:id update (action: update) a specific photo
   # DELETE  /photos/:id (action: destroy) delete a specific photo

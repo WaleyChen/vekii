@@ -1,3 +1,9 @@
+if i'm not logged, i should be able to play around with sample playlists
+if i'm logged in, but reload, i should be logged in again
+
+- switch frontpage to the player
+	- you'll need a playlist called guest
+
 FUNCTION
 	Features
 	- recommendations
