@@ -27,6 +27,13 @@ Vekii::Application.routes.draw do
   match 'example_playlist.json' => 'frontpage#examplePlaylistJSON'
   
   # ASSETS
+    # JAVASCRIPT
+    match 'player.js' => 'frontpage#player_JS'
+    match 'cookie.js' => 'frontpage#cookie_JS'
+    match 'cvi_busy_lib.js' => 'frontpage#cvi_Busy_Lib_JS'
+    match 'validate_token.js' => 'frontpage#validate_Token_JS'
+    match 'retrieve_playlists.js' => 'frontpage#retrive_Playlists_JS'
+    match 'yt_player.js' => 'frontpage#yt_Player_JS'
     # IMAGES
     match 'delete.png' => 'frontpage#delete_PNG'
 end

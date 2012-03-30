@@ -29,20 +29,32 @@ class FrontpageController < ApplicationController
     send_file '/public/nikeelevet.json', 
   end
   
+  def player_JS
+    send_file '/public/player.js', 
+  end
+  
   def retrive_Playlists_JS
-    send_file '/public/js/retreive_playlists.js', 
+    send_file '/public/retreive_playlists.js', 
+  end
+  
+  def cookie_JS
+    send_file '/public/cookie.js', 
+  end
+  
+  def cvi_Busy_Lib_JS
+    send_file '/public/cvi_busy_lib.js', 
   end
   
   def validate_Token_JS
-    send_file '/public/js/validate_token.js', 
+    send_file '/public/validate_token.js', 
   end
   
   def vekii_Backbone_JS
-    send_file '/public/js/vekii_backbone.js', 
+    send_file '/public/vekii_backbone.js', 
   end
   
   def yt_Player_JS
-    send_file '/public/js/yt_player.js', 
+    send_file '/public/yt_player.js', 
   end
   
   def player_JS
