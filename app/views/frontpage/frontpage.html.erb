@@ -19,29 +19,38 @@
 
 	<div class="span3">
 		<ul class="nav nav-tabs">
-		  <li><a href="#home" data-toggle="tab"><h3>Playlists</h3></a></li>
-		  <li><a href="#profile" data-toggle="tab"><h3>Subs</h3></a></li>
+		  	<li class="active">
+				<a href="#home" data-toggle="tab">
+					<h3>Playlists</h3>
+				</a>
+			</li>
+		  	<li>
+				<a href="#profile" data-toggle="tab">
+					<h3>Subs</h3>
+				</a>
+			</li>
 		</ul>
 		
 		<div class="well" style="padding: 8px 0px;">
 			<ul id="playlists" class="nav nav-list">
+				
 		    </ul>
 		</div>
 	</div>
 	
-	<div class="span6">
+	<div id="mid" class="span6">
 		<center>
-		</br>
-		<div>
-		<form>
-		    <div class='input-append'>
-		        <input placeholder="Search..."  width='800px'/>
-		        <button class='btn add-on'>
-		            <i class="icon-search"></i>
-		        </button>
-		    </div>
-		</form>
-		</div>​
+			</br>
+			<div>
+			<form>
+			    <div class='input-append'>
+			        <input placeholder="Search..."  width='800px'/>
+			        <button class='btn add-on'>
+			            <i class="icon-search"></i>
+			        </button>
+			    </div>
+			</form>
+			</div>​
 		
 			<div id="yt_api_player">
 			</div>
@@ -53,26 +62,31 @@
 	
 	<div class="span3">
 		<ul class="nav nav-tabs">
-		  <li><a href="#home" data-toggle="tab"><h3>Recommended</h3></a></li>
-		  <li><a href="#profile" class="btn btn-large" data-toggle="tab" ><i class="icon-cog"></i></a></li>
-		  <%= button_to 'Login', @googleLoginLink %> 
-		</ul>
-		
-		<ul class="nav nav-pills">
-		  <li class="active"><a href="#">Regular link</a></li>
-		  <li class="dropdown" id="menu1">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-		      Dropdown
-		      <b class="caret"></b>
-		    </a>
-		    <ul class="dropdown-menu">
-		      <li><a href="#">Action</a></li>
-		      <li><a href="#">Another action</a></li>
-		      <li><a href="#">Something else here</a></li>
-		      <li class="divider"></li>
-		      <li><a href="#">Separated link</a></li>
-		    </ul>
-		  </li>
+			<li class="active">
+				<a href="#home" data-toggle="tab">
+					<h3>Recommended</h3>
+				</a>
+			</li>
+			<li>
+		  		<ul class="nav nav-pills">
+				  	<li class="dropdown" id="menu1">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+					      <i class="icon-cog"></i>
+					      <b class="caret"></b>
+					    </a>
+					    <ul class="dropdown-menu">
+					      <li><a href="javascript:resync_Playlists()">Resync</a></li>
+					      <li><a href="#">Another action</a></li>
+					      <li><a href="#">Something else here</a></li>
+					      <li class="divider"></li>
+					      <li><a href="#">Separated link</a></li>
+					    </ul>
+					  </li>
+				 </ul>
+			</li>
+			<li>
+		  		<%= button_to 'Login', @googleLoginLink %> 
+			</li>
 		</ul>
 		
 		<div class="well" style="padding: 8px 0px;">

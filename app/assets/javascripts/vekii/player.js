@@ -59,27 +59,32 @@ function playlists_Sort_Func(a, b) {
 	}
 }
 
+function resync_Playlists() {
+}
+
 function show_Playlists(playlist_to_show) {	
 	$("#playlists").html('');
 	
 	jQuery.each(playlists.playlists, function(index, playlist) {
-		$("#playlists").append("<li class=\"left\">"
-							  		+ "<a href=\"javascript:show_Playlists('" 
-							  		+ playlist.title 
-							   		+ "')\" width=50px >"
-							   		+ playlist.title 
-							   	+ "</a>"
-								+ "</li>");
 		
-		$("#playlists").append("<a href=\"javascript:delete_Playlist(\'"
-									+ playlist.title 
-									+ "\')\">"
-										+ "<li class=\"right\">"
-											+ "<i class=\"icon-remove\"></i> "
-								   		+ "</li>"  
+		$("#playlists").append("<li>"
+							  		+ "<a class=\"playlist\" href=\"javascript:show_Playlists('" 
+							  				+ playlist.title 
+							   				+ "')\">"
+							   			+ playlist.title 
+										+ "<a class=\"delete_playlist\"href=\"javascript:delete_Playlist(\'"
+												+ playlist.title 
+												+ "\')\">"
+											+ "<i class=\"icon-remove\"> </i> "
 										+ "</a>" 
-										+ "</li>");
-		
+										+ "<a class=\"delete_playlist\"href=\"javascript:delete_Playlist(\'"
+												+ playlist.title 
+												+ "\')\">"
+											+ "<i class=\"icon-play\"> </i> "
+										+ "</a>"
+									+ "</a>"
+								+ "</li>");
+							 
 		playlist.songs.sort(playlists_Sort_Func);
 		
 		if (playlist.title == playlist_to_show) { 
@@ -95,28 +100,24 @@ function show_Playlists(playlist_to_show) {
 				}
 				
 				if (!playlist_showing_bool || playlist_showing != playlist_to_show) {
-					$("#playlist").append("<li>"
-												+ "<a href=\"javascript:ytplayer.loadVideoById('" 
-									  				+ song.video_id 
-									  				+ "');"
-													+ "javascript:show_Recommended('"
-													+ song.video_id 
-									  				+ "');"
-													+ "\">" 
-													+ song.title 
-													+ " "
-												+ "</a>"
-												+ "<a href=\"javascript:delete_Song(\'"
-													+ playlist.title 
-													+ "\', \'"
-													+ song_title_as_param
-													+ "\')\" >"
-														+ "<img src=\"/assets/delete.png\""
-															+ "align=\"right\""
-															+ "alt=\"delete.png\""
-															+ "height=\"10\"" 
-															+ "width=\"10\""
-															+ "/>"  
+					$("#playlists").append("<li>"
+										  		+ "<a class=\"playlist\" href=\"javascript:ytplayer.loadVideoById('" 
+										  				+ song.video_id 
+										   				+ "');"
+														+ "javascript:show_Recommended('"
+														+ song.video_id 
+									  					+ "');"
+														+ "\">"
+													+ "&nbsp"
+										   			+ song.title  
+													+ "<a class=\"delete_playlist\"href=\"javascript:delete_Song(\'"
+															+ playlist.title 
+															+ "\', \'"
+															+ song_title_as_param
+															+ "\')\" >"
+														+ "<i class=\"icon-remove\"> </i> "
+														+ "<i class=\"icon-move\"> </i> "
+													+ "</a>" 
 												+ "</a>"
 											+ "</li>");
 				}
@@ -173,23 +174,11 @@ function show_Recommended(song_video_id) {
 												
 								$("#recommended").append("<li>"
 															+ "<a href=\"javascript:ytplayer.loadVideoById('" 
-												  				+ video_id 
-												  				+ "');"
-																+ "\">" 
+												  					+ video_id 
+												  					+ "');"
+																	+ "\">" 
 																+ song.title.$t
 																+ " "
-															+ "</a>"
-															+ "<a href=\"javascript:delete_Recommendation(\'"
-																+ song.title.$t
-																+ "\', \'"
-																+ song_title_as_param
-																+ "\')\" >"
-																	+ "<img src=\"/assets/delete.png\""
-																		+ "align=\"right\""
-																		+ "alt=\"delete.png\""
-																		+ "height=\"10\"" 
-																		+ "width=\"10\""
-																		+ "/>"  
 															+ "</a>"
 														+ "</li>");
 							});
