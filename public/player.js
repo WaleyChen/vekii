@@ -192,21 +192,31 @@ function show_Recommended(song_video_id) {
 
 function update_Playlists() {
 	playlists_JSON = JSON.stringify(playlists);
-
+	
+	if (username == undefined) {
+		username = getCookie('Vekii');
+	}
+	
 	$.ajax({
 	        type: 			"PUT",
 	        url: 			"playlists/" + username,
 			contentType: 	"application/json",
 	        data: 			playlists_JSON,
 			processdata: 	false,
+			
 			beforeSend: 	function(jqXHR) {
 								jqXHR.setRequestHeader('X-CSRF-Token', 
 									$('meta[name="csrf-token"]').attr('content'))
 							},
+							
 	        success: 		function(response) {
 	        					if (response == "POST was successful.") {
 								} else if (response == "Already exists in the database."){
 								}
-	        				}
+	        				},
+	
+			error:          function(jqXHR, textStatus, errorThrown) {
+								 throw 'Saving playlists failed.';
+				   	        }
 	});
 }

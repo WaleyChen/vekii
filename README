@@ -1,8 +1,42 @@
-if i'm not logged, i should be able to play around with sample playlists
-if i'm logged in, but reload, i should be logged in again
+what differentiates vekii from youtube?
+it's the social network stupid
+youtube meets twitter or facebook or github
+be able to copy a playlist but have like a filter option,
+a chance to eliminate songs from the playlist you don't like
+so just have like a new link next to the video (havn't listened)
+apply the new to recommendations as well
 
-- switch frontpage to the player
-	- you'll need a playlist called guest
+or should it just be a recommended option like
+connect to last.fm
+some kind of API
+
+should i get recommendations then go through that recommendations
+or should i get choose where to get recommendations from
+how do we normally listen to music?
+do we need to interact socially when listening to music?
+wait, it's kind of like that startup where you have DJ's streaming music
+
+add a news about the site panel
+add a feedback method
+0 olark?
+
+start trying to get beta users
+
+
+FEATURES TO IMPLEMENT FIRST
+- add to playlist
+- create guest playlists, not yours
+- auto-select higher quality videos/sound
+- random playlist function
+- abilty to play queue playlists
+
+BUGS
+- why is the music playlist missing?
+
+have the image stretch to the size of the playlist box
+copy box styles of youtube
+revense engineer their solution
+need to be able to get more than 50 playlists (extreme case)
 
 FUNCTION
 	Features

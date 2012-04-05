@@ -2,6 +2,77 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 // this is to align the search icon with the search bar
-.input-append button.add-on { 
-	height: inherit !important;
+.border_width_1px {
+	border-width:1px;
 }
+
+.border_style_solid {
+	border-style: solid;
+}
+
+.center {
+	float: center;
+}
+
+.float_left {
+	float: left;
+}
+
+.float_right {
+	float: right;
+}
+
+.height_search {
+	height: 14px;
+}
+
+.inline {
+	display: inline;
+}
+
+.inline_block {
+	display: inline-block;
+}
+
+.menu {
+	position: relative;
+}
+
+.padding_top_player {
+	margin-top: -7px;
+}
+
+.padding_top_login_button {
+	padding-top: 15px;
+}
+
+.padding_top_search {
+	padding-top: 3px;
+}
+
+.pull-right .dropdown-menu {
+left: auto;
+right: 0;
+}
+
+.pull-right .dropdown-menu:after {
+left: auto;
+right: 13px;
+}
+
+.right_ddmenu {
+	right:1px;
+}
+
+.width_100_percent {
+	width: 100%;
+}
+
+.width_player {
+	width: 640px;
+}
+
+.width_search {
+	width: 96%;
+}
+

@@ -34,6 +34,7 @@ Vekii::Application.routes.draw do
     match 'validate_token.js' => 'frontpage#validate_Token_JS'
     match 'retrieve_playlists.js' => 'frontpage#retrive_Playlists_JS'
     match 'yt_player.js' => 'frontpage#yt_Player_JS'
+    match 'search.js' => 'frontpage#search_JS'
     # IMAGES
     match 'delete.png' => 'frontpage#delete_PNG'
 end
