@@ -1,8 +1,38 @@
+var devKey = "AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw"
+var googleLoginLink = "https://accounts.google.com/o/oauth2/auth?"
+var client_id = "client_id=908038792880-vm3862hmpnp7u6gnmgd8104g8u7r1sr1.apps.googleusercontent.com"
+var gscope = "scope=https://gdata.youtube.com"
+var response_type = "response_type=token"
+var redirect_uri = "redirect_uri=http://localhost:3000"
+
+/*
+# construct the link to request an access token from the Youtube API
+if ENV["RAILS_ENV"] == "development" || ENV["RAILS_ENV"] == "vekii_test"
+  redirect_uri = "redirect_uri=http://localhost:3000"
+elsif ENV["RAILS_ENV"] == "production"
+  redirect_uri = "redirect_uri=http://fierce-stream-3563.herokuapp.com/"
+end
+*/
+
+var resync_link = googleLoginLink + client_id + '&' + redirect_uri + "/?resync=true" + '&' + gscope + '&' + response_type;
+googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type;
+
 $(document).ready(function() {	
 	if (username != undefined) {
-		$('#options').html(username + " <b class=\"caret\"></b>");
+		$('#login_button_or_settings_ddm').append("<ul class=\"nav nav-pills padding_top_login_button pull-right\">"
+		  											+ "<li class=\"dropdown\" id=\"settings\">"
+														+ "<a id=\"options\" class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#settings\">"
+														+ username
+														+ "</a>"
+														+ "<ul class=\"dropdown-menu\">"
+															+ "<li class=\"float_right\"><a href=\"javascript:sign_out()\">Sign Out</a></li>"
+															+ "<li class=\"float_right\"><a href=\"" + resync_link + "\"> Resync </a></li>"
+														+ "</ul>"
+												 	+ "</li>"
+												+ "</ul>");
 	} else {
-		$('#options').html("Login");
+		$('#login_button_or_settings_ddm').append("<a class=\"btn\" href=\"" + googleLoginLink + "\"> Login </a>");
+		$('#yt_api_player_wrapper').css("margin-top", "20px");
 	}
 	
 	$("#.search").keyup(function() 

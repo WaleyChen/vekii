@@ -1,7 +1,8 @@
+var current_video_id;
 var playlist_showing;
 var playlist_showing_bool = 0;
 
-window.location.hash = "";
+// window.location.hash = "";
 
 function delete_Playlist(playlist_title) {
 	jQuery.each(playlists.playlists, function(playlist_index, playlist) {
@@ -59,7 +60,16 @@ function playlists_Sort_Func(a, b) {
 	}
 }
 
-function resync_Playlists() {
+function replay() {
+	if ($('#replay_btn').html() == "Replay") {
+		$('#replay_btn').html('<del> Replay </del>');
+	} else {
+		$('#replay_btn').html('Replay');
+	}
+}
+
+function set_Current_Video_Id(video_id) {
+	current_video_id = video_id;
 }
 
 function show_Playlists(playlist_to_show) {	
@@ -101,11 +111,15 @@ function show_Playlists(playlist_to_show) {
 				
 				if (!playlist_showing_bool || playlist_showing != playlist_to_show) {
 					$("#playlists").append("<li>"
-										  		+ "<a class=\"playlist\" href=\"javascript:ytplayer.loadVideoById('" 
-										  				+ song.video_id 
+										  		+ "<a class=\"playlist\" href=\"" 
+														+ "javascript:set_Current_Video_Id('"
+															+ song.video_id
+														+ "');"
+														+ "javascript:ytplayer.loadVideoById('" 
+										  					+ song.video_id 
 										   				+ "');"
 														+ "javascript:show_Recommended('"
-														+ song.video_id 
+															+ song.video_id 
 									  					+ "');"
 														+ "\">"
 													+ "&nbsp"

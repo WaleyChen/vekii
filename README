@@ -1,3 +1,21 @@
+include title of song
+
+http://laughingsquid.com/turntable-fm-a-clever-social-music-site-lets-users-play-dj/‏
+make turn tablefm but with music videos
+
+be able to exactly listen what other people are listening to in real time‏
+turn table but for youtube music videos
+
+need to refactoring
+- how to seperate vekii js files?
+
+// MUST USE FOR SEARCH
+http://twitter.github.com/bootstrap/javascript.html#typeahead
+
+cool visualization chart
+when you see how one videos links to other recommendations
+so like instead of a social graph have a recommended videos graph
+
 what differentiates vekii from youtube?
 it's the social network stupid
 youtube meets twitter or facebook or github

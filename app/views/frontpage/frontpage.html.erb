@@ -1,34 +1,25 @@
 <!-- JAVASCRIPT-->
-<script language="javascript" type="text/javascript" src="bootstrap.js"> </script>
-<script language="javascript" type="text/javascript" src="cvi_busy_lib.js"> </script>
-<script language="javascript" type="text/javascript" src="cookie.js"> </script>
-<script language="javascript" type="text/javascript" src="validate_token.js"> </script>
-<script language="javascript" type="text/javascript" src="player.js"> </script>
-<script language="javascript" type="text/javascript" src="retrieve_playlists.js"> </script>
-<script language="javascript" type="text/javascript" src="yt_player.js"> </script>
-<script language="javascript" type="text/javascript" src="vekii_backbone.js"> </script>
-<script language="javascript" type="text/javascript" src="search.js"> </script>
-
+<script language="javascript" type="text/javascript" src="cvi_busy_lib.js"></script>
+<script language="javascript" type="text/javascript" src="cookie.js"></script>
+<script language="javascript" type="text/javascript" src="validate_token.js"></script>
+<script language="javascript" type="text/javascript" src="player.js"></script>
+<script language="javascript" type="text/javascript" src="retrieve_playlists.js"></script>
+<script language="javascript" type="text/javascript" src="yt_player.js"></script>
+<script language="javascript" type="text/javascript" src="vekii_backbone.js"></script>
+<script language="javascript" type="text/javascript" src="search.js"></script>
+<script language="javascript" type="text/javascript" src="monkey.js"></script>
 <!-- TEMPLATES -->
-
 <!-- BODY -->
 <div class="row-fluid">
 	<div class="span3">
 		<ul class="nav nav-tabs">
 		  	<li class="active">
-				<a href="#home" data-toggle="tab">
-					<h3>Playlists</h3>
-				</a>
+				<a href="#home" data-toggle="tab"><h3>Playlists</h3></a>
 			</li>
 		  	<li>
-				<a href="#profile" data-toggle="tab">
-					<h3>Subs</h3>
-				</a>
+				<a href="#profile" data-toggle="tab"><h3>Subs</h3></a>
 			</li>
 		</ul>
-		
-		<!-- <a class="btn" href=<%= @googleLoginLink %>> Login </a> -->
-
 		<div class="well" style="padding: 8px 0px;">
 			<ul id="playlists" class="nav nav-list">				
 		    </ul>
@@ -40,9 +31,7 @@
 				<table class="width_100_percent">
 				    <tr>
 				        <td>
-							<h1 class="inline float_left">
-								Vekii&nbsp
-							</h1>
+							<h1 class="inline float_left">Vekii&nbsp</h1>
 						</td>
 				        <td class="width_100_percent">
 							<form class="navbar-search float_left inline padding_top_search width_search">
@@ -50,16 +39,8 @@
 				           	</form>
 						</td>
 				        <td>
-							<ul class="nav nav-pills padding_top_login_button pull-right">
-							  <li class="dropdown pull_right" id="settings">
-							   	<a id="options" class="dropdown-toggle border_style_solid border_width_1px" data-toggle="dropdown" href="#settings">
-							    </a>
-							    <ul class="dropdown-menu">
-							    	<li><a href="javascript:sync()"> Resync </a></li>
-							        <li><a href="javascript:sign_out()">Sign Out</a></li>
-							    </ul>
-							  </li>
-							</ul>
+							<div id="login_button_or_settings_ddm">
+							</div>
 						</td>
 				    </tr>
 				</table>
@@ -67,52 +48,33 @@
 					<div id="yt_api_player">
 					</div>
 				</div>
-				<ul class="nav nav-pills inline">
-				  <li class="dropdown" id="menu2">
-				    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu2">
-				      Add to
-				      <b class="caret"></b>
-				    </a>
-				    <ul class="dropdown-menu">
-				      <li><a href="#">Action</a></li>
-				      <li><a href="#">Another action</a></li>
-				      <li><a href="#">Something else here</a></li>
-				      <li class="divider"></li>
-				      <li><a href="#">Separated link</a></li>
-				    </ul>
-				  </li>
-				</ul>
-				<a class="btn float_right" href=""> Replay </a>
+				<div id="add_to_ddm">
+				</div>
+				<a id="replay_btn" class="btn float_right" href="javascript:replay()">Replay</a>
 			</div>
 		</center>				
 		<div id="console">
 		</div>
 	</div>
-	
 	<div class="span3">
 		<ul class="nav nav-tabs">
-			<li class="active">
-				<a href="#home" data-toggle="tab">
-					<h3> Recommended </h3>
-				</a>
+			<li class="active"><a href="#home" data-toggle="tab"><h3>Recommended</h3></a>
+			</li>
+			<li>
+				<a href="#home" data-toggle="tab"><h3>Queue</h3></a>
 			</li>
 		</ul>
-		
 		<div class="well" style="padding: 8px 0px;">
 			<ul id="recommended" class="nav nav-list">
 		    </ul>
 		</div>
 	</div>
 </div>
-
 <div id="output">
 </div>
-
 </br>
-
 <ul id="friends-list">	
 </ul>
-
 <div id="container">
 </div>
 

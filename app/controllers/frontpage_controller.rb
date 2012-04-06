@@ -65,6 +65,10 @@ class FrontpageController < ApplicationController
     send_file '/public/search.js', 
   end
   
+  def monkey_JS
+    send_file '/public/js/monkey.js', 
+  end
+  
   def examplePlaylistJSON
     send_file '/public/example_playlist.json', 
   end

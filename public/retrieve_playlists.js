@@ -68,6 +68,28 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 								                       "yt_api_player", "640", "390", "8", null, null, params, atts);
 
 									show_Playlists();
+									
+									var playlists_ddm = "";
+
+									jQuery.each(playlists.playlists, function(index, playlist) {
+										playlists_ddm = playlists_ddm + "<li><a href=\"#\">" + playlist.title + "</a></li>";
+									}); 
+									
+									$('#add_to_ddm').append( "<ul class=\"nav nav-pills inline\">"
+
+																			+	"<li class=\"dropdown\" id=\"menu2\">"
+																			   + "<a class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#menu2\">"
+																			   +  "Add to"
+																			   + "</a>"
+																			   + "<ul class=\"dropdown-menu height_ddm\">"
+																			   + "  <li><a href=\"#\">Action</a></li>"
+																			   +  " <li><a href=\"#\">Another action</a></li>"
+																			   +  " <li><a href=\"#\">Something else here</a></li>"
+																			    + playlists_ddm
+																			   +  " <li class=\"divider\"></li>"
+																			   +  " <li><a href=\"#\">Separated link</a></li>"
+																			   + "</ul>"
+																			   + "</li></ul>");
 		        				},
 
 				error: 			function(jqXHR, textStatus, errorThrown) {
@@ -90,8 +112,30 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 									// swfobject.embedSWF will load the player from YouTube and embed it onto your page.
 								    swfobject.embedSWF("http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3",
 								                       "yt_api_player", "640", "390", "8", null, null, params, atts);
-
 									show_Playlists();
+									
+									var playlists_ddm = "";
+
+									jQuery.each(playlists.playlists, function(index, playlist) {
+										playlists_ddm = playlists_ddm + playlist.title;
+										alert(playlists_ddm);
+									});								
+
+									$('#add_to_ddm').append( "<ul class=\"nav nav-pills inline\">"
+
+																			+	"<li class=\"dropdown\" id=\"menu2\">"
+																			   + "<a class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#menu2\">"
+																			   +  "Add to"
+																			   + "</a>"
+																			   + "<ul class=\"dropdown-menu\">"
+																			   + "  <li><a href=\"#\">Action</a></li>"
+																			   +  " <li><a href=\"#\">Another action</a></li>"
+																			   +  " <li><a href=\"#\">Something else here</a></li>"
+
+																			   +  " <li class=\"divider\"></li>"
+																			   +  " <li><a href=\"#\">Separated link</a></li>"
+																			   + "</ul>"
+																			   + "</li></ul>");
 		        				},
 
 				error: 			function(jqXHR, textStatus, errorThrown) {
@@ -119,15 +163,12 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 								
 								// gets the user's playlists from Youtube API and stores them into a JS object
 								for (playlists_request_count = 0; playlists_request_count < Math.ceil(playlists_size/max_playlists_size); playlists_request_count++) {
-									alert("sedning");
-
 									$.ajax({
 									        type: 			"GET",
 									        url: 			playlists_JSON_link,
 											dataType:      'json',
 
 											beforeSend: 	function(jqXHR) {
-																alert("sending request");
 															},
 
 									        success: 		function(json) {
@@ -233,24 +274,28 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 
 																								show_Playlists();
 																								playlists_JSON = JSON.stringify(playlists);
-
-																								// save playlists to our backend
-																								$.ajax({
-																								        type: 			"POST",
-																								        url: 			"/playlists",
-																										contentType: 	"application/json",
-																								        data: 			playlists_JSON,
-																										processdata: 	false,
-																										beforeSend: 	function(jqXHR) {
-																															jqXHR.setRequestHeader('X-CSRF-Token', 
-																																$('meta[name="csrf-token"]').attr('content'))
-																														},
-																								        success: 		function(response) {
-																								        					if (response == "POST was successful.") {
-																															} else if (response == "Already exists in the database."){
-																															}
-																								        				}
-																								});
+																								
+																								if (resync != true) {
+																									// save playlists to our backend
+																									$.ajax({
+																									        type: 			"POST",
+																									        url: 			"/playlists",
+																											contentType: 	"application/json",
+																									        data: 			playlists_JSON,
+																											processdata: 	false,
+																											beforeSend: 	function(jqXHR) {
+																																jqXHR.setRequestHeader('X-CSRF-Token', 
+																																	$('meta[name="csrf-token"]').attr('content'))
+																															},
+																									        success: 		function(response) {
+																									        					if (response == "POST was successful.") {
+																																} else if (response == "Already exists in the database."){
+																																}
+																									        				}
+																									});
+																								} else {
+																									update_Playlists();
+																								}
 																							}
 																				   	      },
 
