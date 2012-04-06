@@ -43,6 +43,9 @@ start trying to get beta users
 
 FEATURES TO IMPLEMENT FIRST
 - add to playlist
+- signout
+- refactoring
+	- code's all over the place
 - create guest playlists, not yours
 - auto-select higher quality videos/sound
 - random playlist function

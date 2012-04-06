@@ -1,4 +1,23 @@
 // AJAX vars
+var devKey = "AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw"
+var googleLoginLink = "https://accounts.google.com/o/oauth2/auth?"
+var client_id = "client_id=908038792880-vm3862hmpnp7u6gnmgd8104g8u7r1sr1.apps.googleusercontent.com"
+var gscope = "scope=https://gdata.youtube.com"
+var response_type = "response_type=token"
+var redirect_uri = "redirect_uri=http://localhost:3000"
+
+/*
+# construct the link to request an access token from the Youtube API
+if ENV["RAILS_ENV"] == "development" || ENV["RAILS_ENV"] == "vekii_test"
+  redirect_uri = "redirect_uri=http://localhost:3000"
+elsif ENV["RAILS_ENV"] == "production"
+  redirect_uri = "redirect_uri=http://fierce-stream-3563.herokuapp.com/"
+end
+*/
+
+var resync_link = googleLoginLink + client_id + '&' + redirect_uri + "/?resync=true" + '&' + gscope + '&' + response_type;
+googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type;
+
 var dev_Key = "AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw";
 var playlists_JSON_link = "https://gdata.youtube.com/feeds/api/users/default/playlists?v=2"
 						  	+ "&access_token=" 
@@ -38,7 +57,6 @@ var songs_related_videos_hash = {};
 
 // session vars
 var first_time_logging_in = 1;
-var logged_in;
 
 // youtube player vars
 var atts =   { id: "myytplayer" };
@@ -51,9 +69,9 @@ var loading_indicator;
 
 if (hash_values_json.access_token == undefined /* not logged in */ ) {
 	username = getCookie('Vekii');
-
+	
 	// if user has logged in before, grab their playlists from the db
-	if (username != undefined) {		
+	if (username != undefined & username != "undefined") {		
 		$.ajax({
 		        type: 			"GET",
 		        url: 			"/playlists/" 
@@ -100,38 +118,36 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 	} else {		
 		$.ajax({
 		        type: 			"GET",
-		        url: 			"/playlists",
+		        url: 			"/playlists/" 
+									+ "nikeelevet"
+									+ ".json",
 				dataType:      'json',
-
-				beforeSend: 	function(jqXHR) {
-
-								},
-
+				
 		        success: 		function(json) {
 									playlists.playlists = json;
 									// swfobject.embedSWF will load the player from YouTube and embed it onto your page.
 								    swfobject.embedSWF("http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3",
 								                       "yt_api_player", "640", "390", "8", null, null, params, atts);
+
 									show_Playlists();
 									
 									var playlists_ddm = "";
 
 									jQuery.each(playlists.playlists, function(index, playlist) {
-										playlists_ddm = playlists_ddm + playlist.title;
-										alert(playlists_ddm);
-									});								
-
+										playlists_ddm = playlists_ddm + "<li><a href=\"#\">" + playlist.title + "</a></li>";
+									}); 
+									
 									$('#add_to_ddm').append( "<ul class=\"nav nav-pills inline\">"
 
 																			+	"<li class=\"dropdown\" id=\"menu2\">"
 																			   + "<a class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#menu2\">"
 																			   +  "Add to"
 																			   + "</a>"
-																			   + "<ul class=\"dropdown-menu\">"
+																			   + "<ul class=\"dropdown-menu height_ddm\">"
 																			   + "  <li><a href=\"#\">Action</a></li>"
 																			   +  " <li><a href=\"#\">Another action</a></li>"
 																			   +  " <li><a href=\"#\">Something else here</a></li>"
-
+																			    + playlists_ddm
 																			   +  " <li class=\"divider\"></li>"
 																			   +  " <li><a href=\"#\">Separated link</a></li>"
 																			   + "</ul>"
@@ -139,11 +155,13 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 		        				},
 
 				error: 			function(jqXHR, textStatus, errorThrown) {
-									$("#console").append("Retriveing sample playlists failed.</br>"); 
+									$("#console").append("1getting sample playlists failed </br>"); 
 						        }
 		});
 	}
 } else {
+	$('#options').text(username);
+		
 	loading_indicator = getBusyOverlay("viewport",
 					   		{color:'black', 
 								opacity:0.5, 
@@ -173,7 +191,19 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 
 									        success: 		function(json) {
 																username = json.feed.author[0].name.$t;
-
+																
+																$('#login_button_or_settings_ddm').append("<ul class=\"nav nav-pills padding_top_login_button pull-right\">"
+																  											+ "<li class=\"dropdown\" id=\"settings\">"
+																												+ "<a id=\"options\" class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#settings\">"
+																												+ username
+																												+ "</a>"
+																												+ "<ul class=\"dropdown-menu\">"
+																													+ "<li class=\"float_right\"><a href=\"javascript:sign_Out();\">Sign Out</a></li>"
+																													+ "<li class=\"float_right\"><a href=\"" + resync_link + "\"> Resync </a></li>"
+																												+ "</ul>"
+																										 	+ "</li>"
+																										+ "</ul>");
+																
 																playlists.username = username;
 																setCookie("Vekii", username, 30);
 
@@ -264,8 +294,6 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 																							if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
 																								loading_indicator.remove();
 
-																								var params = { allowScriptAccess: "always" };
-																							    var atts = { id: "myytplayer" };
 																								// swfobject.embedSWF will load the player from YouTube and embed it onto your page.
 																							    swfobject.embedSWF("http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3",
 																							                       "yt_api_player", "640", "390", "8", null, null, params, atts);

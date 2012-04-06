@@ -8,7 +8,6 @@ function onytplayerStateChange(newState) {
     // $('#console').append(newState);
 
 	if (newState == 0) {
-		alert($('#replay_btn').html());
 		if ($('#replay_btn').html() == "<del> Replay </del>") {
 			ytplayer.loadVideoById(current_video_id, 0, 'highres');
 		} else {

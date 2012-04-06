@@ -2,7 +2,7 @@ var current_video_id;
 var playlist_showing;
 var playlist_showing_bool = 0;
 
-// window.location.hash = "";
+window.location.hash = "";
 
 function delete_Playlist(playlist_title) {
 	jQuery.each(playlists.playlists, function(playlist_index, playlist) {
@@ -120,7 +120,7 @@ function show_Playlists(playlist_to_show) {
 										   				+ "');"
 														+ "javascript:show_Recommended('"
 															+ song.video_id 
-									  					+ "');"
+									  					+ "');"	
 														+ "\">"
 													+ "&nbsp"
 										   			+ song.title  
@@ -202,6 +202,11 @@ function show_Recommended(song_video_id) {
 							throw 'AJAX call for related videos JSON feed failed.';
 	  		   	       }
 	});
+}
+
+function sign_Out() {
+	setCookie("Vekii", undefined);
+	window.location = "http://www.google.com/";
 }
 
 function update_Playlists() {
