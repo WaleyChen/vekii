@@ -1,5 +1,5 @@
 // from http://www.w3schools.com/js/js_cookies.asp
-
+// get and set cookies functions
 function setCookie(c_name,value,exdays)
 {
 	var exdate=new Date();

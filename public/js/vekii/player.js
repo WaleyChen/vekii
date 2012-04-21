@@ -1,3 +1,4 @@
+var current_video_id;
 var playlist_showing;
 var playlist_showing_bool = 0;
 
@@ -59,7 +60,16 @@ function playlists_Sort_Func(a, b) {
 	}
 }
 
-function resync_Playlists() {
+function replay() {
+	if ($('#replay_btn').html() == "Replay") {
+		$('#replay_btn').html('<del> Replay </del>');
+	} else {
+		$('#replay_btn').html('Replay');
+	}
+}
+
+function set_Current_Video_Id(video_id) {
+	current_video_id = video_id;
 }
 
 function show_Playlists(playlist_to_show) {	
@@ -101,12 +111,16 @@ function show_Playlists(playlist_to_show) {
 				
 				if (!playlist_showing_bool || playlist_showing != playlist_to_show) {
 					$("#playlists").append("<li>"
-										  		+ "<a class=\"playlist\" href=\"javascript:ytplayer.loadVideoById('" 
-										  				+ song.video_id 
+										  		+ "<a class=\"playlist\" href=\"" 
+														+ "javascript:set_Current_Video_Id('"
+															+ song.video_id
+														+ "');"
+														+ "javascript:ytplayer.loadVideoById('" 
+										  					+ song.video_id 
 										   				+ "');"
 														+ "javascript:show_Recommended('"
-														+ song.video_id 
-									  					+ "');"
+															+ song.video_id 
+									  					+ "');"	
 														+ "\">"
 													+ "&nbsp"
 										   			+ song.title  
@@ -192,21 +206,31 @@ function show_Recommended(song_video_id) {
 
 function update_Playlists() {
 	playlists_JSON = JSON.stringify(playlists);
-
+	
+	if (username == undefined) {
+		username = getCookie('Vekii');
+	}
+	
 	$.ajax({
 	        type: 			"PUT",
 	        url: 			"playlists/" + username,
 			contentType: 	"application/json",
 	        data: 			playlists_JSON,
 			processdata: 	false,
+			
 			beforeSend: 	function(jqXHR) {
 								jqXHR.setRequestHeader('X-CSRF-Token', 
 									$('meta[name="csrf-token"]').attr('content'))
 							},
+							
 	        success: 		function(response) {
 	        					if (response == "POST was successful.") {
 								} else if (response == "Already exists in the database."){
 								}
-	        				}
+	        				},
+	
+			error:          function(jqXHR, textStatus, errorThrown) {
+								 throw 'Saving playlists failed.';
+				   	        }
 	});
 }

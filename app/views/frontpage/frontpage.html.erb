@@ -1,13 +1,12 @@
 <!-- JAVASCRIPT-->
-<script language="javascript" type="text/javascript" src="cvi_busy_lib.js"></script>
-<script language="javascript" type="text/javascript" src="cookie.js"></script>
-<script language="javascript" type="text/javascript" src="validate_token.js"></script>
-<script language="javascript" type="text/javascript" src="player.js"></script>
-<script language="javascript" type="text/javascript" src="retrieve_playlists.js"></script>
-<script language="javascript" type="text/javascript" src="yt_player.js"></script>
-<script language="javascript" type="text/javascript" src="vekii_backbone.js"></script>
-<script language="javascript" type="text/javascript" src="search.js"></script>
-<script language="javascript" type="text/javascript" src="monkey.js"></script>
+<script language="javascript" type="text/javascript" src="js/libs/cvi_busy_lib.js"></script>
+<script language="javascript" type="text/javascript" src="js/vekii/cookie.js"></script>
+<script language="javascript" type="text/javascript" src="js/vekii/ui.js"></script>
+<script language="javascript" type="text/javascript" src="js/vekii/validate_token.js"></script>
+<script language="javascript" type="text/javascript" src="js/vekii/player.js"></script>
+<script language="javascript" type="text/javascript" src="js/vekii/retrieve_playlists.js"></script>
+<script language="javascript" type="text/javascript" src="js/vekii/yt_player.js"></script>
+<script language="javascript" type="text/javascript" src="js/vekii/search.js"></script>
 <!-- TEMPLATES -->
 <!-- BODY -->
 <div class="row-fluid">
@@ -39,7 +38,9 @@
 				           	</form>
 						</td>
 				        <td>
-							<div id="login_button_or_settings_ddm">
+							<div id="login_button_ddm">
+							</div>
+							<div id="settings_ddm">
 							</div>
 						</td>
 				    </tr>
@@ -48,7 +49,7 @@
 					<div id="yt_api_player">
 					</div>
 				</div>
-				<div id="add_to_ddm">
+				<div id="add_to_playlist_ddm">
 				</div>
 				<a id="replay_btn" class="btn float_right" href="javascript:replay()">Replay</a>
 			</div>

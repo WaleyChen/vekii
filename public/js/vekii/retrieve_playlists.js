@@ -1,23 +1,4 @@
 // AJAX vars
-var devKey = "AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw"
-var googleLoginLink = "https://accounts.google.com/o/oauth2/auth?"
-var client_id = "client_id=908038792880-vm3862hmpnp7u6gnmgd8104g8u7r1sr1.apps.googleusercontent.com"
-var gscope = "scope=https://gdata.youtube.com"
-var response_type = "response_type=token"
-var redirect_uri = "redirect_uri=http://localhost:3000"
-
-/*
-# construct the link to request an access token from the Youtube API
-if ENV["RAILS_ENV"] == "development" || ENV["RAILS_ENV"] == "vekii_test"
-  redirect_uri = "redirect_uri=http://localhost:3000"
-elsif ENV["RAILS_ENV"] == "production"
-  redirect_uri = "redirect_uri=http://fierce-stream-3563.herokuapp.com/"
-end
-*/
-
-var resync_link = googleLoginLink + client_id + '&' + redirect_uri + "/?resync=true" + '&' + gscope + '&' + response_type;
-googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type;
-
 var dev_Key = "AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw";
 var playlists_JSON_link = "https://gdata.youtube.com/feeds/api/users/default/playlists?v=2"
 						  	+ "&access_token=" 
@@ -71,7 +52,9 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 	username = getCookie('Vekii');
 	
 	// if user has logged in before, grab their playlists from the db
-	if (username != undefined & username != "undefined") {		
+	if (username != undefined & username != "undefined") {	
+		show_Settings_DDM();
+		
 		$.ajax({
 		        type: 			"GET",
 		        url: 			"/playlists/" 
@@ -87,27 +70,13 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 
 									show_Playlists();
 									
-									var playlists_ddm = "";
+									var playlists_list = "";
 
 									jQuery.each(playlists.playlists, function(index, playlist) {
-										playlists_ddm = playlists_ddm + "<li><a href=\"#\">" + playlist.title + "</a></li>";
+										playlists_list = playlists_list + "<li><a href=\"#\">" + playlist.title + "</a></li>";
 									}); 
 									
-									$('#add_to_ddm').append( "<ul class=\"nav nav-pills inline\">"
-
-																			+	"<li class=\"dropdown\" id=\"menu2\">"
-																			   + "<a class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#menu2\">"
-																			   +  "Add to"
-																			   + "</a>"
-																			   + "<ul class=\"dropdown-menu height_ddm\">"
-																			   + "  <li><a href=\"#\">Action</a></li>"
-																			   +  " <li><a href=\"#\">Another action</a></li>"
-																			   +  " <li><a href=\"#\">Something else here</a></li>"
-																			    + playlists_ddm
-																			   +  " <li class=\"divider\"></li>"
-																			   +  " <li><a href=\"#\">Separated link</a></li>"
-																			   + "</ul>"
-																			   + "</li></ul>");
+									show_Add_To_Playlist_DDM(playlists_list);
 		        				},
 
 				error: 			function(jqXHR, textStatus, errorThrown) {
@@ -115,7 +84,9 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 						        }
 		});
 	// else get sample playlists from our backend
-	} else {		
+	} else {
+		show_Login_Button();
+				
 		$.ajax({
 		        type: 			"GET",
 		        url: 			"/playlists/" 
@@ -131,27 +102,13 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 
 									show_Playlists();
 									
-									var playlists_ddm = "";
+									var playlists_list = "";
 
 									jQuery.each(playlists.playlists, function(index, playlist) {
-										playlists_ddm = playlists_ddm + "<li><a href=\"#\">" + playlist.title + "</a></li>";
+										playlists_list = playlists_list + "<li><a href=\"#\">" + playlist.title + "</a></li>";
 									}); 
 									
-									$('#add_to_ddm').append( "<ul class=\"nav nav-pills inline\">"
-
-																			+	"<li class=\"dropdown\" id=\"menu2\">"
-																			   + "<a class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#menu2\">"
-																			   +  "Add to"
-																			   + "</a>"
-																			   + "<ul class=\"dropdown-menu height_ddm\">"
-																			   + "  <li><a href=\"#\">Action</a></li>"
-																			   +  " <li><a href=\"#\">Another action</a></li>"
-																			   +  " <li><a href=\"#\">Something else here</a></li>"
-																			    + playlists_ddm
-																			   +  " <li class=\"divider\"></li>"
-																			   +  " <li><a href=\"#\">Separated link</a></li>"
-																			   + "</ul>"
-																			   + "</li></ul>");
+									show_Add_To_Playlist_DDM(playlists_list);
 		        				},
 
 				error: 			function(jqXHR, textStatus, errorThrown) {
@@ -161,7 +118,7 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 	}
 } else {
 	$('#options').text(username);
-		
+	
 	loading_indicator = getBusyOverlay("viewport",
 					   		{color:'black', 
 								opacity:0.5, 
@@ -191,18 +148,7 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 
 									        success: 		function(json) {
 																username = json.feed.author[0].name.$t;
-																
-																$('#login_button_or_settings_ddm').append("<ul class=\"nav nav-pills padding_top_login_button pull-right\">"
-																  											+ "<li class=\"dropdown\" id=\"settings\">"
-																												+ "<a id=\"options\" class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#settings\">"
-																												+ username
-																												+ "</a>"
-																												+ "<ul class=\"dropdown-menu\">"
-																													+ "<li class=\"float_right\"><a href=\"javascript:sign_Out();\">Sign Out</a></li>"
-																													+ "<li class=\"float_right\"><a href=\"" + resync_link + "\"> Resync </a></li>"
-																												+ "</ul>"
-																										 	+ "</li>"
-																										+ "</ul>");
+																show_Settings_DDM();
 																
 																playlists.username = username;
 																setCookie("Vekii", username, 30);
