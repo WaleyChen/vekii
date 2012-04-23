@@ -1,7 +1,25 @@
-when done to release,
-try to get users
-to practice marketing getting feedback and what not
-just like would if you ran startup
+To-do List
+Features
+Major
+- display search results
+- add to playlist functionality
+- display of videos, include the title and image
+
+- vekii delete = youtube delete, no need for your database anymore?
+- are you sure? delete button
+
+- retrieve partial feeds, to conserve resources
+https://developers.google.com/youtube/2.0/developers_guide_protocol_partial
+- refactor retrieve_playlists.js, very ugly
+- add to functionality
+- create guest playlists, not yours
+- auto-select higher quality videos/sound
+- random playlist function
+- ability to play queue playlists
+Minor
+
+Marketing
+- acquire users and feedback
 
 include title of song
 
@@ -46,15 +64,7 @@ add a feedback method
 start trying to get beta users
 
 
-FEATURES TO IMPLEMENT FIRST
-- add to playlist
-- signout
-- refactoring
-	- code's all over the place
-- create guest playlists, not yours
-- auto-select higher quality videos/sound
-- random playlist function
-- abilty to play queue playlists
+
 
 BUGS
 - why is the music playlist missing?

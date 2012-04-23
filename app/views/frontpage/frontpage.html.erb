@@ -1,85 +1,79 @@
 <!-- JAVASCRIPT-->
-<script language="javascript" type="text/javascript" src="js/libs/cvi_busy_lib.js"></script>
-<script language="javascript" type="text/javascript" src="js/vekii/cookie.js"></script>
-<script language="javascript" type="text/javascript" src="js/vekii/ui.js"></script>
-<script language="javascript" type="text/javascript" src="js/vekii/validate_token.js"></script>
-<script language="javascript" type="text/javascript" src="js/vekii/player.js"></script>
-<script language="javascript" type="text/javascript" src="js/vekii/retrieve_playlists.js"></script>
-<script language="javascript" type="text/javascript" src="js/vekii/yt_player.js"></script>
-<script language="javascript" type="text/javascript" src="js/vekii/search.js"></script>
+<script language='javascript' type='text/javascript' src='js/libs/cvi_busy_lib.js'></script>
+<script language='javascript' type='text/javascript' src='js/libs/apprise-1.5.min.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/cookie.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/ui.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/validate_token.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/player.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/retrieve_playlists.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/yt_player.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/search.js'></script>
 <!-- TEMPLATES -->
 <!-- BODY -->
-<div class="row-fluid">
-	<div class="span3">
-		<ul class="nav nav-tabs">
-		  	<li class="active">
-				<a href="#home" data-toggle="tab"><h3>Playlists</h3></a>
+<div class='row-fluid'>
+	<div class='span3'>
+		<ul class='nav nav-tabs'>
+		  	<li class='active'>
+				<a href='#home' data-toggle='tab'><h3>Playlists</h3></a>
 			</li>
 		  	<li>
-				<a href="#profile" data-toggle="tab"><h3>Subs</h3></a>
+				<a href='#profile' data-toggle='tab'><h3>Subs</h3></a>
 			</li>
 		</ul>
-		<div class="well" style="padding: 8px 0px;">
-			<ul id="playlists" class="nav nav-list">				
+		<div class='well' style='padding: 8px 0px;'>
+			<ul id='playlists' class='nav nav-list'>				
 		    </ul>
 		</div>
 	</div>
-	<div id="mid" class="span6">
+	<div id='mid' class='span6'>
 		<center>
-			<div class="width_player">
-				<table class="width_100_percent">
+			<div class='width_player'>
+				<table class='width_100_percent'>
 				    <tr>
 				        <td>
-							<h1 class="inline float_left">Vekii&nbsp</h1>
+							<h1 class='inline float_left'>Vekii&nbsp</h1>
 						</td>
-				        <td class="width_100_percent">
-							<form class="navbar-search float_left inline padding_top_search width_search">
-				               	<input type="text" class="height_search width_100_percent" placeholder="Search">
+				        <td class='width_100_percent'>
+							<form class='navbar-search float_left inline padding_top_search width_search'>
+				               	<input class='height_search search width_100_percent' id='search' type='text' placeholder='Search'>
 				           	</form>
 						</td>
 				        <td>
-							<div id="login_button_ddm">
+							<div id='login_button_ddm'>
 							</div>
-							<div id="settings_ddm">
+							<div id='settings_ddm'>
 							</div>
 						</td>
 				    </tr>
 				</table>
-				<div id="yt_api_player_wrapper" class="padding_top_player">
-					<div id="yt_api_player">
+				<div id='yt_api_player_wrapper' class='padding_top_player'>
+					<div id='yt_api_player'>
 					</div>
 				</div>
-				<div id="add_to_playlist_ddm">
+				<div id='add_to_playlist_ddm'>
 				</div>
-				<a id="replay_btn" class="btn float_right" href="javascript:replay()">Replay</a>
+				<a id='replay_btn' class='btn float_right' href='javascript:replay()'>Replay</a>
 			</div>
 		</center>				
-		<div id="console">
+		<div id='console'>
 		</div>
 	</div>
-	<div class="span3">
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#home" data-toggle="tab"><h3>Recommended</h3></a>
-			</li>
-			<li>
-				<a href="#home" data-toggle="tab"><h3>Queue</h3></a>
-			</li>
+	<div class='span3'>
+		<ul class='nav nav-tabs'>
+			<li class='active'><a href='#Suggested' data-toggle='tab'><h3>Suggested</h3></a></li>
+			<li><a href='#home' data-toggle='tab'><h3>Queue</h3></a></li>
+			<li><a href='#home' data-toggle='tab'><h3>Results&nbsp;<i class="icon-remove padding_icon_remove"></i></h3></a></li>
 		</ul>
-		<div class="well" style="padding: 8px 0px;">
-			<ul id="recommended" class="nav nav-list">
+		<div class='well' style='padding: 8px 0px;'>
+			<ul id='recommended' class='nav nav-list'>
 		    </ul>
 		</div>
 	</div>
 </div>
-<div id="output">
+<div id='output'>
 </div>
 </br>
-<ul id="friends-list">	
+<ul id='friends-list'>	
 </ul>
-<div id="container">
+<div id='container'>
 </div>
-
-
-
-
-​

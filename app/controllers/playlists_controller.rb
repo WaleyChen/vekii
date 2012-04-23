@@ -26,26 +26,27 @@ class PlaylistsController < ApplicationController
   end
   # GET /photos/:id show (action: display) a specific photo
   
-  # GET /photos/:username show (action: get_Username_Playlists) username's playlists
+  # GET /playlists/:username show (action: get_Username_Playlists) username's playlists
   def get_Usernames_Playlists 
     username = params[:username]
-    playlists = Playlists.find_by_username(username);
+    @playlists = Playlists.find_by_username(username);
     
     respond_to do |format|
       format.html
-      format.json { render :json => playlists.playlists_JSON.to_json } 
+      format.json { render :json => @playlists.playlists_JSON.to_json } 
     end
   end
   
   # GET /photos/:id/edit (action: edit)  return an HTML form for editing a photo
   
-  # PUT /photos/:id update (action: update) a specific photo
+  # PUT /playlists/:username update (action: update) a specific playlist
   def update
     username = params[:username]
-     playlists_JSON = params[:playlists]
+    playlists_JSON = params[:playlists]
     
     playlists = Playlists.find_by_username(username);
     playlists.update_attributes(:playlists_JSON => playlists_JSON);
+    render :text => 'PUT was successful.'
   end
   
   # DELETE  /photos/:id (action: destroy) delete a specific photo

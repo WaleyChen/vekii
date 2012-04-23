@@ -19,6 +19,22 @@ function show_Add_To_Playlist_DDM(playlists_list) {
 									+ "</ul>");
 }
 
+function show_List_Img_And_Text(dom_element, song_title, song_video_id, song_img_url) {
+	$(dom_element).append("<li class=\"list_img_and_txt\">"
+								+ "<a href=\"javascript:play_Video('" 
+					  					+ song_video_id 
+					  					+ "');"
+										+ "\">" 
+									+ "<img class=\"img\" src=\"" + song_img_url + "\" />"
+									+ "<p class=\"img_txt\">"
+										+ song_title
+									+ "</p>"
+									+ " "
+								+ "</a>"
+							+ "</li>" 
+							+ "</br>");
+}
+
 function show_Login_Button() {
 	$(document).ready(function() {	
 		$('#login_button_ddm').append("<a class=\"btn\" href=\"" + googleLoginLink + "\"> Login </a>");

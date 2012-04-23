@@ -31,6 +31,18 @@
 	overflow: auto;
 }
 
+.img {
+	align: right;
+	height: 50px;
+	position: absolute;
+	width: 80px;
+}
+
+.img_txt {
+	padding: 0px 0px 0px 85px;
+	position: relative;
+}
+
 .inline {
 	display: inline;
 }
@@ -39,8 +51,17 @@
 	display: inline-block;
 }
 
+.list_img_and_txt {
+	height: 45px;
+	position: relative;
+}
+
 .menu {
 	position: relative;
+}
+
+.padding_icon_remove {
+	margin-top: 5px;
 }
 
 .padding_top_caret {
@@ -57,6 +78,14 @@
 
 .padding_top_search {
 	padding-top: 3px;
+}
+
+.position_absolute {
+	position: absolute;
+}
+
+.position_relative {
+	position: relative;
 }
 
 .right_ddmenu {
