@@ -13,10 +13,11 @@ Vekii::Application.routes.draw do
   # get '/images/:id/edit' => 'images#edit'   # get form to edit image
   # put '/images/:id' => 'images#update'      # update image
   # delete '/images/:id' => 'images#destroy'  # delete image
-  get  'playlists' => 'playlists#index'
+  get 'playlists' => 'playlists#index'
   post 'playlists' => 'playlists#create'
-  put  'playlists/:username' => 'playlists#update'
-  get  'playlists/:username' => 'playlists#get_Usernames_Playlists'
+  put 'playlists/:username' => 'playlists#update'
+  get 'playlists/:username' => 'playlists#get_Usernames_Playlists'
+  get 'playlists/delete/:playlist_id' => 'playlists#delete_Playlist'
   
   match 'user' => 'user#index'
   match 'createUser' => 'user#createUser'

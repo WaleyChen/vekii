@@ -25,27 +25,14 @@ function delete_Playlist(playlist_id) {
 					});
 					
 					$.ajax({
-						dataType: 'jsonp',
-						type: 'DELETE',
-				        url: 'https://gdata.youtube.com/feeds/api/users/default/playlists/' 
-								+ playlist_id 
-						   + '?access_token='
-								+ hash_values_json.access_token
-								+ '&callback=?',
-						headers: { 
-							'Access-Control-Allow-Origin': '*',
-						        'contentType': "application/atom+xml",
-								'GData-Version': '2',
-									'X-GData-Key': 'key=' + dev_Key
-						    },
-						beforeSend: function(jqXHR) {
-										jqXHR.setRequestHeader('Access-Control-Allow-Origin', '*');
-									},
+						type: 'GET',
+				        url: 'playlists/delete/' + playlist_id + '?access_token=' + hash_values_json.access_token,
 				        success: function(response) {
-				        					if (response == 'POST was successful.') {
-											} else if (response == 'Already exists in the database.'){
-											}
-				        				},
+				        		 	if (response == 'DELETE was successful.') {
+									} else {
+										apprise(response);
+									}
+		        				 },
 						error: function() {
 							apprise("Delete of playlist failed.");
 						}
@@ -90,10 +77,6 @@ function delete_Song(playlist_title, song_title) {
 	});
 	
 	update_Playlists();
-}
-
-function login() {
-	alert("login");
 }
 
 function playlists_Sort_Func(a, b) {
@@ -235,6 +218,11 @@ function show_Recommended(song_video_id) {
 			   		throw 'AJAX call for related videos JSON feed failed.';
 	  		   }
 	});
+}
+
+function signout() {
+	setCookie("Vekii", "undefined", 999);
+	window.location = "http://localhost:3000/";
 }
 
 function update_Playlists() {

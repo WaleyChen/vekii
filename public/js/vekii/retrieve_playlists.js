@@ -1,14 +1,6 @@
 // AJAX vars
 var dev_Key = 'AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw';
-var playlists_JSON_link = 'https://gdata.youtube.com/feeds/api/users/default/playlists?v=2'
-						  	+ '&access_token=' 
-						  		+ hash_values_json.access_token
-							+ '&alt='
-								+ 'json'
-						  	+ '&max-results='
-								+ '50'
-						  	+ '&key='
-						  		+ dev_Key;
+var playlists_JSON_link;
 var song_related_videos_JSON_link;
 var start_index;
 
@@ -36,20 +28,37 @@ var song_title_as_param;
 var songs;
 var songs_related_videos_hash = {};
 
-// session vars
-var first_time_logging_in = 1;
-
 // youtube player vars
 var atts =   { id: 'myytplayer' };
 var params = { allowScriptAccess: 'always',
-			   wmode: 			  'transparent' };
+			   wmode: 'transparent' };
 
 // misc vars
 var count = 0;
 var loading_indicator;
 
-if (hash_values_json.access_token == undefined /* not logged in */ ) {
-	username = getCookie('Vekii');
+// if token expires while i'm still logeed in, i need a function to refresh token
+// create a method to check after every api call
+// verify that access_token is valid, else get a new one
+
+
+playlists_JSON_link = 'https://gdata.youtube.com/feeds/api/users/default/playlists?v=2'
+						  	+ '&access_token=' 
+						  		+ access_token
+							+ '&alt='
+								+ 'json'
+						  	+ '&max-results='
+								+ '50'
+						  	+ '&key='
+						  		+ dev_Key;
+username = getCookie('Vekii');
+
+// not logged in
+if (access_token == undefined) {
+	
+	if (getCookie('Vekii_Access_Token')) {
+		
+	}
 	
 	// if user has logged in before, grab their playlists from the db
 	if (username != undefined & username != 'undefined') {	
@@ -168,7 +177,7 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 																	+ '&start-index=' 
 																		+ start_index 
 																	+ '&access_token=' 
-																		+ hash_values_json.access_token
+																		+ access_token
 																	+ '&key='
 																		+ dev_Key;
 
@@ -242,7 +251,6 @@ if (hash_values_json.access_token == undefined /* not logged in */ ) {
 
 																		show_Playlists();
 																		playlists_JSON = JSON.stringify(playlists);
-																		$('#console').append(playlists_JSON);
 											
 																		if (resync != true) {
 																			// save playlists to our backend

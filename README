@@ -1,12 +1,12 @@
 To-do List
 Features
 Major
+- figure out how to add, delete playlists with Youtube API
+	- how to add, delete songs to playlists
+
 - display search results
-- add to playlist functionality
-- display of videos, include the title and image
 
 - vekii delete = youtube delete, no need for your database anymore?
-- are you sure? delete button
 
 - retrieve partial feeds, to conserve resources
 https://developers.google.com/youtube/2.0/developers_guide_protocol_partial

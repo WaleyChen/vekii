@@ -1,3 +1,5 @@
+require 'httparty'
+
 class PlaylistsController < ApplicationController
   # GET /photos (action: index) display a list of all photos
   def index
@@ -25,6 +27,25 @@ class PlaylistsController < ApplicationController
     end
   end
   # GET /photos/:id show (action: display) a specific photo
+  
+  def delete_Playlist
+    dev_Key = "AI39si5Cwgvp6TJAY4pqrUcK8dCcL8WntrOGNmmn6MBvBpN40Ru_pKF99Y0m-y_WJvLxtblt4REVaTqlQYsmr5Q05E1Bwvkmyw"
+    playlist_id = params[:playlist_id]
+    access_token = params[:access_token]
+    
+    response = HTTParty.delete('http://gdata.youtube.com/feeds/api/users/default/playlists/' + playlist_id + '?access_token=' + access_token, 
+                                :headers => {'Content-Type' => 'application/atom+xml',
+                                             'GData-Version' => '2',
+                                             'X-GData-Key' => 'key=' + dev_Key})
+    
+    if (response.code == 200) 
+      text = 'DELETE was successful.'
+    else 
+      text = response
+    end
+    
+    render :text => text
+  end
   
   # GET /playlists/:username show (action: get_Username_Playlists) username's playlists
   def get_Usernames_Playlists 

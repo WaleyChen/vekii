@@ -1,11 +1,3 @@
-var googleLoginLink = "https://accounts.google.com/o/oauth2/auth?"
-var client_id = "client_id=908038792880-vm3862hmpnp7u6gnmgd8104g8u7r1sr1.apps.googleusercontent.com"
-var gscope = "scope=https://gdata.youtube.com"
-var response_type = "response_type=token"
-var redirect_uri = "redirect_uri=http://localhost:3000"
-var resync_link = googleLoginLink + client_id + '&' + redirect_uri + "/?resync=true" + '&' + gscope + '&' + response_type;
-googleLoginLink = googleLoginLink + client_id + '&' + redirect_uri + '&' + gscope + '&' + response_type;
-
 function show_Add_To_Playlist_DDM(playlists_list) {
 	$('#add_to_playlist_ddm').append( "<ul class=\"nav nav-pills inline\">"
 										+ "<li class=\"dropdown\" id=\"menu2\">"
@@ -21,23 +13,21 @@ function show_Add_To_Playlist_DDM(playlists_list) {
 
 function show_List_Img_And_Text(dom_element, song_title, song_video_id, song_img_url) {
 	$(dom_element).append("<li class=\"list_img_and_txt\">"
-								+ "<a href=\"javascript:play_Video('" 
-					  					+ song_video_id 
-					  					+ "');"
-										+ "\">" 
-									+ "<img class=\"img\" src=\"" + song_img_url + "\" />"
-									+ "<p class=\"img_txt\">"
-										+ song_title
-									+ "</p>"
-									+ " "
-								+ "</a>"
-							+ "</li>" 
-							+ "</br>");
+							+ "<a href=\"javascript:play_Video('" 
+					  			+ song_video_id 
+					  	    + "');\">" 
+							+ "<img class=\"img\" src=\"" + song_img_url + "\" />"
+								+ "<p class=\"img_txt\">"
+									+ song_title
+								+ "</p>"
+							+ "</a>"
+						+ "</li>" 
+						+ "</br>");
 }
 
 function show_Login_Button() {
 	$(document).ready(function() {	
-		$('#login_button_ddm').append("<a class=\"btn\" href=\"" + googleLoginLink + "\"> Login </a>");
+		$('#login_button_ddm').append("<a class=\"btn\" href=\"javascript:get_Access_Token()\">Login</a>");
 		$('#yt_api_player_wrapper').css("margin-top", "20px");
 	});
 }
@@ -46,20 +36,15 @@ function show_Settings_DDM() {
 	$(document).ready(function() {
 		// $('#login_button_or_settings_ddm').html('');
 		$('#settings_ddm').append("<ul class=\"nav nav-pills padding_top_login_button pull-right\">"
-		  											+ "<li class=\"dropdown\" id=\"settings\">"
-														+ "<a id=\"options\" class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#settings\">"
-														+ username
-														+ "</a>"
-														+ "<ul class=\"dropdown-menu\">"
-															+ "<li class=\"float_right\"><a href=\"javascript:signout();\">Sign Out</a></li>"
-															+ "<li class=\"float_right\"><a href=\"" + resync_link + "\"> Resync </a></li>"
-														+ "</ul>"
-												 	+ "</li>"
-												+ "</ul>");
+		  							+ "<li class=\"dropdown\" id=\"settings\">"
+										+ "<a id=\"options\" class=\"dropdown-toggle border_style_solid border_width_1px\" data-toggle=\"dropdown\" href=\"#settings\">"
+											+ username
+										+ "</a>"
+										+ "<ul class=\"dropdown-menu\">"
+											+ "<li class=\"float_right\"><a href=\"javascript:signout();\">Sign Out</a></li>"
+											+ "<li class=\"float_right\"><a href=\"" + resync_link + "\"> Resync </a></li>"
+										+ "</ul>"
+									+ "</li>"
+								+ "</ul>");
 	});
-}
-
-function signout() {
-	setCookie("Vekii", "undefined");
-	window.location = "http://localhost:3000/";
 }
