@@ -31,6 +31,11 @@
 	overflow: auto;
 }
 
+icon_size {
+	height: 10px;
+	width: 10px;
+}
+
 .img {
 	align: right;
 	height: 50px;
@@ -52,7 +57,7 @@
 }
 
 .list_img_and_txt {
-	height: 45px;
+	height: 58px;
 	position: relative;
 }
 
@@ -94,6 +99,10 @@
 
 .width_100_percent {
 	width: 100%;
+}
+
+.width_img_and_txt {
+	width: 95%;
 }
 
 .width_player {

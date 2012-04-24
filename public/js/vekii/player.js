@@ -26,15 +26,21 @@ function delete_Playlist(playlist_id) {
 					
 					$.ajax({
 						type: 'GET',
-				        url: 'playlists/delete/' + playlist_id + '?access_token=' + hash_values_json.access_token,
+				        url: 'playlists/delete/' + playlist_id + '?access_token=' + access_token,
 				        success: function(response) {
 				        		 	if (response == 'DELETE was successful.') {
 									} else {
-										apprise(response);
+										// don't raise error if there' no access_token which implies that the user is deleting
+										// one of the sample playlists
+										if (access_token == undefined) {
+											
+										} else {
+											apprise(response);
+										}
 									}
 		        				 },
 						error: function() {
-							apprise("Delete of playlist failed.");
+							apprise("Request failed.");
 						}
 					});
 					
@@ -116,11 +122,12 @@ function show_Playlists(playlist_to_show) {
 												+ "\')\">"
 											+ "<i class=\"icon-remove\"> </i> "
 										+ "</a>" 
+										/*
 										+ "<a class=\"delete_playlist\"href=\"javascript:delete_Playlist(\'"
 												+ playlist.id
 												+ "\')\">"
-											+ "<i class=\"icon-play\"> </i> "
-										+ "</a>"
+											+ "<i class=\"icon-play\"> </i> " 
+										+ "</a>" */
 									+ "</a>"
 								+ "</li>");
 							 
@@ -179,7 +186,7 @@ function show_Recommended(song_video_id) {
 											+ "/related?v=2"
 											+ "&alt=json" 
 											+ "&access_token=" 
-												+ hash_values_json.access_token
+												+ access_token
 											+ "&key="
 												+ dev_Key;
 	
@@ -222,6 +229,7 @@ function show_Recommended(song_video_id) {
 
 function signout() {
 	setCookie("Vekii", "undefined", 999);
+	setCookie("Vekii_Access_Token", "undefined", 999);
 	window.location = "http://localhost:3000/";
 }
 

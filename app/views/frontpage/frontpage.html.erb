@@ -2,11 +2,11 @@
 <script language='javascript' type='text/javascript' src='js/libs/apprise-1.5.min.js'></script>
 <script language='javascript' type='text/javascript' src='js/libs/cookie.js'></script>
 <script language='javascript' type='text/javascript' src='js/libs/cvi_busy_lib.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/global_vars.js'></script>
 <script language='javascript' type='text/javascript' src='js/vekii/token.js'></script>
 <script language='javascript' type='text/javascript' src='js/vekii/ui.js'></script>
-<script language='javascript' type='text/javascript' src='js/vekii/validate_token.js'></script>
-<script language='javascript' type='text/javascript' src='js/vekii/player.js'></script>
 <script language='javascript' type='text/javascript' src='js/vekii/retrieve_playlists.js'></script>
+<script language='javascript' type='text/javascript' src='js/vekii/player.js'></script>
 <script language='javascript' type='text/javascript' src='js/vekii/yt_player.js'></script>
 <script language='javascript' type='text/javascript' src='js/vekii/search.js'></script>
 <!-- TEMPLATES -->
@@ -21,6 +21,8 @@
 				<a href='#profile' data-toggle='tab'><h3>Subs</h3></a>
 			</li>
 		</ul>
+		<div id='login_msg'>
+		</div>
 		<div class='well' style='padding: 8px 0px;'>
 			<ul id='playlists' class='nav nav-list'>				
 		    </ul>
@@ -32,7 +34,7 @@
 				<table class='width_100_percent'>
 				    <tr>
 				        <td>
-							<h1 class='inline float_left'>Vekii&nbsp</h1>
+							<h1 class='inline float_left'>Vekii&nbsp;</h1>
 						</td>
 				        <td class='width_100_percent'>
 							<form class='navbar-search float_left inline padding_top_search width_search'>

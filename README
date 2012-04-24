@@ -1,6 +1,11 @@
 To-do List
+- remove song
+- add song
+
 Features
 Major
+- seperate ui from logic
+
 - figure out how to add, delete playlists with Youtube API
 	- how to add, delete songs to playlists
 

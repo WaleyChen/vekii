@@ -9,7 +9,6 @@ var max_playlists_size = 50;
 var playlists = new Object();
 var playlists_JSON;
 var playlists_size;
-var username;
 
 // playlist vars
 var max_playlist_size = 50; 
@@ -54,7 +53,7 @@ playlists_JSON_link = 'https://gdata.youtube.com/feeds/api/users/default/playlis
 username = getCookie('Vekii');
 
 // not logged in
-if (access_token == undefined) {
+if (access_token == undefined || access_token =='undefined') {
 	
 	if (getCookie('Vekii_Access_Token')) {
 		
@@ -149,8 +148,7 @@ if (access_token == undefined) {
 									show_Settings_DDM();
 					
 									playlists.username = username;
-									// playlist.img = json.feed.entry[playlists_index].media$group.media$thumbnail[0].url;
-									
+
 									setCookie('Vekii', username, 30);
 
 									playlists.playlists = new Array();
@@ -277,20 +275,21 @@ if (access_token == undefined) {
 														   	      },
 
 												  	error: function(jqXHR, textStatus, errorThrown) {
+																apprise('damn');
 														   		$('#output').append('<li>' + jqXHR.specialMessage + '</li>');
 												  		   }
 												});
 												}
 											}
 				        				},
-													error: 			function(jqXHR, textStatus, errorThrown) {
-																		alert('Retreiving playlists from youtube failed.');
-															        }
-											});
+				error: function(jqXHR, textStatus, errorThrown) {
+				   	alert('Retreiving playlists from youtube failed.');
+				}
+			});
 										}
-			       				},
+		},
 		error: function(jqXHR, textStatus, errorThrown) {
-					alert('Retriveing playlists_size failed.');
+					apprise('Retriveing playlists_size failed.');
 			   }
 	});	
 }
