@@ -17,26 +17,54 @@ function show_Add_To_Playlist_DDM(playlists_list) {
 									+ "</ul>");
 }
 
-function show_List_Img_And_Text(dom_element, song_title, song_video_id, song_img_url) {
-						$(dom_element).append("<li class=\"list_img_and_txt\">"
-												+ '<table class=\'width_img_and_txt\'>'
-													+ '<tr>'
-														+ '<td>'
-															+ "<a href=\"javascript:play_Video('" 
-											  					+ song_video_id 
-											  	    		+ "');\">" 
-																+ "<img class=\"img\" src=\"" + song_img_url + "\" />"
-																+ "<p class=\"img_txt\">"
-																	+ song_title
-																+ "</p>"
-															+ "</a>"
-														+ '</td>'
-														+ '<td class=\'float_right margins_txt_and_icon\'>'
-															+ '<i class=\"icon-remove position_absolute\"> </i> '
-														+ '</td>'
-													+ '</tr>'
-												+ '</table>' 
-											+ '</li>');
+function show_List_Img_And_Text_Of_Song(dom_element, playlist_title, song_title, song_video_id, song_img_url, song_edit_url) {
+	$(dom_element).append("<li class=\"list_img_and_txt\">"
+		+ '<table class=\'width_img_and_txt\'>'
+			+ '<tr>'
+				+ '<td>'
+					+ "<a href=\"javascript:play_Video('" 
+	  					+ song_video_id 
+	  	    		+ "');\">" 
+						+ "<img class=\"img\" src=\"" + song_img_url + "\" />"
+						+ "<p class=\"img_txt\">"
+							+ song_title
+						+ "</p>"
+					+ "</a>"
+				+ '</td>'
+				+ '<td class=\'float_right margins_txt_and_icon\'>'
+					+ '<a href=\'javascript:delete_Song(' 
+						+ '\"' + playlist_title + '\"' + ', '
+						+ '\"' + escape(song_title) + '\"' + ', '
+	  					+ '\"' + song_edit_url + '\"'
+	  	    		+ ');\'>'
+						+'<i class=\"icon-remove position_absolute\"> </i> '
+					+ "</a>"
+				+ '</td>'
+			+ '</tr>'
+		+ '</table>' 
+	+ '</li>');
+}
+
+function show_List_Img_And_Text_Of_Recommendation(dom_element, song_title, song_video_id, song_img_url) {
+	$(dom_element).append("<li class=\"list_img_and_txt\">"
+							+ '<table class=\'width_img_and_txt\'>'
+								+ '<tr>'
+									+ '<td>'
+										+ "<a href=\"javascript:play_Video('" 
+						  					+ song_video_id 
+						  	    		+ "');\">" 
+											+ "<img class=\"img\" src=\"" + song_img_url + "\" />"
+											+ "<p class=\"img_txt\">"
+												+ song_title
+											+ "</p>"
+										+ "</a>"
+									+ '</td>'
+									+ '<td class=\'float_right margins_txt_and_icon\'>'
+									//	+ '<i class=\"icon-remove position_absolute\"> </i> '
+									+ '</td>'
+								+ '</tr>'
+							+ '</table>' 
+						+ '</li>');
 }
 
 function show_Login_Button() {

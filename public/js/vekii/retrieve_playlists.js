@@ -192,27 +192,30 @@ if (access_token == undefined || access_token =='undefined') {
 																	songs = new Array();
 																	playlist = new Object();
 
-																	for (song_index = 0; 
-																		 song_index < json.feed.entry.length; song_index++) {
-																		 new_playlist = 1;
+																	for (song_index = 0; song_index < json.feed.entry.length; song_index++) {
+																		new_playlist = 1;
 																		song = new Object();
 																		video_id_regexp = /[=][^&]+(?=&)/;
 
 																		// the video id should be in the link array else throw an exception
 																		for (link_index = 0; link_index < json.feed.entry[song_index].link.length; link_index++) {
-																			if (count == 1) {
+																			if (count == 2) {
 																				break;
 																			} else if (json.feed.entry[song_index].link[link_index].rel == 'alternate') {
-																				video_id = json.feed.entry[song_index].link[link_index].href.match(video_id_regexp)[0].substr(1);
+																				song.video_id = json.feed.entry[song_index].link[link_index].href.match(video_id_regexp)[0].substr(1);
 																				count++;
-																			} else if (link_index == json.feed.entry[song_index].link.length - 1) {
+																			} else if (json.feed.entry[song_index].link[link_index].rel == 'edit') {
+																				song.edit_url = json.feed.entry[song_index].link[link_index].href;
+																				count++;
+																			}
+																			
+																			else if (link_index == json.feed.entry[song_index].link.length - 1) {
 																				throw 'Could not find video id or related videos feed.';
 																			}
 																		}
 																		count = 0;
 
 																		song.title = json.feed.entry[song_index].title.$t; 
-																		song.video_id = video_id;
 																		song.img = json.feed.entry[song_index].media$group.media$thumbnail[0].url;
 																		songs.push(song);	
 
@@ -250,7 +253,7 @@ if (access_token == undefined || access_token =='undefined') {
 																		show_Playlists();
 																		playlists_JSON = JSON.stringify(playlists);
 											
-																		if (resync != true) {
+																		if (is_New_User(username)) {
 																			// save playlists to our backend
 																			$.ajax({
 																			        type: 			'POST',

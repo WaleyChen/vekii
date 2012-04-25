@@ -52,6 +52,7 @@ if (access_token != undefined) {
 	setCookie('Vekii_Access_Token', access_token);
 } 
 
+// make this an AJAX call
 function get_Access_Token() {
-	window.location = request_access_token_link;
+	window.location = request_access_token_link; 
 }

@@ -24,27 +24,30 @@ function delete_Playlist(playlist_id) {
 						}
 					});
 					
-					$.ajax({
-						type: 'GET',
-				        url: 'playlists/delete/' + playlist_id + '?access_token=' + access_token,
-				        success: function(response) {
-				        		 	if (response == 'DELETE was successful.') {
-									} else {
-										// don't raise error if there' no access_token which implies that the user is deleting
-										// one of the sample playlists
-										if (access_token == undefined) {
-											
-										} else {
-											apprise(response);
-										}
-									}
-		        				 },
-						error: function() {
-							apprise("Request failed.");
-						}
-					});
+					// before using the access token check if it's still valid else request a new one
 					
-					update_Playlists();
+					if (is_User_Logged_In()) {
+						$.ajax({
+							type: 'GET',
+					        url: 'playlists/delete/' + playlist_id + '?access_token=' + access_token,
+					        success: function(response) {
+					        		 	if (response == 'DELETE was successful.') {
+										} else {
+											// don't raise error if there' no access_token which implies that the user is deleting
+											// one of the sample playlists
+											if (access_token == undefined) {
+											} else {
+												apprise(response);
+											}
+										}
+			        				 },
+							error: function() {
+								apprise("Request failed.");
+							}
+						});
+					
+						update_Playlists();
+					}
 	        	} else { 
 				}
 			}
@@ -54,35 +57,94 @@ function delete_Playlist(playlist_id) {
 function delete_Recommended(song_video_id) {
 }
 
-function delete_Song(playlist_title, song_title) {
-	apprise('Ready to begin?', {'verify':true}, function(r)
-	    {
-	    if(r)
-	        { 
-	        // user clicked 'Yes'
-
-	        }
-	    else
-	        { 
-	        // user clicked 'No'
-
-	        }
-	    });
-	
-	jQuery.each(playlists.playlists, function(playlist_index, playlist) {
-		if (playlist.title == playlist_title) { 
-			jQuery.each(playlist.songs, function(song_index, song) {
-				if (song.title == song_title) {
-					playlists.playlists[playlist_index].songs.splice(song_index, 1);
-					playlist_showing_bool = 0;
-					show_Playlists(playlist_title);
-					return false;
+function delete_Song(playlist_title, song_title, edit_url) {	
+	apprise('Are you sure?', {'verify':true}, function(response) {
+		// user clicked 'Yes'
+		if(response) { 
+			jQuery.each(playlists.playlists, function(playlist_index, playlist) {
+				if (playlist.title == playlist_title) { 
+					jQuery.each(playlist.songs, function(song_index, song) {
+						if (song.title == song_title) {
+							playlists.playlists[playlist_index].songs.splice(song_index, 1);
+							playlist_showing_bool = 0;
+							show_Playlists(playlist_title);
+							return false;
+						}
+					});
 				}
 			});
+			
+			edit_url_object = new Object();
+			edit_url_object.edit_url = edit_url;
+			edit_url_json = JSON.stringify(edit_url_object)
+			
+			// before using the access token check if it's still valid else request a new one
+			
+			if (is_User_Logged_In()) {
+				$.ajax({
+					type: 'POST',
+					url: 'playlists/song/delete?access_token=' + access_token,
+					contentType: 'application/json',
+			        data: JSON.stringify(edit_url_json),
+					processdata: false,
+					beforeSend: function(jqXHR) {
+									jqXHR.setRequestHeader('X-CSRF-Token', 
+										$("meta[name='csrf-token']").attr('content'))
+								},
+			        success: function(response) {
+			        		 	if (response == 'DELETE was successful.') {
+								} else {
+									// don't raise error if there' no access_token which implies that the user is deleting
+									// one of the sample playlists
+									if (access_token == undefined) {
+									} else {
+										apprise(response);
+									}
+								}
+	        				 },
+					error: function() {
+						apprise("Request failed.");
+					}
+				});
+				
+				update_Playlists();
+			}
+		} else { 
 		}
 	});
-	
-	update_Playlists();
+}
+
+function is_New_User(username) {
+	$.ajax({
+		type: 'GET',
+        url: 'playlists/exists/' + username,
+        success: function(response) {
+        		 	if (response == 'DELETE was successful.') {
+					} else {
+						// don't raise error if there' no access_token which implies that the user is deleting
+						// one of the sample playlists
+						if (access_token == undefined) {
+						} else {
+							if (response == 'Yes.') {
+								return true
+							} else {
+								return false;
+							}
+						}
+					}
+				 },
+		error: function() {
+			apprise("Request failed.");
+		}
+	});
+}
+
+function is_User_Logged_In() {
+	if (username != undefined && username != 'undefined') {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function playlists_Sort_Func(a, b) {
@@ -146,25 +208,7 @@ function show_Playlists(playlist_to_show) {
 				}
 				
 				if (!playlist_showing_bool || playlist_showing != playlist_to_show) {
-					/*
-					$("#playlists").append("<li>"
-										  		+ "<a class=\"playlist\" href=\"" 
-														+ "javascript:play_Video('"
-															+ song.video_id
-														+ "');\">"
-													+ "&nbsp"
-										   			+ song.title  
-													+ "<a class=\"delete_playlist\"href=\"javascript:delete_Song(\'"
-															+ playlist.title 
-															+ "\', \'"
-															+ song_title_as_param
-															+ "\')\" >"
-														+ "<i class=\"icon-remove\"> </i>"
-													+ "</a>" 
-												+ "</a>"
-											+ "</li>");
-					*/
-					show_List_Img_And_Text("#playlists", song_title_as_param, song.video_id, song.img);
+					show_List_Img_And_Text_Of_Song("#playlists", playlist.title, song_title_as_param, song.video_id, song.img, song.edit_url);
 				}
 			});
 		}
@@ -218,7 +262,7 @@ function show_Recommended(song_video_id) {
 							}
 						}
 					
-						show_List_Img_And_Text("#recommended", song.title.$t, video_id, img_url);					
+						show_List_Img_And_Text_Of_Recommendation("#recommended", song.title.$t, video_id, img_url);					
 					});
 	   	       },
 	  	error: function(jqXHR, textStatus, errorThrown) {
@@ -242,7 +286,7 @@ function update_Playlists() {
 	
 	$.ajax({
 	        type: "PUT",
-	        url: "playlists/" + username,
+	        url: "playlists/update/" + username,
 			contentType: "application/json",
 	        data: playlists_JSON,
 			processdata: false,
