@@ -17,7 +17,7 @@ function show_Add_To_Playlist_DDM(playlists_list) {
 									+ "</ul>");
 }
 
-function show_List_Img_And_Text_Of_Song(dom_element, playlist_title, song_title, song_video_id, song_img_url, song_edit_url) {
+function show_List_Img_And_Text_Of_Song(dom_element, playlist_id, song_title, song_video_id, song_img_url, song_edit_url) {
 	$(dom_element).append("<li class=\"list_img_and_txt\">"
 		+ '<table class=\'width_img_and_txt\'>'
 			+ '<tr>'
@@ -33,8 +33,8 @@ function show_List_Img_And_Text_Of_Song(dom_element, playlist_title, song_title,
 				+ '</td>'
 				+ '<td class=\'float_right margins_txt_and_icon\'>'
 					+ '<a href=\'javascript:delete_Song(' 
-						+ '\"' + playlist_title + '\"' + ', '
-						+ '\"' + escape(song_title) + '\"' + ', '
+						+ '\"' + playlist_id + '\"' + ', '
+						+ '\"' + song_video_id + '\"' + ', '
 	  					+ '\"' + song_edit_url + '\"'
 	  	    		+ ');\'>'
 						+'<i class=\"icon-remove position_absolute\"> </i> '

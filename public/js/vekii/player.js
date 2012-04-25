@@ -13,7 +13,7 @@ function delete_Playlist(playlist_id) {
 						if (playlist.id == playlist_id) { 
 							playlists.playlists.splice(playlist_index, 1);
 
-							if (playlist.title != playlist_showing && playlist_showing_bool == 1) {
+							if (playlist.id != playlist_id && playlist_showing_bool == 1) {
 								playlist_showing_bool = 0;
 								show_Playlists(playlist_showing);
 							} else {
@@ -57,17 +57,17 @@ function delete_Playlist(playlist_id) {
 function delete_Recommended(song_video_id) {
 }
 
-function delete_Song(playlist_title, song_title, edit_url) {	
+function delete_Song(playlist_id, song_video_id, edit_url) {	
 	apprise('Are you sure?', {'verify':true}, function(response) {
 		// user clicked 'Yes'
 		if(response) { 
 			jQuery.each(playlists.playlists, function(playlist_index, playlist) {
-				if (playlist.title == playlist_title) { 
+				if (playlist.id == playlist_id) { 
 					jQuery.each(playlist.songs, function(song_index, song) {
-						if (song.title == song_title) {
+						if (song.video_id == song_video_id) {
 							playlists.playlists[playlist_index].songs.splice(song_index, 1);
 							playlist_showing_bool = 0;
-							show_Playlists(playlist_title);
+							show_Playlists(playlist_id);
 							return false;
 						}
 					});
@@ -175,7 +175,7 @@ function show_Playlists(playlist_to_show) {
 		
 		$("#playlists").append("<li>"
 							  		+ "<a class=\"playlist\" href=\"javascript:show_Playlists('" 
-							  				+ playlist.title 
+							  				+ playlist.id 
 											// + playlist.img
 							   				+ "')\">"
 							   			+ playlist.title 
@@ -195,12 +195,12 @@ function show_Playlists(playlist_to_show) {
 							 
 		playlist.songs.sort(playlists_Sort_Func);
 		
-		if (playlist.title == playlist_to_show) { 
+		if (playlist.id == playlist_to_show) { 
 			jQuery.each(playlist.songs, function(index, song) {
 				// for the delete_Song function, make the string parameter friendly
 				// http://stackoverflow.com/questions/1873/triple-quotes-how-do-i-delimit-a-databound-javascript-string-parameter-in-asp-n
-				song_title_as_param = song.title.replace(/\'/g, "\'");
-				song_title_as_param = song_title_as_param.replace(/\"/g, "&#34;");
+				// song_title_as_param = song.title.replace(/\'/g, "\'");
+				// song_title_as_param = song_title_as_param.replace(/\"/g, "&#34;");
 				
 				if (index == 0) {
 					$("#playlists").append("<ul id=\"playlist\" class=\"nav nav-list\">");
@@ -208,7 +208,7 @@ function show_Playlists(playlist_to_show) {
 				}
 				
 				if (!playlist_showing_bool || playlist_showing != playlist_to_show) {
-					show_List_Img_And_Text_Of_Song("#playlists", playlist.title, song_title_as_param, song.video_id, song.img, song.edit_url);
+					show_List_Img_And_Text_Of_Song("#playlists", playlist.id, song.title, song.video_id, song.img, song.edit_url);
 				}
 			});
 		}
