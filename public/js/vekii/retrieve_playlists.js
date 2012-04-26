@@ -100,11 +100,6 @@ if (access_token == undefined || access_token =='undefined') {
 					                       'yt_api_player', '640', '390', '8', null, null, params, atts);
 
 						show_Playlists();
-
-						jQuery.each(playlists.playlists, function(index, playlist) {
-							playlists_list = playlists_list + '<li><a href=\'#\'>' + playlist.title + '</a></li>';
-						}); 
-				
 						show_Add_To_Playlist_DDM(playlists_list);
        				 },
 
@@ -114,16 +109,9 @@ if (access_token == undefined || access_token =='undefined') {
 		});
 	}
 } else {
-	$('#options').text(username);
+	// $('#options').text(username);
 	
-	loading_indicator = getBusyOverlay('viewport',
-					   		{color:'black', 
-								opacity:0.5, 
-								text:'Retrieving data', 
-								style:'text-decoration:blink;font-weight:bold;font-size:12px;color:white'},
-						   	{color:'#fff', 
-								size:32, 
-								type:'t'});
+	show_Loading_Indicator();
 	
 	// get numbers of playlists
 	$.ajax({
@@ -242,7 +230,7 @@ if (access_token == undefined || access_token =='undefined') {
 
 																	// if this is the last ajax request returning
 																	if (playlist_ajax_requests_sent_size == playlist_ajax_requests_received_size) {
-																		loading_indicator.remove();
+																		remove_Loading_Indicator();
 
 																		// swfobject.embedSWF will load the player from YouTube and embed it onto your page.
 																	    swfobject.embedSWF('http://www.youtube.com/v/u1zgFlCw8Aw?enablejsapi=1&playerapiid=ytplayer&version=3',
@@ -251,6 +239,8 @@ if (access_token == undefined || access_token =='undefined') {
 																		playlists.playlists.sort(playlists_Sort_Func);
 
 																		show_Playlists();
+																		show_Add_To_Playlist_DDM(playlists_list);
+																		
 																		playlists_JSON = JSON.stringify(playlists);
 											
 																		if (is_New_User(username)) {

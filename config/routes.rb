@@ -20,7 +20,7 @@ Vekii::Application.routes.draw do
   get 'playlists/exists/:username' => 'playlists#playlists_Exist?'
   get 'playlists/delete/:playlist_id' => 'playlists#delete_Playlist'
 
-  get 'playlists/song/add/:video_id' => 'playlists#add_Song_To_Playlist'
+  get 'playlists/song/add/:playlist_id/:video_id' => 'playlists#add_Song_To_Playlist'
   post 'playlists/song/delete' => 'playlists#delete_Song_From_Playlist'
   
   match 'user' => 'user#index'

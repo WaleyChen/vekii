@@ -2,7 +2,24 @@ require 'httparty'
 
 class PlaylistsController < ApplicationController
   def add_Song_To_Playlist
-    edit_url = params[:edit_url]
+    access_token = params[:access_token]
+    playlist_id = params[:playlist_id]
+    video_id = params[:video_id]
+    
+    response = HTTParty.post('http://gdata.youtube.com//feeds/api/playlists/' + playlist_id + '?access_token=' + access_token + '&v=2', 
+                                :headers => {'Content-Type' => 'application/atom+xml',
+                                             'GData-Version' => '2',
+                                             'X-GData-Key' => 'key=' + GlobalConstants::DEV_KEY},
+                                :body => '<?xml version=\'1.0\' encoding=\'UTF-8\'?>' + 
+                                          '<entry xmlns=\'http://www.w3.org/2005/Atom\' xmlns:yt=\'http://gdata.youtube.com/schemas/2007\'> <id>' + video_id + '</id> </entry>')
+      
+      if (response.code == 200) 
+        text = 'DELETE was successful.'
+      else 
+        text = response
+      end
+
+      render :text => text
   end
   
   # GET /photos/new (action: new) return an HTML form for creating a new photo  

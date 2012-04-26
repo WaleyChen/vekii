@@ -3,6 +3,31 @@ var playlist_showing_bool = 0;
 
 window.location.hash = "";
 
+function add_Song_To_Playlist(playlist_id, video_id) {
+	if (is_User_Logged_In()) {
+		$.ajax({
+			type: 'GET',
+	        url: 'playlists/song/add/' + playlist_id + '/' + video_id + '?access_token=' + access_token,
+	        success: function(response) {
+	        		 	if (response == 'POST was successful.') {
+						} else {
+							// don't raise error if there' no access_token which implies that the user is deleting
+							// one of the sample playlists
+							if (access_token == undefined) {
+							} else {
+								apprise(response);
+							}
+						}
+    				 },
+			error: function() {
+				apprise("Request failed.");
+			}
+		});
+	
+		update_Playlists();
+	}
+}
+
 function delete_Playlist(playlist_id) {
 	apprise('Are you sure?', 
 			{'verify':true}, 
@@ -157,14 +182,6 @@ function playlists_Sort_Func(a, b) {
 		return 1;
 	} else {
 		return 0;
-	}
-}
-
-function replay() {
-	if ($('#replay_btn').html() == "Replay") {
-		$('#replay_btn').html('<del> Replay </del>');
-	} else {
-		$('#replay_btn').html('Replay');
 	}
 }
 
