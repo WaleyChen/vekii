@@ -61,7 +61,8 @@ function show_List_Img_And_Text_Of_Song(dom_element, playlist_id, song_title, so
 						+ '\"' + song_video_id + '\"' + ', '
 	  					+ '\"' + song_edit_url + '\"'
 	  	    		+ ');\'>'
-						+'<i class=\"icon-remove position_absolute\"> </i> '
+						+ '<img class=\'position_absolute\' src=\'assets/delete.png\' height=\'12\' width=\'12\'/>'
+						// +'<i class=\"icon-remove position_absolute\"> </i> '
 					+ "</a>"
 				+ '</td>'
 			+ '</tr>'

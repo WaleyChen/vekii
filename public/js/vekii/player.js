@@ -225,25 +225,29 @@ function show_Playlists(playlist_to_show, show_playlist_bool) {
 	
 	jQuery.each(playlists.playlists, function(index, playlist) {
 		
-		$("#playlists").append("<li>"
-							  		+ "<a class=\"playlist\" href=\"javascript:show_Playlists('" 
-							  				+ playlist.id 
-											// + playlist.img
-							   				+ "')\">"
-							   			+ playlist.title 
-										+ "<a class=\"delete_playlist\"href=\"javascript:delete_Playlist(\'"
-												+ playlist.id
-												+ "\')\">"
-											+ "<i class=\"icon-remove\"> </i> "
-										+ "</a>" 
-										/*
-										+ "<a class=\"delete_playlist\"href=\"javascript:delete_Playlist(\'"
-												+ playlist.id
-												+ "\')\">"
-											+ "<i class=\"icon-play\"> </i> " 
-										+ "</a>" */
-									+ "</a>"
-								+ "</li>");
+		$('#playlists').append("<li class=\"playlist_list_img_and_txt\">"
+			+ '<table class=\'width_img_and_txt\'>'
+				+ '<tr>'
+					+ '<td>'
+						+ "<a class=\"playlist\" href=\"javascript:show_Playlists('" 
+				  				+ playlist.id 
+				   				+ "')\">"
+							+ "<p class=\"playlist_img_txt\">"
+								+ playlist.title 
+							+ "</p>"
+						+ "</a>"
+					+ '</td>'
+					+ '<td class=\'float_right\'>'
+						+ "<a class=\"delete_playlist\"href=\"javascript:delete_Playlist(\'"
+								+ playlist.id
+								+ "\')\">"
+							+ '<img src=\'assets/delete.png\' height=\'12\' width=\'12\'/>'
+							// + "<i class=\"icon-remove\"> </i> "
+						+ "</a>"
+					+ '</td>'
+				+ '</tr>'
+			+ '</table>' 
+		+ '</li>');
 							 
 		playlist.songs.sort(playlists_Sort_Func);
 		
