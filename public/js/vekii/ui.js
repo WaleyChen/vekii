@@ -104,7 +104,8 @@ function show_Loading_Indicator() {
 
 function show_Login_Button() {
 	$(document).ready(function() {	
-		$('#login_button_ddm').append("<a class=\"btn\" href=\"javascript:get_Access_Token()\">Login</a>");
+		// alert(request_access_token_link);
+		$('#login_button_ddm').append('<a class=\'btn\' href=\'' + request_access_token_link +'\'>Login</a>');
 		$('#yt_api_player_wrapper').css("margin-top", "20px");
 	});
 }
