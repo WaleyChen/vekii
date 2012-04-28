@@ -8,9 +8,6 @@ function play_Video(video_id) {
 	$('html, body').animate({ scrollTop: 0 }, 0);
 	current_video_id_playing = video_id;
 	ytplayer.loadVideoById(video_id);
-	
-	output(current_video_id_playing);
-	
 	show_Add_To_Playlist_DDM(current_video_id_playing);	
 	show_Recommended(video_id);
 }

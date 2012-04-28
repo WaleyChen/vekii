@@ -5,17 +5,54 @@ window.location.hash = "";
 
 function add_Song_To_Playlist(playlist_id, video_id) {
 	if (is_User_Logged_In()) {
+		if (video_id == 'undefined') {
+			apprise('Pick a song first!');
+			return;
+		}
+		
 		$.ajax({
 			type: 'GET',
 	        url: 'playlists/song/add/' + playlist_id + '/' + video_id + '?access_token=' + access_token,
 	        success: function(response) {
-	        		 	if (response == 'POST was successful.') {
+	        		 	if (response != 'Adding the song was unsuccessful.') {
+							$.ajax({
+								type: 'GET',  
+						        url: 'https://gdata.youtube.com/feeds/api/videos/' + video_id + '?v=2&alt=json',
+								dataType: 'json',
+						        success: function(json) {
+											song = new Object();
+											song.title = json.entry.title.$t;
+											song.video_id = video_id;
+											song.img = json.entry.media$group.media$thumbnail[0].url;
+											playlist_entry_id = response;
+											song.edit_url = 'https://gdata.youtube.com/feeds/api/playlists/' + playlist_id + '/' + playlist_entry_id +'?v=2'
+											video_id_regexp = /[=][^&]+(?=&)/;
+											
+											jQuery.each(playlists.playlists, function(index, playlist) {
+												if (playlist.id == playlist_id) { 
+													playlist.songs.push(song);
+													return false; 
+												}
+											});
+											update_Playlists();
+											show_Playlists(playlist_showing, 1); 
+					    				 },
+								error: function(jqXHR, textStatus, errorThrown) {
+									alert(jqXHR);
+									alert(textStatus);
+									alert(errorThrown);
+									apprise("Request failed.");
+								}
+							});
 						} else {
 							// don't raise error if there' no access_token which implies that the user is deleting
 							// one of the sample playlists
+							apprise('Add song failed');
+							alert(response);
+							
 							if (access_token == undefined) {
 							} else {
-								apprise(response);
+								// apprise(response);
 							}
 						}
     				 },
@@ -23,8 +60,6 @@ function add_Song_To_Playlist(playlist_id, video_id) {
 				apprise("Request failed.");
 			}
 		});
-	
-		update_Playlists();
 	}
 }
 
@@ -40,7 +75,7 @@ function delete_Playlist(playlist_id) {
 
 							if (playlist.id != playlist_id && playlist_showing_bool == 1) {
 								playlist_showing_bool = 0;
-								show_Playlists(playlist_showing);
+								show_Playlists(playlist_showing, true);
 							} else {
 								show_Playlists();
 							}
@@ -185,7 +220,7 @@ function playlists_Sort_Func(a, b) {
 	}
 }
 
-function show_Playlists(playlist_to_show) {		
+function show_Playlists(playlist_to_show, show_playlist_bool) {		
 	$("#playlists").html('');
 	
 	jQuery.each(playlists.playlists, function(index, playlist) {
@@ -224,14 +259,14 @@ function show_Playlists(playlist_to_show) {
 					$("#playlists").append("</ul>");
 				}
 				
-				if (!playlist_showing_bool || playlist_showing != playlist_to_show) {
+				if (!playlist_showing_bool || playlist_showing != playlist_to_show || show_playlist_bool) {
 					show_List_Img_And_Text_Of_Song("#playlists", playlist.id, song.title, song.video_id, song.img, song.edit_url);
 				}
 			});
 		}
 	});
 	
-	if (playlist_showing_bool === 0 || playlist_showing != playlist_to_show) {
+	if (playlist_showing_bool === 0 || playlist_showing != playlist_to_show || show_playlist_bool) {
 		playlist_showing_bool = 1;
 		playlist_showing = playlist_to_show;
 	} else {

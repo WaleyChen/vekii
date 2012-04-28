@@ -17,11 +17,11 @@ function remove_Loading_Indicator(current_video_id_playing) {
 }
 
 function show_Add_To_Playlist_DDM() {
-	$('#add_to_playlist_ddm').html('');
-	$('#playlist_ddm_playlists_list').html('');
+	$('#add_to_playlist_ddm').empty();
+
+	playlists_list = '';
 	
 	jQuery.each(playlists.playlists, function(index, playlist) {
-
 		playlists_list = playlists_list + '<li>'
 											+ '<a href=\'javascript:add_Song_To_Playlist(' 
 											+ '\"' + playlist.id + '\"' + ', '

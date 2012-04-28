@@ -31,11 +31,10 @@ if (username != undefined && username != 'undefined' || access_token != undefine
 	    url: 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + access_token,
 		dataType: 'jsonp',
 	    success: function(json) {
-					if (json.error != 'invalid_token') {
+					if (json.error != 'invalid_token' && json.error != 'BAD_REQUEST') {
 						if (json.audience != client_id) {
-							alert(json.audience);
 							apprise('Invalid token.');
-							// get_Access_Token();						
+							get_Access_Token();						
 						}
 					// invalid token, get new token
 					} else {

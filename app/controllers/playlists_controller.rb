@@ -1,29 +1,34 @@
 require 'httparty'
 
+class HTTParty_JSON
+  include HTTParty
+  format :json
+end
+
 class PlaylistsController < ApplicationController
   def add_Song_To_Playlist
     access_token = params[:access_token]
     playlist_id = params[:playlist_id]
     video_id = params[:video_id]
     
-    response = HTTParty.post('http://gdata.youtube.com//feeds/api/playlists/' + playlist_id + '?access_token=' + access_token + '&v=2', 
+    xml_json = HTTParty_JSON.post('http://gdata.youtube.com//feeds/api/playlists/' + playlist_id + '?access_token=' + access_token + '&v=2&alt=json', 
                                 :headers => {'Content-Type' => 'application/atom+xml',
                                              'GData-Version' => '2',
                                              'X-GData-Key' => 'key=' + GlobalConstants::DEV_KEY},
                                 :body => '<?xml version=\'1.0\' encoding=\'UTF-8\'?>' + 
                                           '<entry xmlns=\'http://www.w3.org/2005/Atom\' xmlns:yt=\'http://gdata.youtube.com/schemas/2007\'> <id>' + video_id + '</id> </entry>')
-      
-      if (response.code == 200) 
-        text = 'DELETE was successful.'
-      else 
-        text = response
-      end
 
-      render :text => text
+    # parse the playlist_entry_id
+    id = xml_json['entry']['id']['$t']
+    playlist_id_index = id.index(playlist_id);
+    
+    if (playlist_id_index != nil) 
+      render :text => id[playlist_id_index + 17, 34]
+    else
+      render :text => 'Adding the song was unsuccessful.'
+    end      
   end
   
-  # GET /photos/new (action: new) return an HTML form for creating a new photo  
-  # POST /photos create (action: create) a new photo
   def create
     username = params[:username]
     playlists_JSON = params[:playlists]

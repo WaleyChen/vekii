@@ -3,10 +3,19 @@ To-do List
 - remove song
 - add song
 
+http://musictonic.com/
+http://www.last.fm/api/intro 
+combine music recommendations from last.fm to help users to dsicover new music
+
+- when adding song to new playlist, retrieve that new songs data and update show_playlists()
+
 Features Implmented/Deploy Checklist
 - samples playlists
 - user's playlists
 	- replay
+
+be able to exmplore other peoples playlists and add their playlists to mine
+e.g. vekii.com/nikeelevet 
 
 add to playlist button missing form when logged in	
 add delete button to bottom of video as well in case video is all the way at bottom
