@@ -3,11 +3,12 @@ var hash_values_json = jQuery.deparam(hash_values_str); // convert hash values i
 var hash_values_json_str = JSON.stringify(hash_values_json); // convert JSON object into string 
 var access_token;
 
-var request_access_token_link = 'https://accounts.google.com/o/oauth2/auth?'
-var client_id = '908038792880-vm3862hmpnp7u6gnmgd8104g8u7r1sr1.apps.googleusercontent.com'
-var gscope = 'https://gdata.youtube.com'
-var response_type = 'token'
-var redirect_uri = 'http://localhost:3000'
+var request_access_token_link = 'https://accounts.google.com/o/oauth2/auth?';
+var client_id = '908038792880-vm3862hmpnp7u6gnmgd8104g8u7r1sr1.apps.googleusercontent.com';
+var gscope = 'https://gdata.youtube.com';
+var response_type = 'token';
+var redirect_uri = window.location;
+
 request_access_token_link = request_access_token_link 
 							+ 'client_id=' + client_id 
 							+ '&redirect_uri=' + redirect_uri 
